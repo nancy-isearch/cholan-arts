@@ -1,0 +1,193 @@
+/* ===== RESET & BASE ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --green: #385632;
+  --green-dark: #2a4027;
+  --orange: #ff9933;
+  --cream: #f9f4ee;
+  --light: #f1f1f1;
+  --dark: #202020;
+  --text: rgba(0, 0, 0, 0.9);
+  --muted: rgba(0, 0, 0, 0.6);
+  --cream: #f5f0e8;
+  --cream-dark: #ede6d6;
+  --green: #3d5a2e;
+  --green-dark: #2e4422;
+  --green-light: #4a6e36;
+  --orange: #e8813a;
+  --orange-light: #f09a55;
+  --orange-dark: #c96a25;
+  --text-dark: #1a1a1a;
+  --text-mid: #4a4a4a;
+  --text-light: #7a7a7a;
+  --border: #ddd5c4;
+  --white: #ffffff;
+  --tab-active: #385632;
+  --font-serif: "Newsreader", Georgia, serif;
+  --font-sans: "Poppins", "Inter", sans-serif;
+  --nav-h: 90px;
+  --section-pad: clamp(50px, 7vw, 80px) clamp(20px, 5vw, 50px);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: var(--font-sans);
+  background: #fff;
+  color: var(--dark);
+  overflow-x: hidden;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+ul {
+  list-style: none;
+}
+
+/* ── HERO BANNER ── */
+.inner-banner {
+  background-image: url(../images/bg/inner-bg.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 5rem 2rem 4rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.inner-banner h1 {
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 400;
+  color: var(--orange);
+  line-height: 1.1;
+  position: relative;
+}
+.inner-banner h1 em {
+  font-style: italic;
+  color: var(--orange-light);
+}
+.inner-banner p {
+  margin-top: 1.2rem;
+  font-size: 1.05rem;
+  color: var(--dark);
+  max-width: 620px;
+  margin-inline: auto;
+  line-height: 1.7;
+  position: relative;
+}
+.inner-banner span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--green);
+  margin-bottom: 1.25rem;
+}
+
+/* ===== CTA BANNER ===== */
+.cta-banner {
+  height: 600px;
+  padding: clamp(60px, 9vw, 90px) clamp(20px, 5vw, 50px);
+  background-image: url(../images/bg/CTA-bg.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: center;
+}
+.cta-banner h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+.cta-banner p {
+  font-size: clamp(15px, 1.2vw, 18px);
+  opacity: 0.85;
+  max-width: 620px;
+  margin: 0 auto 36px;
+  line-height: 1.7;
+}
+.btn-orange-inv {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--orange);
+  color: #000;
+  font-size: clamp(15px, 1.1vw, 17px);
+  font-weight: 600;
+  border-radius: 200px;
+  padding: 14px 30px;
+  cursor: pointer;
+  border: none;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.btn-orange-inv:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 153, 51, 0.4);
+}
+
+/* -------------------------------------------------------- */
+/* ===== MARQUEE ===== */
+.marquee-section {
+  background: var(--green);
+  padding: 12px 0;
+  overflow: hidden;
+}
+.marquee-track {
+  display: flex;
+  gap: 60px;
+  white-space: nowrap;
+  animation: marquee 22s linear infinite;
+  will-change: transform;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+.marquee-item {
+  font-family: var(--font-serif);
+  font-size: clamp(16px, 2vw, 52px);
+  color: var(--light);
+  display: flex;
+  align-items: center;
+  margin-bottom: -8px;
+  gap: 16px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
