@@ -5,6 +5,7 @@ use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductImportController;
 use App\Http\Controllers\Auth\LoginController;
 
 //Frontend Controllers
@@ -14,12 +15,15 @@ use App\Http\Controllers\FrontendController;
 Route::view('/about-us', 'frontend.pages.about');
 Route::view('/product-details', 'frontend.pages.product-detail');
 Route::view('/contact-us', 'frontend.pages.contact');
+Route::view('/privacy-policy', 'frontend.pages.privacy-policy');
+Route::view('/terms-of-use', 'frontend.pages.terms-conditions');
 Route::post('/enquiry', [EnquiryController::class, 'store']);
 
 Route::get('/', [FrontendController::class, 'getHomeContent']);
 Route::get('/product/{id}', [FrontendController::class, 'productDetail']);
 Route::get('/catalogue', [FrontendController::class, 'categoryList']);
-Route::get('/get-products', [FrontendController::class, 'getProducts']);    
+Route::get('/get-products', [FrontendController::class, 'getProducts']);  
+Route::get('/search-suggest', [FrontendController::class, 'suggest']);  
 
 Auth::routes();
 
@@ -56,3 +60,5 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/products-bulk-upload', [ProductController::class, 'bulkUpload']);
     Route::get('/admin/products/sample-csv', [ProductController::class, 'downloadSample'])->name('products.sample.csv');
 });
+
+Route::get('/export-products', [ProductImportController::class, 'exportProducts']);

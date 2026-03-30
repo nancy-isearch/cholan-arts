@@ -21,8 +21,8 @@
           <div class="footer-links" aria-label="Policy links">
             <a href="#">Shipping Policy</a>
             <a href="#">Refund &amp; Return Policy</a>
-            <a href="#">Terms of Use</a>
-            <a href="#">Privacy Policy</a>
+            <a href="/terms-of-use">Terms of Use</a>
+            <a href="/privacy-policy">Privacy Policy</a>
           </div>
         </div>
         <div class="footer-contact">
@@ -143,8 +143,8 @@
       <div class="footer-bottom">
         <span>© 2026 Cholan Arts Emporium. All rights reserved</span>
         <div class="footer-bottom-links" aria-label="Legal links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Use</a>
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/terms-of-use">Terms of Use</a>
           <a href="#">Sitemap</a>
         </div>
       </div>

@@ -312,28 +312,32 @@
             $('#addSection').click(function () {
                 let html = `
                 <div @class(['section-row', 'border', 'p-2', 'mb-2'])>
-                    <div @class(['row'])>
-
-                        <div @class(['col-md-3'])>
+                    <div @class(['row mb-2'])>
+                        <div @class(['col-md-11'])>
+                        </div>
+                        <div @class(['col-md-1'])>
+                            <button type="button" @class(['btn', 'btn-danger', 'removeSection'])>X</button>
+                        </div>
+                    </div>
+                    <div @class(['row mb-2'])>
+                        <div @class(['col-md-4'])>
                             <select name="sections[${sectionIndex}][type]" @class(['form-control'])>
                                 <option value="symbolism">Symbolism</option>
                                 <option value="customisation">Customisation</option>
                                 <option value="care">Care</option>
                             </select>
                         </div>
-
-                        <div @class(['col-md-3'])>
+                        <div @class(['col-md-4'])>
                             <input type="text" name="sections[${sectionIndex}][title]" @class(['form-control']) placeholder="Title">
                         </div>
-
-                        <div @class(['col-md-5'])>
+                        <div @class(['col-md-4'])>
+                            <input type="file" name="sections[${sectionIndex}][image]" @class(['form-control'])>
+                        </div>
+                    </div>
+                    <div @class(['row'])>
+                        <div @class(['col-md-12'])>
                             <textarea name="sections[${sectionIndex}][description]" @class(['form-control']) placeholder="Description"></textarea>
                         </div>
-
-                        <div @class(['col-md-1'])>
-                            <button type="button" @class(['btn', 'btn-danger', 'removeSection'])>X</button>
-                        </div>
-
                     </div>
                 </div>
                 `;

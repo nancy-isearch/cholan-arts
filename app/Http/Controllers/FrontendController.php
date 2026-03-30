@@ -130,4 +130,16 @@ class FrontendController extends Controller
 
         return view('frontend.pages.product-detail', compact('product', 'relatedProducts'));
     }
+
+    public function suggest(Request $request)
+    {
+        $query = $request->q;
+
+        $products = Product::where('name', 'LIKE', "%$query%")
+            ->with('categories')
+            // ->limit(5)
+            ->get();
+
+        return response()->json($products);
+    }
 }

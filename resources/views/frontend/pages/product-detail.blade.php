@@ -74,6 +74,7 @@
         <div class="fancy-divider"><span>✦</span></div>
         <p class="idol-desc">
           {!! $product->description !!}
+         
         </p>
 
         <!-- SPECS -->
@@ -131,9 +132,9 @@
         <!-- FEATURE TAGS -->
         <div class="feature-tags">
           @php
-              $tags = is_array($product->tags) 
-                  ? $product->tags 
-                  : json_decode($product->tags, true);
+              $tags = $product->tags 
+                  ? explode(',', $product->tags)
+                  : [];   
           @endphp
           @if($tags)
             @foreach ($tags as $tag)
@@ -203,22 +204,34 @@
     <!-- DETAIL TABS -->
     <div class="detail-tabs-section">
       <div class="dtab-bar">
+        @if($product->about_description != null)
         <button class="dtab-btn active" onclick="switchDTab('about', this)">
           About This Idol
         </button>
-        <button class="dtab-btn" onclick="switchDTab('symbolism', this)">
-          Iconographic Symbolism
-        </button>
+        @endif
+        @php
+            $hasSymbolism = $product->sections->contains('type', 'symbolism');
+            $hasCustomisation = $product->sections->contains('type', 'customisation');
+            $hasCare = $product->sections->contains('type', 'care');
+        @endphp
+        @if($hasSymbolism)
+          <button class="dtab-btn" onclick="switchDTab('symbolism', this)">
+            Iconographic Symbolism
+          </button>
+        @endif
+        @if($hasCustomisation)
         <button class="dtab-btn" onclick="switchDTab('custom', this)">
           Customisation
         </button>
+        @endif
+        @if($hasCare)
         <button class="dtab-btn" onclick="switchDTab('care', this)">
           Care & Placement
         </button>
+        @endif
       </div>
 
       <!-- ABOUT -->
-      @if($product->about_title)
       <div class="dtab-panel active" id="tab-about">
         <div class="about-grid reveal">
           <div class="about-text">
@@ -237,7 +250,6 @@
           @endif
         </div>
       </div>
-      @endif
 
       <!-- SYMBOLISM -->
       <div class="dtab-panel" id="tab-symbolism">
@@ -356,29 +368,7 @@
     </section>
 
     <!-- ===== CTA BANNER ===== -->
-    <section class="cta-banner" aria-labelledby="cta-title">
-      <h2 id="cta-title">Indian Divine Idols</h2>
-      <p>
-        Cholan Arts is dedicated to preserving and celebrating the ancient
-        tradition of handcrafted Hindu deity idols.
-      </p>
-      <a href="#" class="btn-orange-inv">
-        Shop Now
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#000"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M20 12H4M15 7L20 12L15 17" />
-        </svg>
-      </a>
-    </section>
+    @include('frontend.components.cta')
 
     <!-- ===== SERVICE STRIP ===== -->
     <section class="service-strip" aria-label="Our services">

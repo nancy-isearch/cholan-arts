@@ -55,6 +55,13 @@
   color: var(--text-mid);
 }
 
+.sec-li {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: var(--text-mid);
+}
+
 .fancy-div {
   display: flex;
   align-items: center;

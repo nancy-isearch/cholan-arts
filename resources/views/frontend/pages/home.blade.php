@@ -389,7 +389,7 @@
           <div class="swiper-wrapper">
             @foreach ($products as $product)
               <div class="swiper-slide">
-                <a href="/product/{{ $product->id }}">
+                <a href="/product/{{ $product->slug }}">
                   <article class="product-card">
                     <div class="product-card-img">
                       <img
@@ -554,22 +554,24 @@
           <div class="swiper-wrapper">
             @foreach ($deities as $deity)
               <div class="swiper-slide">
-                <article class="product-card">
-                  <div class="product-card-img">
-                    <img  src="{{ asset('uploads/products/' .$deity->id .'/'. $deity->feature_image) }}"
-                      alt="Relaxing Ganesh handcrafted wooden idol"
-                      loading="lazy"
-                      width="600"
-                      height="300"
-                    />
-                  </div>
-                  <div class="product-card-body">
-                    <h3 class="product-card-title">{{ $deity->name }}</h3>
-                    <p class="product-card-desc">
-                      {!! \Illuminate\Support\Str::limit($deity->description, 60) !!}
-                    </p>
-                  </div>
-                </article>
+                <a href="/product/{{ $deity->slug }}">
+                  <article class="product-card">
+                    <div class="product-card-img">
+                      <img  src="{{ asset('uploads/products/' .$deity->id .'/'. $deity->feature_image) }}"
+                        alt="Relaxing Ganesh handcrafted wooden idol"
+                        loading="lazy"
+                        width="600"
+                        height="300"
+                      />
+                    </div>
+                    <div class="product-card-body">
+                      <h3 class="product-card-title">{{ $deity->name }}</h3>
+                      <p class="product-card-desc">
+                        {!! \Illuminate\Support\Str::limit($deity->description, 60) !!}
+                      </p>
+                    </div>
+                  </article>
+                </a>
               </div>
             @endforeach
           </div>
@@ -654,22 +656,25 @@
         <div class="swiper featuredSwiper"> 
           <div class="swiper-wrapper">
             @foreach ($sculptures as $sculpture)
-              <div class="swiper-slide">
-                <article class="featured-card">
-                  <div class="featured-card-img">
-                    <img  src="{{ asset('uploads/products/'.$sculpture->id .'/' . $sculpture->feature_image) }}"
-                      alt="Relaxing Ganesh handcrafted wooden idol"
-                    />
-                  </div>
-                  <div class="featured-card-body">
-                    <h3>{{ $sculpture->name }}</h3>
-                    <p>
-                      {!! \Illuminate\Support\Str::limit($sculpture->description, 120) !!}
-                    </p>
-                    <a href="/contact-us">Contact Us</a>
-                  </div>
-                </article>
-              </div>
+              {{-- a tag was destroying design so i didn't use link here. once confirmed, will take help of designer --}}
+              {{-- <a href="/product/{{ $sculpture->slug }}"> --}}
+                <div class="swiper-slide">
+                    <article class="featured-card">
+                      <div class="featured-card-img">
+                        <img  src="{{ asset('uploads/products/'.$sculpture->id .'/' . $sculpture->feature_image) }}"
+                          alt="Relaxing Ganesh handcrafted wooden idol"
+                        />
+                      </div>
+                      <div class="featured-card-body">
+                        <h3>{{ $sculpture->name }}</h3>
+                        <p>
+                          {!! \Illuminate\Support\Str::limit($sculpture->description, 120) !!}
+                        </p>
+                        <a href="/contact-us">Contact Us</a>
+                      </div>
+                    </article>
+                </div>
+              {{-- </a> --}}
             @endforeach
           </div>
         </div>
@@ -760,86 +765,96 @@
         </div>
         <div class="collection-grid">
           <div class="collection-card">
-            <div
-              class="collection-card-bg"
-              style="
-                background-image: url('{{ asset('assets/images/products-img/Frame-img1.jpg') }}');
-                background-color: #c5b89a;
-              "
-            ></div>
-            <div class="collection-card-overlay"></div>
-            <div class="collection-card-info">
-              <h3>Brass Collections</h3>
-              <p>Elegant brass pieces for timeless spaces</p>
-            </div>
+            <a href="/catalogue">
+              <div
+                class="collection-card-bg"
+                style="
+                  background-image: url('{{ asset('assets/images/products-img/Frame-img1.jpg') }}');
+                  background-color: #c5b89a;
+                "
+              ></div>
+              <div class="collection-card-overlay"></div>
+              <div class="collection-card-info">
+                <h3>Brass Collections</h3>
+                <p>Elegant brass pieces for timeless spaces</p>
+              </div>
+            </a>
           </div>
           <div class="collection-card">
-            <div
-              class="collection-card-bg"
-              style="
-                background-image: url('{{ asset('assets/images/products-img/Frame-img2.jpg') }}');
-                background-color: #b8c9b0;
-              "
-            ></div>
-            <div class="collection-card-overlay"></div>
-            <div class="collection-card-info">
-              <h3>New Year Gifts</h3>
-              <p>Cheerful gifts to welcome fresh beginnings</p>
-            </div>
+            <a href="/catalogue">
+              <div
+                class="collection-card-bg"
+                style="
+                  background-image: url('{{ asset('assets/images/products-img/Frame-img2.jpg') }}');
+                  background-color: #b8c9b0;
+                "
+              ></div>
+              <div class="collection-card-overlay"></div>
+              <div class="collection-card-info">
+                <h3>New Year Gifts</h3>
+                <p>Cheerful gifts to welcome fresh beginnings</p>
+              </div>
+            </a>
           </div>
           <div class="collection-card">
-            <div
-              class="collection-card-bg"
-              style="
-                background-image: url('{{ asset('assets/images/products-img/Frame-img3.jpg') }}');
-                background-color: #c4b8cc;
-              "
-            ></div>
-            <div class="collection-card-overlay"></div>
-            <div class="collection-card-info">
-              <h3>Corporate Gifts</h3>
-              <p>Meaningful gifting for every occasion</p>
-            </div>
+            <a href="/catalogue">
+              <div
+                class="collection-card-bg"
+                style="
+                  background-image: url('{{ asset('assets/images/products-img/Frame-img3.jpg') }}');
+                  background-color: #c4b8cc;
+                "
+              ></div>
+              <div class="collection-card-overlay"></div>
+              <div class="collection-card-info">
+                <h3>Corporate Gifts</h3>
+                <p>Meaningful gifting for every occasion</p>
+              </div>
+            </a>
           </div>
           <div class="collection-card">
-            <div
-              class="collection-card-bg"
-              style="
-                background-image: url('{{ asset('assets/images/products-img/Frame-img4.jpg') }}');
-                background-color: #b8c4cc;
-              "
-            ></div>
-            <div class="collection-card-overlay"></div>
-            <div class="collection-card-info">
-              <h3>Antique Bronze Vessels</h3>
-              <p>Rare pieces steeped in Chola heritage</p>
-            </div>
+            <a href="/catalogue">
+              <div
+                class="collection-card-bg"
+                style="
+                  background-image: url('{{ asset('assets/images/products-img/Frame-img4.jpg') }}');
+                  background-color: #b8c4cc;
+                "
+              ></div>
+              <div class="collection-card-overlay"></div>
+              <div class="collection-card-info">
+                <h3>Antique Bronze Vessels</h3>
+                <p>Rare pieces steeped in Chola heritage</p>
+              </div>
+            </a>
           </div>
           <div class="collection-card wide">
-            <div
-              class="collection-card-bg"
-              style="
-                background-image: url('{{ asset('assets/images/products-img/Frame-img5.jpg') }}');
-                background-color: #385632;
-              "
-            ></div>
-            <div
-              class="collection-card-overlay"
-              style="
-                background: linear-gradient(
-                  180deg,
-                  rgba(0, 0, 0, 0) 20%,
-                  rgba(0, 0, 0, 0.6) 100%
-                );
-              "
-            ></div>
-            <div class="collection-card-info">
-              <h3>Types of Deity Idols</h3>
-              <p>
-                Explore the diverse divine pantheon, each with unique spiritual
-                significance
-              </p>
-            </div>
+            <a href="/catalogue">
+              <div
+                class="collection-card-bg"
+                style="
+                  background-image: url('{{ asset('assets/images/products-img/Frame-img5.jpg') }}');
+                  background-color: #385632;
+                "
+              ></div>
+              <div
+                class="collection-card-overlay"
+                style="
+                  background: linear-gradient(
+                    180deg,
+                    rgba(0, 0, 0, 0) 20%,
+                    rgba(0, 0, 0, 0.6) 100%
+                  );
+                "
+              ></div>
+              <div class="collection-card-info">
+                <h3>Types of Deity Idols</h3>
+                <p>
+                  Explore the diverse divine pantheon, each with unique spiritual
+                  significance
+                </p>
+              </div>
+            </a>
           </div>
         </div>
       </section>
@@ -949,29 +964,7 @@
       </section>
 
       <!-- ===== CTA BANNER ===== -->
-      <section class="cta-banner" aria-labelledby="cta-title">
-        <h2 id="cta-title">Indian Divine Idols</h2>
-        <p>
-          Cholan Arts is dedicated to preserving and celebrating the ancient
-          tradition of handcrafted Hindu deity idols.
-        </p>
-        <a href="#" class="btn-orange-inv">
-          Shop Now
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#000"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M20 12H4M15 7L20 12L15 17" />
-          </svg>
-        </a>
-      </section>
+      @include('frontend.components.cta')
 
       <!-- ===== SERVICE STRIP ===== -->
       <section class="service-strip" aria-label="Our services">

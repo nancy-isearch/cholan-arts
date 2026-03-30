@@ -1,0 +1,23 @@
+<section class="cta-banner" aria-labelledby="cta-title">
+    <h2 id="cta-title">Indian Divine Idols</h2>
+    <p>
+        Cholan Arts is dedicated to preserving and celebrating the ancient
+        tradition of handcrafted Hindu deity idols.
+    </p>
+    <a href="/contact-us" class="btn-orange-inv">
+        Shop Now
+        <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#000"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        >
+        <path d="M20 12H4M15 7L20 12L15 17" />
+        </svg>
+    </a>
+</section>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About Us – Cholan Arts</title>
+    <title>@yield('title', 'Cholan Arts')</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/svg/favicon-16x16.png') }}">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -83,6 +83,64 @@
           if (current >= target) clearInterval(timer);
         }, 25);
       }
+    </script>
+    <script>
+        const input = document.getElementById('searchInput');
+        const suggestions = document.getElementById('suggestions');
+
+        input.addEventListener('keyup', function () {
+            let query = this.value;
+
+            if (query.length < 2) {
+                suggestions.style.display = 'none';
+                return;
+            }
+
+            fetch(`/search-suggest?q=${query}`)
+                .then(res => res.json())
+                .then(data => {
+                    suggestions.innerHTML = '';
+
+                    if (data.length === 0) {
+                        suggestions.style.display = 'none';
+                        return;
+                    }
+                    data.forEach(item => {
+                        let category = item.categories[0]; // first category
+
+                        let div = document.createElement('div');
+                        div.classList.add('suggestion-item');
+                        let imageUrl = item.feature_image 
+          ? `uploads/products/${item.id}/${item.feature_image}` 
+        : `assets/images/products-img/placeholder-product.jpg`;
+                        div.innerHTML = `
+                            <img src="/${imageUrl}" />
+                            <div class="suggestion-text">
+                              <span>${item.name}</span>
+                            </div>
+                        `;
+
+                        div.onclick = () => {
+                            window.location.href = `/product/${item.slug}`;
+                        };
+
+                        suggestions.appendChild(div);
+                    });
+
+                    suggestions.style.display = 'block';
+                });
+        });
+
+        document.addEventListener('click', function (e) {
+          const searchBox = document.querySelector('.search-bar');
+          const suggestions = document.getElementById('suggestions');
+          const input = document.getElementById('searchInput');
+
+          if (!searchBox.contains(e.target)) {
+              suggestions.style.display = 'none';
+              input.value = '';
+          }
+      });
     </script>
   </body>
 </html>

@@ -21,7 +21,7 @@
       <div class="nav-actions">
         <div class="search-bar" role="search" aria-label="Search products">
           <!-- HugeIcons: Search icon stroke-rounded -->
-          <svg
+          {{-- <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
             height="20"
@@ -37,7 +37,9 @@
               d="M20 11C20 15.9706 15.9706 20 11 20C6.02944 20 2 15.9706 2 11C2 6.02944 6.02944 2 11 2C15.9706 2 20 6.02944 20 11Z"
             />
           </svg>
-          <span>Search</span>
+          <span>Search</span> --}}
+          <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off" style="border: none; background: none;">
+          <div id="suggestions"></div>
         </div>
 
         <a href="/contact-us" class="btn-outline-orange" aria-label="Contact Us">

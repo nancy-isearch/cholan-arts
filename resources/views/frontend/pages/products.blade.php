@@ -19,6 +19,10 @@
 
         <!-- TAB BAR -->
         <div class="tab-bar-outer">
+           <!-- LEFT BUTTON -->
+          <button class="tab-scroll-btn left" onclick="scrollTabs(-1)">
+              ‹
+          </button>
           <div class="tab-bar" id="tabBar">
             <button class="tab-btn {{ empty($categoryName) || $categoryName == 'all' ? 'active' : '' }}" onclick="switchTab('all', this)">
               <span class="tab-emoji"></span> All Photos
@@ -33,6 +37,10 @@
                 </button>
             @endforeach
           </div>
+          <!-- RIGHT BUTTON -->
+          <button class="tab-scroll-btn right" onclick="scrollTabs(1)">
+              ›
+          </button>
         </div>
 
         <!-- GRID -->
@@ -81,29 +89,7 @@
       </section>
 
       <!-- ===== CTA BANNER ===== -->
-      <section class="cta-banner" aria-labelledby="cta-title">
-        <h2 id="cta-title">Indian Divine Idols</h2>
-        <p>
-          Cholan Arts is dedicated to preserving and celebrating the ancient
-          tradition of handcrafted Hindu deity idols.
-        </p>
-        <a href="#" class="btn-orange-inv">
-          Shop Now
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#000"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M20 12H4M15 7L20 12L15 17" />
-          </svg>
-        </a>
-      </section>
+      @include('frontend.components.cta')
 
       <!-- ===== SERVICE STRIP ===== -->
       <section class="service-strip" aria-label="Our services">
@@ -147,6 +133,16 @@
 @endsection
 @push('scripts')
 <script>
+  function scrollTabs(direction) {
+      const tabBar = document.getElementById('tabBar');
+
+      const scrollAmount = 200; // adjust as needed
+
+      tabBar.scrollBy({
+          left: direction * scrollAmount,
+          behavior: 'smooth'
+      });
+  }
   window.addEventListener("pageshow", function (event) {
       document.body.style.overflow = ""; // fix scroll lock
 

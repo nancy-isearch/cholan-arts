@@ -105,10 +105,19 @@ class ProductController extends Controller
 
         try {
 
+            // base slug
+            $baseSlug = Str::slug($request->name);
+
+            // get similar slugs count
+            $count = Product::where('slug', 'LIKE', $baseSlug . '%')->count();
+
+            // final slug
+            $slug = $count ? $baseSlug . '-' . ($count + 1) : $baseSlug;
+
             // Create Product
             $product = Product::create([
                 'name' => $request->name,
-                'slug' => Str::slug($request->name),
+                'slug' => $slug,
                 'sub_title' => $request->sub_title,
                 'description' => $request->description,
                 'price' => $request->price,
@@ -137,7 +146,7 @@ class ProductController extends Controller
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
                     $name = time().'_'.$image->getClientOriginalName();
-                    $image->move(public_path('uploads/products'), $name);
+                    $image->move(public_path('uploads/products/'.$product->id.'/'), $name);
                     ProductImage::create([
                         'product_id' => $product->id,
                         'image' => $name
@@ -149,7 +158,7 @@ class ProductController extends Controller
             if ($request->hasFile('feature_image')) {
                 $image = $request->file('feature_image');
                 $name = time().'_'.$image->getClientOriginalName();
-                $image->move(public_path('uploads/products'), $name);
+                $image->move(public_path('uploads/products/'.$product->id.'/'), $name);
                 $product->update([
                     'feature_image' => $name
                 ]);
@@ -159,7 +168,7 @@ class ProductController extends Controller
             if ($request->hasFile('about_image')) {
                 $image = $request->file('about_image');
                 $name = time().'_'.$image->getClientOriginalName();
-                $image->move(public_path('uploads/products'), $name);
+                $image->move(public_path('uploads/products/'.$product->id.'/'), $name);
                 $product->update([
                     'about_image' => $name
                 ]);
@@ -233,10 +242,27 @@ class ProductController extends Controller
         ]);
         DB::beginTransaction();
         try {
+            // check if name changed
+            if ($product->name != $request->name) {
+
+                $baseSlug = Str::slug($request->name);
+                $slug = $baseSlug;
+                $i = 1;
+
+                // ensure unique slug (ignore current product)
+                while (Product::where('slug', $slug)->where('id', '!=', $id)->exists()) {
+                    $slug = $baseSlug . '-' . $i++;
+                }
+
+            } else {
+                // keep old slug
+                $slug = $product->slug;
+            }
+
             // Update Product
             $product->update([
                 'name' => $request->name,
-                'slug' => Str::slug($request->name),
+                'slug' => $slug,
                 'sub_title' => $request->sub_title,
                 'description' => $request->description,
                 'price' => $request->price,
@@ -261,7 +287,7 @@ class ProductController extends Controller
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
                     $name = time().'_'.$image->getClientOriginalName();
-                    $image->move(public_path('uploads/products/'.$product->id), $name);
+                    $image->move(public_path('uploads/products/'.$product->id.'/'), $name);
                     ProductImage::create([
                         'product_id' => $product->id,
                         'image' => $name
@@ -273,7 +299,7 @@ class ProductController extends Controller
             if ($request->hasFile('feature_image')) {
                 $image = $request->file('feature_image');
                 $name = time().'_'.$image->getClientOriginalName();
-                $image->move(public_path('uploads/products'.$product->id), $name);
+                $image->move(public_path('uploads/products/'.$product->id.'/'), $name);
                 $product->update([
                     'feature_image' => $name
                 ]);
@@ -283,7 +309,7 @@ class ProductController extends Controller
             if ($request->hasFile('about_image')) {
                 $image = $request->file('about_image');
                 $name = time().'_'.$image->getClientOriginalName();
-                $image->move(public_path('uploads/products'.$product->id), $name);
+                $image->move(public_path('uploads/products/'.$product->id.'/'), $name);
                 $product->update([
                     'about_image' => $name
                 ]);
@@ -300,7 +326,7 @@ class ProductController extends Controller
                         if ($request->hasFile("sections.$key.image")) {
                             $image = $request->file("sections.$key.image");
                             $imageName = time().'_image_'.$key.'.'.$image->getClientOriginalExtension();
-                            $image->move(public_path('uploads/products/'.$product->id), $imageName);
+                            $image->move(public_path('uploads/products/'.$product->id.'/'), $imageName);
                         }
 
                         ProductSection::create([
@@ -418,18 +444,21 @@ class ProductController extends Controller
                     throw new \Exception("Row {$rowNumber}: Product name is required");
                 }
 
-                $slug = Str::slug($name);
+                // base slug
+                $baseSlug = Str::slug($name);
+                $slug = $baseSlug;
+                $i = 1;
 
-                // ❌ Duplicate in DB
-                if (Product::where('slug', $slug)->exists()) {
-                    throw new \Exception("Row {$rowNumber}: Duplicate slug for '$name'");
+                $existingSlugs = Product::pluck('slug')->toArray();
+
+                while (
+                    in_array($slug, $existingSlugs) ||
+                    isset($slugs[$slug])
+                ) {
+                    $slug = $baseSlug . '-' . $i++;
                 }
 
-                // ❌ Duplicate in same file
-                if (isset($slugs[$slug])) {
-                    throw new \Exception("Row {$rowNumber}: Duplicate product in file '$name'");
-                }
-
+                $existingSlugs[] = $slug;
                 $slugs[$slug] = true;
 
                 $product = Product::create([
