@@ -13,9 +13,9 @@
                 <!-- end col -->
                 <div @class(['col-md-6'])>
                     <div @class(['breadcrumb-wrapper'])>
-                        <a href="{{ route('products.sample.csv') }}" class="btn btn-info" title="Download Sample CSV">
+                        {{-- <a href="{{ route('products.sample.csv') }}" class="btn btn-info" title="Download Sample CSV">
                             <i class="lni lni-download"></i>
-                        </a>
+                        </a> --}}
                         <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#bulkUploadModal">
                             Bulk Upload
                         </a>
@@ -63,6 +63,9 @@
             
             <div class="modal-header">
                 <h5 class="modal-title">Bulk Upload Products</h5>
+                <a href="{{ route('products.sample.csv') }}" class="btn btn-info" title="Download Sample CSV">
+                    <i class="lni lni-download"></i>
+                </a>
             </div>
 
             <div class="modal-body">
