@@ -174,6 +174,17 @@ class ProductController extends Controller
                 ]);
             }
 
+            //Save FAQs
+            if ($request->has('faqs')) {
+                foreach ($request->faqs as $faq) {
+                    \App\Models\ProductFaq::create([
+                        'product_id' => $product->id,
+                        'question'   => $faq['question'],
+                        'answer'     => $faq['answer'],
+                    ]);
+                }
+            }
+
             // Save Sections (Tabs Data)
             if ($request->sections) {
                 foreach ($request->sections as $key => $section) {
@@ -221,7 +232,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::with(['images', 'sections'])->findOrFail($id);
+        $product = Product::with(['images', 'sections', 'faqs'])->findOrFail($id);
         $productCategoryIds = $product->categories->pluck('id')->toArray();
         $categories = Category::where('is_active', 1)->get();
 
@@ -292,6 +303,22 @@ class ProductController extends Controller
                         'product_id' => $product->id,
                         'image' => $name
                     ]);
+                }
+            }
+
+            // Delete old FAQs
+            $product->faqs()->delete();
+
+            // Insert new FAQs
+            if ($request->has('faqs')) {
+                foreach ($request->faqs as $faq) {
+                    if (!empty($faq['question']) && !empty($faq['answer'])) {
+                        \App\Models\ProductFaq::create([
+                            'product_id' => $product->id,
+                            'question'   => $faq['question'],
+                            'answer'     => $faq['answer'],
+                        ]);
+                    }
                 }
             }
 

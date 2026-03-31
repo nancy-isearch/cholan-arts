@@ -257,7 +257,11 @@
           @foreach ($product->sections as $section)
             @if ($section->type == "symbolism")
                 <div class="symbol-item">
-                  <div class="symbol-icon-wrap"><img src="{{ asset('uploads/products/'.$product->id .'/'.$section->image) }}" /></div>
+                  @if($section->image)
+                    <div class="symbol-icon-wrap">
+                      <img src="{{ asset('uploads/products/'.$product->id .'/'.$section->image) }}" />
+                    </div>
+                  @endif
                   <div>
                     <h4>{{ $section->title }}</h4>
                     <p>{{ $section->description }}</p>
@@ -280,7 +284,11 @@
           @foreach ($product->sections as $section)
             @if ($section->type == "customisation")
                 <div class="custom-card">
-                  <div class="icon-box"><img src="{{ asset('uploads/products/'.$product->id .'/'.$section->image) }}" /></div>
+                  @if($section->image)
+                  <div class="icon-box">
+                    <img src="{{ asset('uploads/products/'.$product->id .'/'.$section->image) }}" />
+                  </div>
+                  @endif
                   <h4>{{ $section->title }}</h4>
                   <p>{{ $section->description }}</p>
                 </div>
@@ -304,7 +312,11 @@
           @foreach ($product->sections as $section)
             @if ($section->type == "care")
                  <div class="symbol-item">
-                  <div class="symbol-icon-wrap"><img src="{{ asset('uploads/products/'.$product->id .'/'.$section->image) }}" /></div>
+                  @if($section->image)
+                  <div class="symbol-icon-wrap">
+                    <img src="{{ asset('uploads/products/'.$product->id .'/'.$section->image) }}" />
+                  </div>
+                  @endif
                   <div>
                     <h4>{{ $section->title }}</h4>
                     <p>{{ $section->description }}</p>
@@ -366,6 +378,36 @@
         <div class="swiper-pagination"></div>
       </div>
     </section>
+
+    <!-- ===== FAQs ===== -->
+    @if($product->faqs && $product->faqs->count() > 0)
+      <section class="faq-section">
+          <div class="container">
+
+              <div class="faq-header text-center">
+                  <h2 class="section-title sec-h2" >Frequently Asked Questions</h2>
+                  <p class="sec-body">Everything you need to know about this idol</p>
+              </div>
+
+              <div class="faq-list">
+
+                  @foreach($product->faqs as $faq)
+                      <div class="faq-item">
+                          <div class="faq-question" onclick="toggleFaq(this)">
+                              <h4 class="section-title">{{ $faq->question }}</h4>
+                              <span class="faq-icon">+</span>
+                          </div>
+                          <div class="faq-answer">
+                              <p>{{ $faq->answer }}</p>
+                          </div>
+                      </div>
+                  @endforeach
+
+              </div>
+
+          </div>
+      </section>
+    @endif
 
     <!-- ===== CTA BANNER ===== -->
     @include('frontend.components.cta')
@@ -521,6 +563,32 @@
         </div>
       </div>
     </div>
+    @if($product->faqs && $product->faqs->count() > 0)
+    <script type="application/ld+json">
+    @verbatim
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+    @endverbatim
+
+    @foreach($product->faqs as $key => $faq)
+    {
+        "@type": "Question",
+        "name": {!! json_encode($faq->question) !!},
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": {!! json_encode($faq->answer) !!}
+        }
+    }@if(!$loop->last),@endif
+    @endforeach
+
+    @verbatim
+        ]
+    }
+    @endverbatim
+    </script>
+    @endif
 @endsection
 @push('scripts')
     <script>
@@ -668,6 +736,18 @@
         { threshold: 0.1 },
       );
       revealEls.forEach((el) => observer.observe(el));
+
+      //toggle for faq
+      function toggleFaq(el) {
+          let item = el.parentElement;
+
+          // accordion behavior (only one open)
+          document.querySelectorAll('.faq-item').forEach(f => {
+              if (f !== item) f.classList.remove('active');
+          });
+
+          item.classList.toggle('active');
+      }
     </script>
     <script>
       // ===== PRODUCTS SWIPER 1 =====

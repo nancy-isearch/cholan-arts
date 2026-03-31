@@ -71,19 +71,15 @@
             <div class="modal-body">
                 <form id="bulkUploadForm" enctype="multipart/form-data">
                 @csrf
-
                 <input type="file" name="file" class="form-control mb-2" required>
-
                 <small>
                     Upload CSV (name, price, description, categories)
                 </small>
-
                 <br><br>
-
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Upload</button>
                 </form>
             </div>
-
             </div>
         </div>
     </div>
@@ -198,9 +194,7 @@
                 showCancelButton: true,
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
-
                 if (result.isConfirmed) {
-
                     $.ajax({
                         url: "/admin/products/delete/" + id,
                         type: "DELETE",
@@ -208,13 +202,11 @@
                             _token: "{{ csrf_token() }}"
                         },
                         success: function(response) {
-
                             Swal.fire(
                                 'Deleted!',
                                 'Product deleted successfully.',
                                 'success'
                             );
-
                             $('.dataTable').DataTable().ajax.reload();
                         },
                         error: function() {
@@ -225,62 +217,45 @@
                             );
                         }
                     });
-
                 }
             });
         });
 
         $('#bulkUploadForm').submit(function(e) {
             e.preventDefault();
-
             let form = this;
             let formData = new FormData(form);
-
             $.ajax({
                 url: "/admin/products-bulk-upload",
                 type: "POST",
                 data: formData,
                 contentType: false,
                 processData: false,
-
                 beforeSend: function() {
                     $('button[type="submit"]').prop('disabled', true).text('Uploading...');
                 },
 
                 success: function(res) {
-
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
                         text: res.message
                     });
-
-                    // ✅ Reset form
                     form.reset();
-
-                    // ✅ Close modal
                     $('#bulkUploadModal').modal('hide');
-
-                    // ✅ Reload DataTable
                     $('#productTable').DataTable().ajax.reload();
-
                 },
 
                 error: function(err) {
-
                     let message = 'Upload failed';
-
                     if (err.responseJSON && err.responseJSON.message) {
                         message = err.responseJSON.message;
                     }
-
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
                         text: message
                     });
-
-                    // ❗ Optional: reset form even on error
                     form.reset();
                 },
 

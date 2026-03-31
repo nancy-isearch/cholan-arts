@@ -213,6 +213,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- FAQs -->
+                            <div @class(['card', 'mb-3'])>
+                                <div @class(['card-header'])>
+                                    FAQs
+                                    <button type="button" class="btn btn-sm btn-success float-end" id="addFaq">+ Add</button>
+                                </div>
+
+                                <div @class(['card-body']) id="faqWrapper">
+                                </div>
+                            </div>
                             <!-- Sections -->
                             <div @class(['card', 'mb-3'])>
                                 <div @class(['card-header'])>
@@ -386,7 +396,7 @@
                 if (e.which === 13) {
                     e.preventDefault();
                     let value = $(this).val().trim();
-                    if (value !== '' && !tags.includes(value)) {
+                    if (value !== '' && !sizes.includes(value)) {
                         sizes.push(value);
                         $('#sizeContainer').prepend(`
                             <div @class(['tag'])>
@@ -447,6 +457,41 @@
             function updatekeywordHiddenInput() {
                 $('#keywordsHidden').val(keywords.join(','));
             }
+
+            let faqIndex = 0;
+
+            // Add FAQ
+            $('#addFaq').click(function () {
+                let html = `
+                <div class="faq-row border p-2 mb-2">
+                    <div class="row mb-2">
+                        <div class="col-md-11"></div>
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-danger removeFaq">X</button>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <input type="text" name="faqs[${faqIndex}][question]" 
+                                class="form-control" placeholder="Question">
+                        </div>
+                        <div class="col-md-6">
+                            <textarea name="faqs[${faqIndex}][answer]" 
+                                class="form-control" placeholder="Answer"></textarea>
+                        </div>
+                    </div>
+                </div>
+                `;
+
+                $('#faqWrapper').append(html);
+                faqIndex++;
+            });
+
+            // Remove FAQ
+            $(document).on('click', '.removeFaq', function () {
+                $(this).closest('.faq-row').remove();
+            });
         });
     </script>
 

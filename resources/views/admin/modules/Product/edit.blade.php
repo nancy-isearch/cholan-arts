@@ -220,6 +220,47 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- FAQs -->
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    FAQs
+                                    <button type="button" id="addFaq" class="btn btn-success btn-sm float-end">+ Add</button>
+                                </div>
+
+                                <div class="card-body" id="faqWrapper">
+
+                                    @foreach($product->faqs as $key => $faq)
+                                        <div class="faq-row border rounded p-3 mb-3 bg-light">
+                                            <div class="row align-items-center g-2">
+
+                                                <!-- QUESTION -->
+                                                <div class="col-md-5">
+                                                    <input type="text"
+                                                        name="faqs[{{ $key }}][question]"
+                                                        value="{{ $faq->question }}"
+                                                        class="form-control"
+                                                        placeholder="Question">
+                                                </div>
+
+                                                <!-- ANSWER -->
+                                                <div class="col-md-6">
+                                                    <textarea name="faqs[{{ $key }}][answer]"
+                                                            class="form-control"
+                                                            rows="2"
+                                                            placeholder="Answer">{{ $faq->answer }}</textarea>
+                                                </div>
+
+                                                <!-- REMOVE -->
+                                                <div class="col-md-1 text-end">
+                                                    <button type="button" class="btn btn-danger removeFaq">✕</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+                                </div>
+                            </div>
                             <!-- Sections -->
                             <div class="card mb-3">
                                 <div class="card-header">
@@ -549,7 +590,7 @@
 
             // Update hidden input (comma separated)
             function updatekeywordHiddenInput() {
-                $('#keywordHidden').val(keywords.join(','));
+                $('#keywordsHidden').val(keywords.join(','));
             }
         });
         $(document).on('click', '.delete-image', function () {
@@ -588,6 +629,38 @@
                 }
             });
 
+        });
+        let faqIndex = {{ count($product->faqs) }};
+
+        // Add FAQ
+        $('#addFaq').click(function () {
+            let html = `
+            <div class="faq-row border p-2 mb-2">
+                <div class="row align-items-center">
+                    <div class="col-md-5">
+                        <input type="text" name="faqs[${faqIndex}][question]"
+                            class="form-control" placeholder="Question">
+                    </div>
+
+                    <div class="col-md-6">
+                        <textarea name="faqs[${faqIndex}][answer]"
+                            class="form-control" placeholder="Answer"></textarea>
+                    </div>
+
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-danger removeFaq">X</button>
+                    </div>
+                </div>
+            </div>
+            `;
+
+            $('#faqWrapper').append(html);
+            faqIndex++;
+        });
+
+        // Remove FAQ
+        $(document).on('click', '.removeFaq', function () {
+            $(this).closest('.faq-row').remove();
         });
     </script>
 
