@@ -100,7 +100,7 @@ class FrontendController extends Controller
                 'slug' => $p->slug,
                 'desc' => $p->short_description ?? 'Cholan Arts',
                 'image' => $image ? asset('uploads/products/'.$p->id .'/'.$image) : asset('assets/images/products-img/placeholder-product.jpg'),
-                'category' => $p->categories->pluck('name')->first(),
+                'category' => ucfirst($p->categories->pluck('name')->first()),
                 'size' => $sizes[array_rand($sizes)], // for masornary grid 
             ];
         });

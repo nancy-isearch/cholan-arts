@@ -129,6 +129,118 @@
           </div>
         </div>
       </section>
+      <!-- INQUIRY MODAL -->
+    <div class="modal-overlay" id="inquiryModal" onclick="closeModalBg(event)">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h3>Request More Information</h3>
+          <p>
+            Our artisan consultants will personally respond within 24 hours.
+          </p>
+          <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-idol-strip">
+          <img id="productImg"
+            src=""
+          />
+          <div>
+            <div class="mis-name" id="productName"></div>
+            <div class="mis-sub" id="productSubtitle"></div>
+          </div>
+        </div>
+        <div id="modalFormWrap">
+          <meta name="csrf-token" content="{{ csrf_token() }}">
+          <input type="hidden" name="product_id" id="product_id" value="">
+          <div class="modal-form">
+
+            <div class="mf-row">
+              <div class="mf-group">
+                <label>Full Name <span>*</span></label>
+                <input type="text" id="mfName" placeholder="Your full name" />
+              </div>
+
+              <div class="mf-group">
+                <label>Phone Number <span>*</span></label>
+                <input type="tel" id="mfPhone" placeholder="+91 00000 00000" />
+              </div>
+            </div>
+
+            <div class="mf-row">
+              <div class="mf-group">
+                <label>Email Address</label>
+                <input type="email" id="mfEmail" placeholder="your@email.com" />
+              </div>
+
+              
+              <div class="mf-group">
+                <label>Preferred Size</label>
+                <select id="mfSize">
+                  <option value="" disabled selected>Select size</option>
+                  <option>6 inches</option>
+                  <option>9 inches</option>
+                  <option>12 inches</option>
+                  <option>18 inches</option>
+                  <option>24 inches</option>
+                  <option>Custom / Temple Size</option>
+                </select>
+              </div>
+              
+            </div>
+
+            <div class="mf-row">
+              <div class="mf-group">
+                <label>Purpose</label>
+                <select id="mfPurpose">
+                  <option value="" disabled selected>Select purpose</option>
+                  <option>Home Puja Room</option>
+                  <option>Temple Installation</option>
+                  <option>Gift / Gifting</option>
+                  <option>Office / Studio</option>
+                  <option>Art Collection</option>
+                </select>
+              </div>
+
+              <div class="mf-group">
+                <label>Preferred Finish</label>
+                <select id="mfFinish">
+                  <option value="" disabled selected>Select finish</option>
+                  <option>Antique Dark Bronze</option>
+                  <option>Polished Gold</option>
+                  <option>Silver-Plated</option>
+                  <option>Dual-Tone</option>
+                  <option>Not Sure - Advise Me</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mf-row" style="grid-template-columns: 1fr">
+              <div class="mf-group full">
+                <label>Message</label>
+                <textarea id="mfMsg" placeholder="Your message..."></textarea>
+              </div>
+            </div>
+
+            <button class="btn-submit-modal" onclick="submitInquiry()">
+              Send Enquiry
+            </button>
+
+            <p class="modal-note">
+              🔒 Your details are safe with us
+            </p>
+
+          </div>
+        </div>
+        <div class="modal-success" id="modalSuccess">
+          <div class="success-check">✓</div>
+          <h4>Enquiry Sent!</h4>
+          <p>
+            Thank you for your interest in Lord Nataraja. Our artisan consultant
+            will contact you within 24 hours with detailed information and
+            photographs.
+          </p>
+        </div>
+      </div>
+    </div>
     </main>
 @endsection
 @push('scripts')
@@ -206,30 +318,108 @@
 
 
   // ================= CREATE CARD =================
+  // function createCard(item, index) {
+  //   console.log("item => ", item)
+  //   const div = document.createElement("div");
+  //   div.className = "gallery-item";
+
+  //   if (item.size) {
+  //     div.classList.add(item.size); // ✅ IMPORTANT
+  //   }
+  //   div.innerHTML = `<a href="/product/${item.slug}">
+  //     <img src="${item.image}" alt="${item.title}" loading="lazy" />
+  //     <div class="gallery-overlay">
+  //       <div class="overlay-content">
+  //         <span class="oc-tag">${CAT_LABELS[item.category] || item.category}</span>
+  //         <h4>${item.title}</h4>
+  //         <p>${item.desc}</p>
+  //       </div>
+  //     </div>
+  //     <div class="overlay-zoom">⊕</div></a>
+  //   `;
+
+  //   div.addEventListener("click", () => openLightbox(index));
+
+  //   return div;
+  // }
   function createCard(item, index) {
-    console.log("item => ", item)
     const div = document.createElement("div");
     div.className = "gallery-item";
 
     if (item.size) {
-      div.classList.add(item.size); // ✅ IMPORTANT
+      div.classList.add(item.size);
     }
-    div.innerHTML = `<a href="/product/${item.slug}">
-      <img src="${item.image}" alt="${item.title}" loading="lazy" />
-      <div class="gallery-overlay">
-        <div class="overlay-content">
-          <span class="oc-tag">${CAT_LABELS[item.category] || item.category}</span>
-          <h4>${item.title}</h4>
-          <p>${item.desc}</p>
+
+    div.innerHTML = `
+      <div class="card-inner">
+        <a href="/product/${item.slug}">
+        <!-- Image -->
+        <div class="card-image">
+          <img src="${item.image}" alt="${item.title}" loading="lazy" />
         </div>
+        </a>
+        <!-- Bottom Content -->
+        <div class="card-content">
+          <div class="card-text">
+            <span class="category">
+              ${CAT_LABELS[item.category] || item.category}
+            </span>
+            <h4>${item.title}</h4>
+          </div>
+
+          <div class="card-actions">
+            <button class="btn-inquire">Enquire Now</button>
+            <a href="/product/${item.slug}" class="ganesha-btn">Details</a>
+          </div>
+        </div>
+        
       </div>
-      <div class="overlay-zoom">⊕</div></a>
     `;
+
+    // Prevent card click when clicking buttons
+    div.querySelector(".btn-inquire").addEventListener("click", (e) => {
+      e.stopPropagation();
+      openEnquiryPopup(item); // 👈 your popup function
+    });
+
+    div.querySelector(".ganesha-btn").addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
 
     div.addEventListener("click", () => openLightbox(index));
 
     return div;
   }
+
+  function openEnquiryPopup(item) {
+    console.log("Enquiry for:", item);
+
+    // Modal open
+    document.getElementById("inquiryModal").classList.add("open");
+
+    // ✅ Id set
+    document.getElementById("product_id").value = item.id;
+
+    // ✅ Image set
+    document.getElementById("productImg").src = item.image;
+
+    // ✅ Name set
+    document.getElementById("productName").innerText = item.title;
+
+    // ✅ Subtitle (category / short desc)
+    document.getElementById("productSubtitle").innerText =
+      CAT_LABELS[item.category] || item.category;
+  }
+  function closeModal() {
+    document.getElementById("inquiryModal").classList.remove("open");
+    document.body.style.overflow = "";
+  }
+  function closeModalBg(e) {
+    if (e.target.id === "inquiryModal") closeModal();
+  }
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeModal();
+  });
 
 
   // ================= SWITCH TAB =================
@@ -308,6 +498,91 @@
   function lbNav(dir) {
     lbIdx = (lbIdx + dir + lbItems.length) % lbItems.length;
     showLb();
+  }
+
+  function submitInquiry() {
+
+      const full_name = document.getElementById('mfName').value.trim();
+      const email = document.getElementById('mfEmail').value.trim();
+      let rawPhone = document.getElementById('mfPhone').value.trim();
+      const preferred_size = document.getElementById('mfSize')?.value || '';
+      const purpose = document.getElementById('mfPurpose')?.value || '';
+      const preferred_finish = document.getElementById('mfFinish')?.value || '';
+      const message = document.getElementById('mfMsg').value.trim();
+      const product_id = document.getElementById('product_id').value;
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const validChars = /^[0-9+\-\s]+$/;
+
+      //Required validation
+      if (!full_name || !rawPhone || !email) {
+          alert('Name/Phone/Email are required');
+          return;
+      }
+
+      //Email validation
+      if (email && !emailPattern.test(email)) {
+          alert('Enter valid email');
+          return;
+      }
+
+      //Phone validation
+      if (rawPhone && !validChars.test(rawPhone)) {
+          alert('Phone contains invalid characters');
+          return;
+      }
+
+      let phone = rawPhone.replace(/\D/g, '');
+
+      if (phone.startsWith('91')) phone = phone.substring(2);
+
+      if (phone.length !== 10) {
+          alert('Enter valid 10 digit phone number');
+          return;
+      }
+
+      const btn = document.querySelector('.btn-submit-modal');
+      btn.disabled = true;
+      btn.innerText = 'Sending...';
+
+      fetch('/enquiry', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+          },
+          body: JSON.stringify({
+              full_name,
+              email,
+              phone,
+              preferred_size,
+              purpose,
+              preferred_finish,
+              message,
+              product_id
+          })
+      })
+      .then(res => res.json())
+      .then(data => {
+          btn.disabled = false;
+          btn.innerText = 'Send Enquiry';
+
+          if (data.status) {
+              alert('Enquiry sent successfully ✅');
+
+              // reset form
+              document.querySelectorAll('.modal-form input, .modal-form textarea').forEach(el => el.value = '');
+              document.querySelectorAll('.modal-form select').forEach(el => el.selectedIndex = 0);
+          } else {
+              alert('Something went wrong!');
+          }
+      })
+      .catch(err => {
+          btn.disabled = false;
+          btn.innerText = 'Send Enquiry';
+          console.error(err);
+          alert('Server error! Try again later');
+      });
   }
 
   document.addEventListener("keydown", (e) => {

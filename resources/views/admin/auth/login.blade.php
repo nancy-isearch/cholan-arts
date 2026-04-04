@@ -66,13 +66,13 @@
                         </div>
                       </div>
                       <!-- end col -->
-                      <div class="col-xxl-6 col-lg-12 col-md-6">
+                      {{-- <div class="col-xxl-6 col-lg-12 col-md-6">
                         <div class="text-start text-md-end text-lg-start text-xxl-end mb-30">
                           <a href="reset-password.html" class="hover-underline">
                             Forgot Password?
                           </a>
                         </div>
-                      </div>
+                      </div> --}}
                       <!-- end col -->
                       <div class="col-12">
                         <div class="button-group d-flex justify-content-center flex-wrap">
