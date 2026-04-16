@@ -69,10 +69,10 @@ class ProductController extends Controller
             // })
             ->addColumn('actions', function ($row) {
                 return '
-                    <a href="/admin/products/'.$row->id.'/edit" class="primary-btn hover:bg-blue-600 text-white text-xs px-3 py-1 rounded shadow-sm transition">
+                    <a href="/admin/products/'.$row->id.'/edit" class="btn primary-btn me-2 border">
                         <i class="lni lni-pencil"></i>
                     </a>
-                    <button class="btn btn-danger dltBtn hover:bg-blue-600 text-white text-xs px-3 py-1 rounded shadow-sm transition" data-id="'.$row->id.'">
+                    <button class="btn btn-danger dltBtn" data-id="'.$row->id.'">
                         <i class="lni lni-trash-can"></i>
                     </button>
                 ';
@@ -254,26 +254,26 @@ class ProductController extends Controller
         DB::beginTransaction();
         try {
             // check if name changed
-            if ($product->name != $request->name) {
+            // if ($product->name != $request->name) {
 
-                $baseSlug = Str::slug($request->name);
-                $slug = $baseSlug;
-                $i = 1;
+            //     $baseSlug = Str::slug($request->name);
+            //     $slug = $baseSlug;
+            //     $i = 1;
 
-                // ensure unique slug (ignore current product)
-                while (Product::where('slug', $slug)->where('id', '!=', $id)->exists()) {
-                    $slug = $baseSlug . '-' . $i++;
-                }
+            //     // ensure unique slug (ignore current product)
+            //     while (Product::where('slug', $slug)->where('id', '!=', $id)->exists()) {
+            //         $slug = $baseSlug . '-' . $i++;
+            //     }
 
-            } else {
+            // } else {
                 // keep old slug
-                $slug = $product->slug;
-            }
+                // $slug = $product->slug;
+            // }
 
             // Update Product
             $product->update([
                 'name' => $request->name,
-                'slug' => $slug,
+                // 'slug' => $slug,
                 'sub_title' => $request->sub_title,
                 'description' => $request->description,
                 'price' => $request->price,

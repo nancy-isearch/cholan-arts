@@ -76,7 +76,7 @@
                       technique - a timeless treasure for devotees and
                       collectors alike.
                     </p>
-                    <a href="/catalogue" class="btn-orange">
+                    <a href="/products" class="btn-orange">
                       Explore Collection
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -119,7 +119,7 @@
                       artisan wisdom passed down through generations of Chola
                       craftspeople.
                     </p>
-                    <a href="/catalogue" class="btn-orange">
+                    <a href="/products" class="btn-orange">
                       Shop Now
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -164,7 +164,7 @@
                       handcrafted sculptures that carry the divine essence of
                       Indian spirituality.
                     </p>
-                    <a href="/catalogue" class="btn-orange">
+                    <a href="/products" class="btn-orange">
                       Discover More
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -368,7 +368,7 @@
           <h2 class="section-title" id="deity-idols-title">
             Types of Deity Idols
           </h2>
-          <a href="/catalogue" class="explore-link" aria-label="Explore all deity idols">
+          <a href="/products" class="explore-link" aria-label="Explore all deity idols">
             Explore All
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -435,7 +435,7 @@
                 class="m-auto"
               />
             </div>
-            <a href="/catalogue?c=ganesha" class="ganesha-btn">View All Ganesha’s →</a>
+            <a href="/products?c=ganesha" class="ganesha-btn">View All Ganesha’s →</a>
           </div>
           <div class="ganesha-slider">
             <div class="swiper mySwiper">
@@ -459,7 +459,7 @@
 
       <!-- ===== CATEGORY SPLIT ===== -->
       <section class="category-split" aria-label="Browse collections">
-        <a href="/catalogue" class="category-half" aria-label="Browse Brass Collections">
+        <a href="/products" class="category-half" aria-label="Browse Brass Collections">
           <div
             class="category-half-bg"
             style="
@@ -492,7 +492,7 @@
             <div class="info-line"></div>
           </div>
         </a>
-        <a href="/catalogue" class="category-half" aria-label="Browse New Year Gifts">
+        <a href="/products" class="category-half" aria-label="Browse New Year Gifts">
           <div
             class="category-half-bg"
             style="
@@ -533,7 +533,7 @@
           <h2 class="section-title" id="deity-idols-title">
             Types of Deity Idols
           </h2>
-          <a href="/catalogue" class="explore-link" aria-label="Explore all deity idols">
+          <a href="/products" class="explore-link" aria-label="Explore all deity idols">
             Explore All
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -633,7 +633,7 @@
         <div class="text-center">
           <h2 class="section-title" id="featured-title">Featured Sculptures</h2>
           <div class="d-flex justify-content-center">
-            <a href="/catalogue?c=sculptures" class="explore-link text-center m-auto">
+            <a href="/products?c=sculptures" class="explore-link text-center m-auto">
               Explore All
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -745,7 +745,7 @@
             What's new on Cholan Arts
           </h2>
           <div class="d-flex justify-content-center">
-            <a href="/catalogue" class="explore-link text-center m-auto">
+            <a href="/products" class="explore-link text-center m-auto">
               Explore All Gallery
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -765,7 +765,7 @@
         </div>
         <div class="collection-grid">
           <div class="collection-card">
-            <a href="/catalogue">
+            <a href="/products">
               <div
                 class="collection-card-bg"
                 style="
@@ -781,7 +781,7 @@
             </a>
           </div>
           <div class="collection-card">
-            <a href="/catalogue">
+            <a href="/products">
               <div
                 class="collection-card-bg"
                 style="
@@ -797,7 +797,7 @@
             </a>
           </div>
           <div class="collection-card">
-            <a href="/catalogue">
+            <a href="/products">
               <div
                 class="collection-card-bg"
                 style="
@@ -813,7 +813,7 @@
             </a>
           </div>
           <div class="collection-card">
-            <a href="/catalogue">
+            <a href="/products">
               <div
                 class="collection-card-bg"
                 style="
@@ -829,7 +829,7 @@
             </a>
           </div>
           <div class="collection-card wide">
-            <a href="/catalogue">
+            <a href="/products">
               <div
                 class="collection-card-bg"
                 style="
@@ -867,7 +867,7 @@
         <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-md-10">
-              <div class="testimonials-header">
+              {{-- <div class="testimonials-header">
                 <h2 id="testimonials-title" class="text-white">
                   Customer Reviews
                 </h2>
@@ -875,8 +875,9 @@
                   Hear from devotees and collectors who have brought home a
                   piece of living heritage.
                 </p>
-              </div>
-              <div class="reviews-swiper swiper">
+              </div> --}}
+              <div class="elfsight-app-e77f002b-5e22-409e-81f8-79014679d1c9" data-elfsight-app-lazy></div>
+              {{-- <div class="reviews-swiper swiper">
                 <div class="swiper-wrapper">
                   <div class="swiper-slide">
                     <article class="review-card">
@@ -957,7 +958,7 @@
                   </div>
                 </div>
                 <div class="swiper-pagination"></div>
-              </div>
+              </div> --}}
             </div>
           </div>
         </div>

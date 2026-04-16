@@ -6,8 +6,7 @@
     <title>@yield('seo_title', 'Cholan Arts')</title>
     <meta name="description" content="@yield('seo_description', 'Cholan Arts preserves the ancient Lost Wax tradition of the Chola Dynasty. Shop authentic handcrafted bronze deity idols - Ganesha, Shiva, Nataraja, Lakshmi and more.')" />
     <meta name="keywords" content="@yield('seo_keywords', 'bronze idols, hindu idols, ganesha idol, shiva idol, nataraja statue, lakshmi idol, handcrafted idols, cholan arts')" />
-
-
+    
     <meta name="author" content="Cholan Arts Emporium" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://cholanarts.com/" />
@@ -67,9 +66,12 @@
     />
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/idol-detailes.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/pages/privacy-policy.css') }}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
 
-      <!-- jQuery -->
+    <!-- Elfsight Google Reviews | Cholan Arts  -->
+    <script src="https://elfsightcdn.com/platform.js" async></script>
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
   </head>

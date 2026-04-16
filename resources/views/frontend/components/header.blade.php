@@ -13,7 +13,7 @@
       <ul class="nav-links" role="list">
         <li><a href="/" {{ request()->is('/') ? 'aria-current=page' : '' }}>Home</a></li>
         <li><a href="/about-us" {{ request()->is('about-us') ? 'aria-current=page' : '' }}>About Us</a></li>
-        <li><a href="/catalogue" {{ request()->is('catalogue') ? 'aria-current=page' : '' }} >Catalog</a></li>
+        <li><a href="/products" {{ request()->is('products') ? 'aria-current=page' : '' }} >Products</a></li>
         <li><a href="#">Best Sellers</a></li>
         <li><a href="/contact-us" {{ request()->is('contact-us') ? 'aria-current=page' : '' }}>Contact Us</a></li>
       </ul>

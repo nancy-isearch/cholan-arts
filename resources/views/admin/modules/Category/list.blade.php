@@ -1,134 +1,261 @@
 @extends('admin.layouts.app')
+
 @section('content')
-    <section @class(['section'])>
-        <div @class(['container-fluid'])>
-            <!-- ========== title-wrapper start ========== -->
-            <div @class(['title-wrapper', 'pt-30'])>
-            <div @class(['row', 'align-items-center'])>
-                <div @class(['col-md-6'])>
-                <div @class(['title'])>
-                    <h2>Categories</h2>
-                </div>
-                </div>
-                <!-- end col -->
-                <div @class(['col-md-6'])>
-                    <div @class(['breadcrumb-wrapper'])>
-                        {{-- <nav aria-label="breadcrumb">
-                        <ol @class(['breadcrumb'])>
-                            <li @class(['breadcrumb-item', 'active']) aria-current="page">
-                            <a href="/admin/categories">Categories</a>
-                            </li>
-                        </ol>
-                        </nav> --}}
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
-                            + Add New
-                        </button>
-                    </div>
-                </div>
-                <!-- end col -->
+<section @class(['section', 'cat-page'])>
+    <div @class(['container-fluid'])>
+
+        {{-- ══ PAGE HEADER ══ --}}
+        <div class="cat-header">
+            <div class="cat-header__left">
+                <span class="cat-eyebrow">
+                    Catalogue Management
+                </span>
+                <h2 class="cat-title">Product <em>Categories</em></h2>
+                <p class="cat-subtitle">Manage and organise your product catalogue categories</p>
             </div>
-            <!-- end row -->
+            <div class="cat-header__right">
+                <button class="cat-btn cat-btn--primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                    <i class="lni lni-plus"></i> Add New Category
+                </button>
             </div>
-            <!-- ========== title-wrapper end ========== -->
-            <div @class(['row'])>
-              <div @class(['col-lg-12'])>
-                <div @class(['card-style', 'mb-30'])>
-                  <div @class(['table-wrapper', 'table-responsive'])>
-                    <table id="enquiryTable" @class(['table', 'display']) style="width:100%">
-                        <thead>
-                            <tr>
-                                <th><h6>#</h6></th>
-                                <th><h6>Name</h6></th>
-                                <th><h6>Is Active?</h6></th>
-                                <th><h6>Action</h6></th>
-                            </tr>
-                        </thead>
-                    </table>
-                    <!-- end table -->
-                  </div>
-                </div>
-                <!-- end card -->
-              </div>
-              <!-- end col -->
-            </div>
-            <!-- end row -->
-            
         </div>
-    </section>
-<div class="modal fade" id="addCategoryModal" tabindex="-1">
-    <div class="modal-dialog">
+
+        {{-- ══ STAT CARDS ══ --}}
+        <div class="cat-stats">
+            <div class="cat-stat-card cat-stat-card--green cat-fade-in">
+                <div class="cat-stat-icon cat-stat-icon--green">
+                    <i class="lni lni-grid-alt"></i>
+                </div>
+                <div class="cat-stat-body">
+                    <div class="cat-stat-value" id="stat-total">—</div>
+                    <div class="cat-stat-label">Total Categories</div>
+                </div>
+            </div>
+            <div class="cat-stat-card cat-stat-card--teal cat-fade-in" style="animation-delay:.07s">
+                <div class="cat-stat-icon cat-stat-icon--teal">
+                    <i class="lni lni-checkmark-circle"></i>
+                </div>
+                <div class="cat-stat-body">
+                    <div class="cat-stat-value" id="stat-active">—</div>
+                    <div class="cat-stat-label">Active</div>
+                </div>
+            </div>
+            <div class="cat-stat-card cat-stat-card--amber cat-fade-in" style="animation-delay:.14s">
+                <div class="cat-stat-icon cat-stat-icon--amber">
+                    <i class="lni lni-ban"></i>
+                </div>
+                <div class="cat-stat-body">
+                    <div class="cat-stat-value" id="stat-inactive">—</div>
+                    <div class="cat-stat-label">Inactive</div>
+                </div>
+            </div>
+        </div>
+
+        {{-- ══ TABLE CARD ══ --}}
+        <div class="cat-card cat-fade-in" style="animation-delay:.20s">
+
+            {{-- Card toolbar --}}
+            <div class="cat-card__toolbar">
+                <div class="cat-card__toolbar-left">
+                    <div class="cat-card__toolbar-bar"></div>
+                    <span class="cat-card__toolbar-title">All Categories</span>
+                </div>
+                <div class="cat-card__toolbar-right">
+                    <button class="cat-btn cat-btn--primary cat-btn--sm" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                        <i class="lni lni-plus"></i> Add Category
+                    </button>
+                </div>
+            </div>
+
+            {{-- DataTable controls row --}}
+            <div class="cat-table-controls">
+                <div id="cat-length-wrapper"></div>
+                <div id="cat-search-wrapper"></div>
+            </div>
+
+            {{-- Table --}}
+            <div class="cat-table-scroll">
+                <table id="enquiryTable" @class(['table', 'display']) style="width:100%">
+                    <thead>
+                        <tr>
+                            <th><h6>#</h6></th>
+                            <th><h6>Name</h6></th>
+                            <th><h6>Is Active?</h6></th>
+                            <th><h6>Action</h6></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+            {{-- Footer --}}
+            <div class="cat-table-footer">
+                <div id="cat-info-wrapper"></div>
+                <div id="cat-pagination-wrapper"></div>
+            </div>
+
+        </div>
+        {{-- end table card --}}
+
+    </div>
+</section>
+
+{{-- ══ ADD CATEGORY MODAL ══ --}}
+<div class="modal fade cat-modal" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
+            {{-- Modal Header --}}
             <div class="modal-header">
-                <h5 class="modal-title">Add Category</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <div class="cat-modal__header-left">
+                    <div class="cat-modal__header-icon">
+                        <i class="lni lni-grid-alt"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
+                        <p class="cat-modal__header-sub">Fill in the details to create a category</p>
+                    </div>
+                </div>
+                <button type="button" class="cat-modal__close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="lni lni-close"></i>
+                </button>
             </div>
 
+            {{-- Modal Body --}}
             <div class="modal-body">
                 <form id="categoryForm">
                     @csrf
-
-                    <div class="mb-3">
-                        <label>Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="Enter category name">
+                    <div class="cat-modal__field">
+                        <label class="cat-modal__label" for="categoryName">
+                            Category Name <span class="cat-required">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="categoryName"
+                            name="name"
+                            class="form-control cat-modal__input"
+                            placeholder="e.g. Handwoven Textiles"
+                            autocomplete="off"
+                        >
+                        <span class="cat-modal__hint">Use a clear, descriptive name for easy identification.</span>
                     </div>
-
                 </form>
             </div>
 
+            {{-- Modal Footer --}}
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveCategory">Save</button>
+                <button type="button" class="cat-btn cat-btn--ghost" data-bs-dismiss="modal">
+                    <i class="lni lni-close"></i> Cancel
+                </button>
+                <button type="button" class="cat-btn cat-btn--primary" id="saveCategory">
+                    <i class="lni lni-save"></i> Save Category
+                </button>
             </div>
 
         </div>
     </div>
 </div>
+
 @endsection
+
 @push('scripts')
 <script>
     $(document).ready(function () {
-        // CSRF setup
+
+        // ── CSRF setup ──
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
-        // DataTable Init
+        // ── DataTable Init ──
         let table = $('#enquiryTable').DataTable({
             processing: true,
             serverSide: true,
-            stripeClasses: [], // ❌ remove odd/even classes
+            stripeClasses: [],
             ajax: "{{ route('categories.index') }}",
-            
+
             columns: [
-                { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
-                { 
-                    data: 'name', 
+                {
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex',
+                    orderable: false,
+                    searchable: false,
+                    render: function(data) {
+                        return `<span class="cat-row-index">${data}</span>`;
+                    }
+                },
+                {
+                    data: 'name',
                     name: 'name',
                     createdCell: function (td, cellData, rowData, row, col) {
                         $(td).addClass('min-width');
                     },
                     render: function(data) {
-                        if (!data) return '';
-
+                        if (!data) return '<span class="cat-cell-empty">—</span>';
                         let formatted = data.charAt(0).toUpperCase() + data.slice(1).toLowerCase();
-
-                        return `<p>${formatted}</p>`;
+                        let initial = formatted.charAt(0).toUpperCase();
+                        return `<div class="cat-name-cell">
+                                    <div class="cat-cat-avatar">${initial}</div>
+                                    <p class="cat-cell-name">${formatted}</p>
+                                </div>`;
                     }
-                }, { 
-                    data: 'is_active', 
+                },
+                {
+                    data: 'is_active',
                     createdCell: function (td, cellData, rowData, row, col) {
                         $(td).addClass('min-width');
-                    }, 
-                    orderable: false, 
-                    searchable: false 
-                }, { data: 'actions', orderable: false, searchable: false }
-            ]
+                    },
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'actions',
+                    orderable: false,
+                    searchable: false
+                }
+            ],
+
+            initComplete: function () {
+                // Move DataTable controls into custom slots
+                $('#cat-length-wrapper').html($('#enquiryTable_length').detach());
+                $('#cat-search-wrapper').html($('#enquiryTable_filter').detach());
+                $('#cat-info-wrapper').html($('#enquiryTable_info').detach());
+                $('#cat-pagination-wrapper').html($('#enquiryTable_paginate').detach());
+
+                updateStats(this.api());
+            },
+
+            drawCallback: function () {
+                updateStats(this.api());
+                // Re-attach pagination/info after redraw
+                $('#cat-info-wrapper').html($('#enquiryTable_info').detach());
+                $('#cat-pagination-wrapper').html($('#enquiryTable_paginate').detach());
+            }
         });
 
-        // Status Change AJAX
+        // ── Stat card updater ──
+        function updateStats(api) {
+            let info = api.page.info();
+            $('#stat-total').text(info.recordsTotal);
+
+            let active = 0, inactive = 0;
+            api.rows({ search: 'applied' }).data().each(function(d) {
+                // is_active comes as rendered HTML from backend; count based on raw data if available
+                // Fallback: count from rendered toggle value
+                if (typeof d.is_active === 'string') {
+                    if (d.is_active.includes('checked') || d.is_active.includes('1')) active++;
+                    else inactive++;
+                } else {
+                    if (d.is_active == 1) active++;
+                    else inactive++;
+                }
+            });
+            $('#stat-active').text(active);
+            $('#stat-inactive').text(inactive);
+        }
+
+        // ── Toggle status ──
         $(document).on('change', '.toggle-status', function() {
             let status = $(this).prop('checked') ? 1 : 0;
             let id = $(this).data('id');
@@ -142,11 +269,12 @@
                     status: status
                 },
                 success: function(response) {
-                    alert('Status updated')
+                    alert('Status updated');
                 }
             });
         });
 
+        // ── Delete ──
         $(document).on('click', '.dltBtn', function() {
             let id = $(this).data('id');
             Swal.fire({
@@ -156,38 +284,24 @@
                 showCancelButton: true,
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
-
                 if (result.isConfirmed) {
-
                     $.ajax({
                         url: "/admin/categories/delete/" + id,
                         type: "DELETE",
-                        data: {
-                            _token: "{{ csrf_token() }}"
-                        },
+                        data: { _token: "{{ csrf_token() }}" },
                         success: function(response) {
-
-                            Swal.fire(
-                                'Deleted!',
-                                'Category deleted successfully.',
-                                'success'
-                            );
-
+                            Swal.fire('Deleted!', 'Category deleted successfully.', 'success');
                             $('.dataTable').DataTable().ajax.reload();
                         },
                         error: function() {
-                            Swal.fire(
-                                'Error!',
-                                'Something went wrong.',
-                                'error'
-                            );
+                            Swal.fire('Error!', 'Something went wrong.', 'error');
                         }
                     });
-
                 }
             });
         });
 
+        // ── Save Category ──
         $('#saveCategory').click(function () {
             let formData = {
                 name: $('input[name="name"]').val(),
@@ -199,42 +313,33 @@
                 type: "POST",
                 data: formData,
                 success: function (response) {
-
-                    if(response.status){
+                    if (response.status) {
                         Swal.fire({
                             icon: 'success',
                             title: 'Success',
                             text: response.message
                         });
-                        // reset form
                         $('#categoryForm')[0].reset();
-
-                        // close modal
                         $('#addCategoryModal').modal('hide');
                         $('.dataTable').DataTable().ajax.reload();
                     }
                 },
                 error: function (xhr) {
                     let errors = xhr.responseJSON.errors;
-                    if(errors){
-                        $.each(errors, function(key, value){
-                            Swal.fire(
-                                'Error!',
-                                value[0],
-                                'error'
-                            );
+                    if (errors) {
+                        $.each(errors, function(key, value) {
+                            Swal.fire('Error!', value[0], 'error');
                         });
                     }
                 }
             });
         });
 
+        // ── Reset on modal close ──
         $('#addCategoryModal').on('hidden.bs.modal', function () {
             $('#categoryForm')[0].reset();
-            $('#addCategoryModal').modal('hide');
         });
 
     });
 </script>
 @endpush
-    

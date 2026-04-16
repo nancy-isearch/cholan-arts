@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/css/fullcalendar.css')}}" />
     <link rel="stylesheet" href="{{ asset('assets/admin/css/fullcalendar.css')}}" />
     <link rel="stylesheet" href="{{ asset('assets/admin/css/main.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/new-dashboard.css')}}" />
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -43,6 +44,7 @@
     <main class="main-wrapper">
       @guest
       @else
+
       <!-- ========== header start ========== -->
       @include('admin.components.header')
       <!-- ========== header end ========== -->

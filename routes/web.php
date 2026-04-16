@@ -5,27 +5,29 @@ use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductImportController;
 use App\Http\Controllers\Auth\LoginController;
 
 //Frontend Controllers
 use App\Http\Controllers\FrontendController;
 
+Auth::routes();
 // Route::view('/', 'frontend.pages.home');
 Route::view('/about-us', 'frontend.pages.about');
 Route::view('/product-details', 'frontend.pages.product-detail');
 Route::view('/contact-us', 'frontend.pages.contact');
-Route::view('/privacy-policy', 'frontend.pages.privacy-policy');
 Route::view('/terms-of-use', 'frontend.pages.terms-conditions');
 Route::post('/enquiry', [EnquiryController::class, 'store']);
 
 Route::get('/', [FrontendController::class, 'getHomeContent']);
 Route::get('/product/{id}', [FrontendController::class, 'productDetail']);
-Route::get('/catalogue', [FrontendController::class, 'categoryList']);
+Route::get('/products', [FrontendController::class, 'categoryList']);
 Route::get('/get-products', [FrontendController::class, 'getProducts']);  
 Route::get('/search-suggest', [FrontendController::class, 'suggest']);  
+Route::get('/{slug}', [FrontendController::class, 'showPage'])->name('page.show');
 
-Auth::routes();
+
 
 // Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
 
@@ -59,6 +61,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::delete('/products/delete/{id}', [ProductController::class, 'destroy'])->name('products.delete');
     Route::post('/products-bulk-upload', [ProductController::class, 'bulkUpload']);
     Route::get('/admin/products/sample-csv', [ProductController::class, 'downloadSample'])->name('products.sample.csv');
+    
+    Route::get('pages/list', [PageController::class, 'list'])->name('pages.list');
+    Route::put('pages/update-status', [PageController::class, 'updateStatus']);
+    Route::delete('pages/delete/{id}', [PageController::class, 'destroy']);
+    Route::resource('pages', PageController::class);
+    Route::post('/editor/image-upload', [PageController::class, 'upload'])->name('editor.image.upload');
 });
 
 Route::get('/export-products', [ProductImportController::class, 'exportProducts']);

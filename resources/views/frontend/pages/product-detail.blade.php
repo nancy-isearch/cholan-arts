@@ -7,15 +7,31 @@
 @section('seo_image', asset('uploads/products/' . $product->id .'/'. $product->feature_image))
 
 @section('content')
-<section class="inner-banner">
-    <span class="mb-3">Detail Page</span>
-      <h1>{{ $product->name }}</h1>
-      <p>
-        {!! \Illuminate\Support\Str::limit($product->description, 100) !!}
-      </p>
-    </section>
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb-wrap">
+    <div class="container">
+      <ul class="breadcrumb">
+        <li><a href="{{ url('/') }}">Home</a></li>
+
+        <li>
+          <a href="{{ url('/products') }}">Products</a>
+        </li>
+
+        @if($product->categories && $product->categories->count())
+          <li>
+            <a href="{{ url('/products?ca=' . $product->categories->first()->name) }}">
+              {{ ucfirst($product->categories->first()->name) }}
+            </a>
+          </li>
+        @endif
+
+        <li class="active">{{ $product->name }}</li>
+      </ul>
+    </div>
+  </div>
+
     <!-- IDOL HERO -->
-    <div class="idol-hero">
+    <div class="idol-hero pt-5">
       
       <!-- LEFT: IMAGE GALLERY -->
       <div class="img-gallery-col reveal">
@@ -332,7 +348,7 @@
     <section class="products-section" aria-labelledby="deity-idols-title">
       <div class="swiper-nav-row">
         <h2 class="section-title" id="deity-idols-title">Our Related Idols</h2>
-        <a href="/catalogue" class="explore-link" aria-label="Explore all deity idols">
+        <a href="/products" class="explore-link" aria-label="Explore all deity idols">
           Explore All
           <svg
             xmlns="http://www.w3.org/2000/svg"

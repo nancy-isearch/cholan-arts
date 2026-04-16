@@ -34,7 +34,7 @@ class EnquiryController extends Controller
                         <button 
                             class="primary-btn hover:bg-blue-600 text-white text-xs px-3 py-1 rounded shadow-sm transition viewBtn"
                             data-id="'.$row->id.'">
-                            <i class="lni lni-pencil"></i>
+                            ⓘ
                         </button>
                         <select 
                             class="text-xs px-2 py-1 rounded border border-gray-300 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-400 statusChange"

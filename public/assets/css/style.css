@@ -744,7 +744,7 @@ nav {
 
 /* ===== TESTIMONIALS SWIPER ===== */
 .testimonials-section {
-background-image: url(../images/bg/testimonial-bg.jpg);
+/* background-image: url(../images/bg/testimonial-bg.jpg); */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -1588,7 +1588,7 @@ background-image: url(../images/bg/testimonial-bg.jpg);
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
-      padding: 4px 4px 10px;
+      padding: 5px 40px;
       flex-wrap: nowrap;
     }
     .tab-bar::-webkit-scrollbar { display: none; }
@@ -1596,8 +1596,10 @@ background-image: url(../images/bg/testimonial-bg.jpg);
     .tab-scroll-btn {
       position: absolute;
       top: 0;
-      bottom: 10px;
-      width: 36px;
+      bottom: 0px;
+      width: 50px;
+      /* height: 100%; */
+      border-radius: 5px;
       border: none;
       background: rgba(255,255,255,0.9);
       cursor: pointer;
@@ -1608,7 +1610,7 @@ background-image: url(../images/bg/testimonial-bg.jpg);
     }
 
     .tab-scroll-btn:hover {
-      background: #eee;
+      background: #e8813a;
     }
 
     .tab-scroll-btn.left {
@@ -1792,16 +1794,6 @@ background-image: url(../images/bg/testimonial-bg.jpg);
     width: 320px;
 }
 
-/* Input */
-#searchInput {
-    width: 100%;
-    padding: 10px 14px;
-    border-radius: 25px;
-    border: 1px solid #ddd;
-    outline: none;
-    background: #111;
-    color: #fff;
-}
 
 /* Dropdown */
 #suggestions {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Page;
 
 class FrontendController extends Controller
 {
@@ -141,5 +142,12 @@ class FrontendController extends Controller
             ->get();
 
         return response()->json($products);
+    }
+
+    public function showPage($slug)
+    {
+        $page = Page::where('slug', $slug)->firstOrFail();
+        
+        return view('frontend.pages.page', compact('page'));
     }
 }

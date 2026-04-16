@@ -1,282 +1,348 @@
 @extends('admin.layouts.app')
+
 @section('content')
-    <section class="section">
-        <div class="container-fluid">
-            <!-- ========== title-wrapper start ========== -->
-            <div class="title-wrapper pt-30">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                <div class="title">
-                    <h2>Dashboard</h2>
-                </div>
-                </div>
-                <!-- end col -->
-                <div class="col-md-6">
-                <div class="breadcrumb-wrapper">
-                    <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page">
-                        <a href="/admin/dashboard">Dashboard</a>
-                        </li>
-                    </ol>
-                    </nav>
-                </div>
-                </div>
-                <!-- end col -->
+<section class="section dash-page">
+    <div class="container-fluid">
+
+        {{-- ══ PAGE HEADER ══ --}}
+        <div class="dash-header">
+            <div class="dash-header__left">
+                <span class="dash-eyebrow">
+                    Admin Panel
+                </span>
+                <h2 class="dash-title">Welcome to <em>Dashboard</em></h2>
+                <p class="dash-subtitle">Here's what's happening with your store today</p>
             </div>
-            <!-- end row -->
-            </div>
-            <!-- ========== title-wrapper end ========== -->
-            <div class="row">
-                <div class="col-xl-4 col-lg-4 col-sm-6">
-                    <div class="icon-card mb-30">
-                    <div class="icon success">
-                        <i class="lni lni-dollar"></i>
-                    </div>
-                    <div class="content">
-                        <h6 class="mb-10">Enquiries</h6>
-                        <h3 class="text-bold mb-10">{{ $totalEnquiries }}</h3>
-                        <p class="mb-0">
-                            <span class="text-success">Completed: {{ $completedEnquiries }}</span> |
-                            <span class="text-danger">Pending: {{ $pendingEnquiries }}</span>
-                        </p>
-                    </div>
-                    </div>
-                    <!-- End Icon Cart -->
-                </div>
-                <!-- End Col -->
-                <div class="col-xl-4 col-lg-4 col-sm-6">
-                    <div class="icon-card mb-30">
-                    <div class="icon success">
-                        <i class="lni lni-dollar"></i>
-                    </div>
-                    <div class="content">
-                        <h6 class="mb-10">Products</h6>
-                        <h3 class="text-bold mb-10">{{ $totalProducts }}</h3>
-                        <p class="mb-0">
-                            <span class="text-success">Active: {{ $activeProducts }}</span> |
-                            <span class="text-danger">Inactive: {{ $inactiveProducts }}</span>
-                        </p>
-                    </div>
-                    </div>
-                    <!-- End Icon Cart -->
-                </div>
-                <!-- End Col -->
-                <div class="col-xl-4 col-lg-4 col-sm-6">
-                    <div class="icon-card mb-30">
-                    <div class="icon success">
-                        <i class="lni lni-dollar"></i>
-                    </div>
-                    <div class="content">
-                        <h6 class="mb-10">Categories</h6>
-                        <h3 class="text-bold mb-10">{{ $totalCategories }}</h3>
-                        <p class="mb-0">
-                            <span class="text-success">Active: {{ $activeCategories }}</span> |
-                            <span class="text-danger">Inactive: {{ $inactiveCategories }}</span>
-                        </p>
-                    </div>
-                    </div>
-                    <!-- End Icon Cart -->
-                </div>
-                <!-- End Col -->
-            </div>
-            <!-- End Row -->
-            <div class="row">
-            <div class="col-lg-6">
-                <div class="card-style mb-30">
-                <div class="title d-flex flex-wrap justify-content-between">
-                    <div class="left">
-                    <h6 class="text-medium mb-10">Enquiries Stats</h6>
-                    </div>
-                    <div class="right d-flex align-items-center gap-2 flex-wrap">
-                      <!-- Filter Type -->
-                      <div class="select-style-1">
-                          <div class="select-position select-sm">
-                              <select id="filterType" class="light-bg">
-                                  <option value="yearly">Yearly</option>
-                                  <option value="monthly">Monthly</option>
-                                  <option value="range">Date Range</option>
-                              </select>
-                          </div>
-                      </div>
-                      <!-- Date Range -->
-                      <div id="dateRangeWrapper" class="d-flex align-items-center gap-2" style="display:none !important;">
-                          <input type="date" id="fromDate" class="form-control form-control-sm">
-                          <span style="color:#999;">to</span>
-                          <input type="date" id="toDate" class="form-control form-control-sm">
-                      </div>
-                  </div>
-                </div>
-                <!-- End Title -->
-                <div class="chart">
-                    <canvas id="Chart1" style="width: 100%; height: 400px; margin-left: -35px;"></canvas>
-                </div>
-                <!-- End Chart -->
+            <div class="dash-header__right">
+                <div class="dash-date-badge">
+                    <i class="lni lni-calendar"></i>
+                    <span id="dashTodayDate"></span>
                 </div>
             </div>
-            <!-- End Col -->
-            <div class="col-lg-6">
-              <div class="card-style mb-30">
-                <div class="title d-flex flex-wrap justify-content-between align-items-center">
-                  <div class="left">
-                    <h6 class="text-medium mb-30">Top Enquired Products</h6>
-                  </div>
-                  <div class="right">
-                    <div class="select-style-1">
-                      <div class="select-position select-sm">
-                        <select class="light-bg" id="productFilterType">
-                            <option value="yearly">Yearly</option>
-                            <option value="monthly">Monthly</option>
-                            <option value="weekly">Weekly</option>
-                        </select>
-                      </div>
-                    </div>
-                    <!-- end select -->
-                  </div>
-                </div>
-                <!-- End Title -->
-                <div class="table-responsive">
-                  <table class="table top-selling-table">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>
-                          <h6 class="text-sm text-medium">Products</h6>
-                        </th>
-                        <th class="min-width">
-                          <h6 class="text-sm text-medium">Category</h6>
-                        </th>
-                        <th class="min-width">
-                          <h6 class="text-sm text-medium">Price</h6>
-                        </th>
-                        <th class="min-width">
-                          <h6 class="text-sm text-medium">Total Enquiries</h6>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody id="topProductsTable">
-                        {{-- Dynamic data will come here --}}
-                    </tbody>
-                  </table>
-                  <!-- End Table -->
-                </div>
-              </div>
-            </div>
-            <!-- End Col -->
-            </div>
-            <!-- End Row -->
-            
-            
         </div>
-    </section>
+
+        {{-- ══ STAT CARDS ══ --}}
+        <div class="dash-stats">
+
+            {{-- Enquiries --}}
+            <div class="dash-stat-card dash-stat-card--blue dash-fade-in">
+                <div class="dash-stat-card__top">
+                    <div class="dash-stat-icon dash-stat-icon--blue">
+                        <i class="lni lni-envelope"></i>
+                    </div>
+                    <a href="/admin/enquiries" class="dash-stat-card__link">
+                        View All <i class="lni lni-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="dash-stat-body">
+                    <div class="dash-stat-value">{{ $totalEnquiries }}</div>
+                    <div class="dash-stat-label">Total Enquiries</div>
+                </div>
+                <div class="dash-stat-footer">
+                    <span class="dash-stat-pill dash-stat-pill--success">
+                        <i class="lni lni-checkmark-circle"></i>
+                        Completed: {{ $completedEnquiries }}
+                    </span>
+                    <span class="dash-stat-pill dash-stat-pill--danger">
+                        <i class="lni lni-timer"></i>
+                        Pending: {{ $pendingEnquiries }}
+                    </span>
+                </div>
+            </div>
+
+            {{-- Products --}}
+            <div class="dash-stat-card dash-stat-card--green dash-fade-in" style="animation-delay:.08s">
+                <div class="dash-stat-card__top">
+                    <div class="dash-stat-icon dash-stat-icon--green">
+                        <i class="lni lni-package"></i>
+                    </div>
+                    <a href="/admin/products" class="dash-stat-card__link">
+                        View All <i class="lni lni-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="dash-stat-body">
+                    <div class="dash-stat-value">{{ $totalProducts }}</div>
+                    <div class="dash-stat-label">Total Products</div>
+                </div>
+                <div class="dash-stat-footer">
+                    <span class="dash-stat-pill dash-stat-pill--success">
+                        <i class="lni lni-checkmark-circle"></i>
+                        Active: {{ $activeProducts }}
+                    </span>
+                    <span class="dash-stat-pill dash-stat-pill--danger">
+                        <i class="lni lni-ban"></i>
+                        Inactive: {{ $inactiveProducts }}
+                    </span>
+                </div>
+            </div>
+
+            {{-- Categories --}}
+            <div class="dash-stat-card dash-stat-card--amber dash-fade-in" style="animation-delay:.16s">
+                <div class="dash-stat-card__top">
+                    <div class="dash-stat-icon dash-stat-icon--amber">
+                        <i class="lni lni-grid-alt"></i>
+                    </div>
+                    <a href="/admin/categories" class="dash-stat-card__link">
+                        View All <i class="lni lni-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="dash-stat-body">
+                    <div class="dash-stat-value">{{ $totalCategories }}</div>
+                    <div class="dash-stat-label">Total Categories</div>
+                </div>
+                <div class="dash-stat-footer">
+                    <span class="dash-stat-pill dash-stat-pill--success">
+                        <i class="lni lni-checkmark-circle"></i>
+                        Active: {{ $activeCategories }}
+                    </span>
+                    <span class="dash-stat-pill dash-stat-pill--danger">
+                        <i class="lni lni-ban"></i>
+                        Inactive: {{ $inactiveCategories }}
+                    </span>
+                </div>
+            </div>
+
+        </div>
+        {{-- end stats --}}
+
+        {{-- ══ CHARTS + TABLE ROW ══ --}}
+        <div class="row g-4">
+
+            {{-- ── Enquiries Chart ── --}}
+            <div class="col-lg-6">
+                <div class="dash-card dash-fade-in" style="animation-delay:.22s">
+
+                    <div class="dash-card__head">
+                        <div class="dash-card__head-left">
+                            <div>
+                                <span class="dash-card__head-title">Enquiries Stats</span>
+                                <p class="dash-card__head-sub">Track enquiry trends over time</p>
+                            </div>
+                        </div>
+                        <div class="dash-card__head-right">
+                            {{-- Filter Type select — id preserved --}}
+                            <div class="dash-select-wrap">
+                                <select id="filterType" class="dash-select light-bg">
+                                    <option value="yearly">Yearly</option>
+                                    <option value="monthly">Monthly</option>
+                                    <option value="range">Date Range</option>
+                                </select>
+                                <i class="lni lni-chevron-down dash-select-icon"></i>
+                            </div>
+                            {{-- Date Range — id preserved --}}
+                            <div id="dateRangeWrapper" class="dash-daterange d-flex align-items-center gap-2" style="display:none !important;">
+                                <input type="date" id="fromDate" class="form-control dash-date-input">
+                                <span class="dash-daterange-sep">→</span>
+                                <input type="date" id="toDate" class="form-control dash-date-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dash-chart-wrap">
+                        <canvas id="Chart1"></canvas>
+                    </div>
+
+                </div>
+            </div>
+            {{-- end chart col --}}
+
+            {{-- ── Top Enquired Products ── --}}
+            <div class="col-lg-6">
+                <div class="dash-card dash-fade-in" style="animation-delay:.28s">
+
+                    <div class="dash-card__head">
+                        <div class="dash-card__head-left">  
+                            <div>
+                                <span class="dash-card__head-title">Top Enquired Products</span>
+                                <p class="dash-card__head-sub">Most requested products by customers</p>
+                            </div>
+                        </div>
+                        <div class="dash-card__head-right">
+                            {{-- Filter — id preserved --}}
+                            <div class="dash-select-wrap">
+                                <select id="productFilterType" class="dash-select light-bg">
+                                    <option value="yearly">Yearly</option>
+                                    <option value="monthly">Monthly</option>
+                                    <option value="weekly">Weekly</option>
+                                </select>
+                                <i class="lni lni-chevron-down dash-select-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dash-table-scroll">
+                        <table class="table dash-top-table">
+                            <thead>
+                                <tr>
+                                    <th><h6>#</h6></th>
+                                    <th><h6 class="text-sm text-medium">Products</h6></th>
+                                    <th class="min-width"><h6 class="text-sm text-medium">Category</h6></th>
+                                    <th class="min-width"><h6 class="text-sm text-medium">Price</h6></th>
+                                    <th class="min-width"><h6 class="text-sm text-medium">Enquiries</h6></th>
+                                </tr>
+                            </thead>
+                            {{-- id preserved --}}
+                            <tbody id="topProductsTable">
+                                <tr>
+                                    <td colspan="5" class="dash-table-loading">
+                                        <div class="dash-loading-dots">
+                                            <span></span><span></span><span></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            {{-- end top products col --}}
+
+        </div>
+        {{-- end row --}}
+
+    </div>
+</section>
 @endsection
+
 @push('scripts')
-    <script src="{{ asset('assets/admin/js/Chart.min.js')}}"></script>
-    <script src="{{ asset('assets/admin/js/dynamic-pie-chart.js')}}"></script>
-    <script>    
-      // =========== chart one start
+<script src="{{ asset('assets/admin/js/Chart.min.js')}}"></script>
+<script src="{{ asset('assets/admin/js/dynamic-pie-chart.js')}}"></script>
+<script>
 
-      document.getElementById('filterType').addEventListener('change', function () {
-          let type = this.value;
-          console.log("type => ", type)
-          if (type === 'range') {
-              console.log("type1 => ", type)
-              document.getElementById('dateRangeWrapper').style.display = 'flex';
-          } else {
-              console.log("type2 => ", type)
-              document.getElementById('dateRangeWrapper').style.display = 'none !important';
-          }
+    // ── Today's date in header ──
+    (function() {
+        const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('dashTodayDate').textContent = new Date().toLocaleDateString('en-IN', opts);
+    })();
 
-          loadChart(type);
-      });
+    // =========== chart one start
 
-      const ctx1 = document.getElementById("Chart1").getContext("2d");
-      let chart1 = new Chart(ctx1, {
-          type: "line",
-          data: {
-              labels: [],
-              datasets: [{
-                  label: "Enquiries",
-                  data: [],
-                  borderColor: "#365CF5",
-                  backgroundColor: "transparent",
-                  borderWidth: 3
-              }]
-          },
-          options: {
-              responsive: true,
-              maintainAspectRatio: false
-          }
-      });
+    document.getElementById('filterType').addEventListener('change', function () {
+        let type = this.value;
+        console.log("type => ", type);
+        if (type === 'range') {
+            console.log("type1 => ", type);
+            document.getElementById('dateRangeWrapper').style.display = 'flex';
+        } else {
+            console.log("type2 => ", type);
+            document.getElementById('dateRangeWrapper').style.display = 'none';
+        }
+        loadChart(type);
+    });
 
-      // function to load data
-      function loadChart(type = 'yearly') {
+    const ctx1 = document.getElementById("Chart1").getContext("2d");
+    let chart1 = new Chart(ctx1, {
+        type: "line",
+        data: {
+            labels: [],
+            datasets: [{
+                label: "Enquiries",
+                data: [],
+                borderColor: "#3d5a2e",
+                backgroundColor: "rgba(61,90,46,0.07)",
+                borderWidth: 2.5,
+                pointBackgroundColor: "#3d5a2e",
+                pointBorderColor: "#ffffff",
+                pointBorderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 7,
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#1e2d14',
+                    titleColor: '#eef4e8',
+                    bodyColor: '#b5c4a3',
+                    padding: 12,
+                    cornerRadius: 10,
+                    displayColors: false
+                }
+            },
+            scales: {
+                x: {
+                    grid: { color: 'rgba(61,90,46,0.07)', drawBorder: false },
+                    ticks: { color: '#8a9e78', font: { family: "'Plus Jakarta Sans', sans-serif", size: 11 } }
+                },
+                y: {
+                    grid: { color: 'rgba(61,90,46,0.07)', drawBorder: false },
+                    ticks: { color: '#8a9e78', font: { family: "'Plus Jakarta Sans', sans-serif", size: 11 } }
+                }
+            }
+        }
+    });
 
-          let from = document.getElementById('fromDate').value;
-          let to = document.getElementById('toDate').value;
+    function loadChart(type = 'yearly') {
+        let from = document.getElementById('fromDate').value;
+        let to   = document.getElementById('toDate').value;
 
-          fetch(`/admin/enquiry-stats?type=${type}&from=${from}&to=${to}`)
-              .then(res => res.json())
-              .then(res => {
-                  chart1.data.labels = res.labels;
-                  chart1.data.datasets[0].data = res.data;
-                  chart1.update();
-              });
-      }
+        fetch(`/admin/enquiry-stats?type=${type}&from=${from}&to=${to}`)
+            .then(res => res.json())
+            .then(res => {
+                chart1.data.labels = res.labels;
+                chart1.data.datasets[0].data = res.data;
+                chart1.update();
+            });
+    }
 
-      // dropdown change
-      document.getElementById('filterType').addEventListener('change', function () {
-          loadChart(this.value);
-      });
+    // dropdown change (second listener — preserved from original)
+    document.getElementById('filterType').addEventListener('change', function () {
+        loadChart(this.value);
+    });
 
-      // date change events
-      document.getElementById('dateRangeWrapper').addEventListener('change', function () {
+    // date change events — id preserved
+    document.getElementById('dateRangeWrapper').addEventListener('change', function () {
         loadChart('range');
-      });
+    });
 
-      // initial load
-      loadChart();
-      // =========== chart one end
+    // initial load
+    loadChart();
+    // =========== chart one end
 
-        function loadTopProducts(type = 'yearly') {
-            fetch(`/admin/top-products?type=${type}`)
+    // ── Top Products ──
+    function loadTopProducts(type = 'yearly') {
+        fetch(`/admin/top-products?type=${type}`)
             .then(res => res.json())
             .then(data => {
 
                 let html = '';
 
                 if (data.length === 0) {
-                    html = `<tr><td colspan="6">No data found</td></tr>`;
+                    html = `<tr><td colspan="5" class="dash-table-empty">
+                                <i class="lni lni-package"></i>
+                                <p>No data found for this period</p>
+                            </td></tr>`;
                 }
 
                 data.forEach((item, index) => {
                     let product = item.product || {};
+                    let cats = product.categories
+                        ? product.categories.map(c => `<span class="dash-cat-chip">${c.name}</span>`).join('')
+                        : '<span class="dash-cell-empty">N/A</span>';
 
                     html += `
                     <tr>
-                        <td>${index + 1}</td>
-
                         <td>
-                            <div class="product">
-                                <div class="image">
-                                    <img src="/uploads/products/${product.id}/${product.feature_image}" width="40" />
+                            <span class="dash-row-index">${index + 1}</span>
+                        </td>
+                        <td>
+                            <div class="dash-product-cell">
+                                <div class="dash-product-img">
+                                    <img src="/uploads/products/${product.id}/${product.feature_image}" alt="${product.name ?? ''}">
                                 </div>
-                                <p class="text-sm">${product.name ?? 'N/A'}</p>
+                                <p class="dash-product-name">${product.name ?? 'N/A'}</p>
                             </div>
                         </td>
-
+                        <td><div class="dash-cat-chips">${cats}</div></td>
+                        <td><span class="dash-price">₹${product.price ?? 0}</span></td>
                         <td>
-                            <p class="text-sm">${product.categories 
-    ? product.categories.map(c => c.name).join(', ') 
-    : 'N/A'}</p>
-                        </td>
-
-                        <td>
-                            <p class="text-sm">₹${product.price ?? 0}</p>
-                        </td>
-
-                        <td>
-                            <p class="text-sm">${item.total_enquiries}</p>
+                            <span class="dash-enq-count">${item.total_enquiries}</span>
                         </td>
                     </tr>
                     `;
@@ -284,17 +350,15 @@
 
                 document.getElementById('topProductsTable').innerHTML = html;
             });
-        }
+    }
 
-        // Load default
-        loadTopProducts();
+    // Load default
+    loadTopProducts();
 
-        // Change event
-        document.getElementById('productFilterType').addEventListener('change', function () {
-            loadTopProducts(this.value);
-        });
+    // Change event — id preserved
+    document.getElementById('productFilterType').addEventListener('change', function () {
+        loadTopProducts(this.value);
+    });
 
-    </script>
-
+</script>
 @endpush
-    

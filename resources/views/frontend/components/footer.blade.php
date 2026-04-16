@@ -19,10 +19,15 @@
         <div>
           <div class="footer-col-title">Policies</div>
           <div class="footer-links" aria-label="Policy links">
-            <a href="#">Shipping Policy</a>
+            {{-- <a href="#">Shipping Policy</a>
             <a href="#">Refund &amp; Return Policy</a>
             <a href="/terms-of-use">Terms of Use</a>
-            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/privacy-policy">Privacy Policy</a> --}}
+             @foreach($pages as $p)
+              <a href="{{ route('page.show', $p->slug) }}">
+                  {{ ucfirst($p->title) }}
+              </a>
+            @endforeach
           </div>
         </div>
         <div class="footer-contact">

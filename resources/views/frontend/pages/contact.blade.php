@@ -1,6 +1,15 @@
 @extends('frontend.layouts.app')
 @section('title','Contact Us - Cholan Arts')
 @section('content')
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb-wrap">
+      <div class="container">
+        <ul class="breadcrumb">
+          <li><a href="{{ url('/') }}">Home</a></li>
+          <li class="active">Contact Us</li>
+        </ul>
+      </div>
+    </div>
     <!-- HERO -->
     <section @class(['inner-banner'])>
       <span @class(['mb-3'])>Get in Touch</span>
