@@ -1,5 +1,7 @@
 @extends('frontend.layouts.app')
-@section('title','Gallery - Cholan Arts')
+@section('seo_title', $seo->meta_title )
+@section('seo_description', $seo->meta_description )
+@section('seo_keywords', $seo->meta_keywords )
 @section('content')
 <!-- BREADCRUMB -->
 <div class="breadcrumb-wrap">
