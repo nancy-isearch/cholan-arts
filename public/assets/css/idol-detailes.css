@@ -965,6 +965,34 @@ html {
   }
 }
 @media (max-width: 768px) {
+    .modal-form {
+        padding: 1rem !important;
+    }
+    .modal-idol-strip {
+        padding: 1rem !important;
+    }
+    .modal-close {
+    width: 28px;
+    height: 28px;
+    font-size: 0.80rem;
+    }
+     
+    .modal-header p {
+        display: none;
+    }
+     
+    .modal-header h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0;
+    }
+     
+    .btn-submit-modal
+    {
+        padding: 0.50rem;
+    }
+  .thumb {
+    width: 80px;
+  }
   /* .nav-links {
     display: none;
   }

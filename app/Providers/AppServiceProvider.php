@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Page;
+use App\Models\Category;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,8 +24,11 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer('*', function ($view) {
             $pages = Page::where('status', 1)->get();
+            $menuCategories = Category::where('is_active', 1)->whereHas('products', function ($q) {
+                $q->where('status', 1);
+            })->get();
             
-            $view->with('pages', $pages);
+            $view->with('pages', $pages)->with('menuCategories', $menuCategories);
         });
     }
 }

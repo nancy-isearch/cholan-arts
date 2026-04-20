@@ -96,7 +96,7 @@
                             <th><h6>Name</h6></th>
                             <th><h6>Email</h6></th>
                             <th><h6>Phone</h6></th>
-                            <th><h6>Program</h6></th>
+                            <th><h6>City/Country</h6></th>
                             <th><h6>Status</h6></th>
                             <th><h6>Date</h6></th>
                             <th><h6>Action</h6></th>
@@ -172,8 +172,8 @@
                     </div>
 
                     <div class="enq-modal__field">
-                        <span class="enq-modal__field-label"><i class="lni lni-layers"></i> Program</span>
-                        <span class="enq-modal__field-value" id="v_program">—</span>
+                        <span class="enq-modal__field-label"><i class="lni lni-layers"></i> City/Country</span>
+                        <span class="enq-modal__field-value" id="v_country_city">—</span>
                     </div>
 
                     <div class="enq-modal__field">
@@ -287,8 +287,8 @@
                     }
                 },
                 {
-                    data: 'program',
-                    name: 'program',
+                    data: 'country_city',
+                    name: 'country_city',
                     createdCell: function (td, cellData, rowData, row, col) {
                         $(td).addClass('min-width');
                     },
@@ -382,7 +382,7 @@
                 $('#v_name').text(data.full_name);
                 $('#v_email').text(data.email);
                 $('#v_phone').text(data.phone);
-                $('#v_program').text(data.program ? data.program : 'NA');
+                $('#v_country_city').text(data.country_city ? data.country_city : 'NA');
                 $('#v_message').text(data.message ? data.message : 'NA');
                 $('#v_preferred_size').text(data.preferred_size ? data.preferred_size : 'NA');
                 $('#v_preferred_time').text(data.preferred_time ? data.preferred_time : 'NA');

@@ -13,6 +13,9 @@ class Page extends Model
         'hero_title',
         'hero_subtitle',
         'hero_image',
-        'status'
+        'status',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
     ];
 }

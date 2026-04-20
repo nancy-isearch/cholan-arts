@@ -4,12 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@yield('seo_title', 'Cholan Arts')</title>
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url()->current() }}" />
+
     <meta name="description" content="@yield('seo_description', 'Cholan Arts preserves the ancient Lost Wax tradition of the Chola Dynasty. Shop authentic handcrafted bronze deity idols - Ganesha, Shiva, Nataraja, Lakshmi and more.')" />
     <meta name="keywords" content="@yield('seo_keywords', 'bronze idols, hindu idols, ganesha idol, shiva idol, nataraja statue, lakshmi idol, handcrafted idols, cholan arts')" />
     
     <meta name="author" content="Cholan Arts Emporium" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://cholanarts.com/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -71,7 +74,7 @@
 
     <!-- Elfsight Google Reviews | Cholan Arts  -->
     <script src="https://elfsightcdn.com/platform.js" async></script>
-    <!-- jQuery -->
+      <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
   </head>
@@ -92,24 +95,28 @@
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
     @stack('scripts')
     <script>
+      function toggleMobileDropdown() {
+        const dropdown = document.querySelector(".mobile-dropdown");
+        dropdown.classList.toggle("active");
+      }
       // ===== HERO SWIPER =====
       new Swiper(".hero-swiper", {
         loop: true,
         autoplay: {
           delay: 5000,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
+          disableOnInteraction: false
         },
         speed: 700,
-        effect: "fade",
+        effect: "fade",        
         fadeEffect: { crossFade: true },
         pagination: {
           el: ".hero-swiper .swiper-pagination",
           clickable: true,
+          dynamicBullets: true,
         },
         navigation: {
-          nextEl: ".hero-swiper .swiper-button-next",
-          prevEl: ".hero-swiper .swiper-button-prev",
+          nextEl: "#hero-next-btn",
+          prevEl: "#hero-prev-btn",
         },
         a11y: {
           prevSlideMessage: "Previous slide",
@@ -119,16 +126,17 @@
 
       // ===== PRODUCTS SWIPER 1 =====
       new Swiper("#deitySwiper", {
-        slidesPerView: 1,
+        slidesPerView: 1.2,
         spaceBetween: 24,
         loop: true,
         autoplay: {
           delay: 4000,
           disableOnInteraction: false,
           pauseOnMouseEnter: true,
+          
         },
         speed: 600,
-        pagination: { el: "#deitySwiper .swiper-pagination", clickable: true },
+        pagination: { el: "#deitySwiper .swiper-pagination", clickable: true, dynamicBullets: true },
         breakpoints: {
           480: { slidesPerView: 2 },
           768: { slidesPerView: 3 },
@@ -161,8 +169,8 @@
 
       // ===== REVIEWS SWIPER =====
       new Swiper(".reviews-swiper", {
-        slidesPerView: 1,
-        spaceBetween: 24,
+        slidesPerView: 1.2,
+        spaceBetween: 15,
         loop: true,
         autoplay: {
           delay: 5000,
@@ -172,7 +180,7 @@
         speed: 600,
         pagination: {
           el: ".reviews-swiper .swiper-pagination",
-          clickable: true,
+          clickable: true, dynamicBullets: true,
         },
         breakpoints: {
           640: { slidesPerView: 2 },
@@ -217,8 +225,8 @@
     </script>
     <script>
       var swiper = new Swiper(".mySwiper", {
-        slidesPerView: 2,
-        spaceBetween: 30,
+        slidesPerView: 1.2,
+        spaceBetween: 20,
         loop: true,
         autoplay: {
           delay: 2500,
@@ -226,13 +234,13 @@
         },
         breakpoints: {
           0: {
-            slidesPerView: 1,
+            slidesPerView: 1.2,
           },
           768: {
-            slidesPerView: 1.5,
+            slidesPerView: 1.5, 
           },
           1024: {
-            slidesPerView: 2,
+            slidesPerView: 2.2,
           },
         },
       });

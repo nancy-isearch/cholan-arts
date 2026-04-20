@@ -381,6 +381,7 @@ ul {
     transition: 0.4s ease;
 }
 
+
 /* HOVER EFFECTS */
 .card-inner:hover .ganesha-btn-wrapper {
     max-height: 100%;
@@ -389,6 +390,7 @@ ul {
 }
 .card-inner:hover .ganesha-btn {
     transform: translateY(0);
+    color:#fff;
 }
 
 .card-inner:hover .card-image img {
@@ -422,5 +424,108 @@ ul {
 
 
 
-/* Login Page CSS */
+/* contact branch CSS */
+
+.branches {
+  padding: 80px 20px;
+  background: linear-gradient(180deg, #f0f7ff, #ffffff);
+  font-family: 'Poppins', sans-serif;
+}
+
+.branches .section-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.section-header h2 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #0a2540;
+}
+
+.section-header p {
+  color: #6c7a89;
+  margin-top: 10px;
+}
+
+.branches-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+/* Card Design */
+.branch-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 25px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover Effect */
+.branch-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+/* Icon */
+.branch-card .icon {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+/* Title */
+.branch-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #c96a25;
+}
+
+/* Address */
+.branch-card .address {
+  font-size: 14px;
+  color: #6c7a89;
+  margin-bottom: 15px;
+}
+
+/* Phone */
+.branch-card .phone {
+  display: flex;
+    color: #2a4027;
+    text-decoration: none;
+    transition: 0.3s;
+    align-items: center;
+    gap: 5px;
+}
+
+.branch-card .phone:hover {
+  color: #2a4027;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .branches-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+    .branches {
+  padding: 40px 20px;
+}
+.branches .section-header{
+    margin-bottom: 20px;
+}
+  .branches-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-header h2 {
+    font-size: 26px;
+  }
+}   
 

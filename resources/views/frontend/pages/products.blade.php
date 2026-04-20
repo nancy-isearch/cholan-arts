@@ -97,13 +97,13 @@
           id="progressFill"
           style="width: 0%"></div>
       </div>
-      <!-- Lightbox -->
+      {{-- <!-- Lightbox -->
       <div id="lightbox" onclick="closeLightboxBg(event)">
         <img id="lbImg">
         <span id="lbTag"></span>
         <h4 id="lbTitle"></h4>
         <p id="lbDesc"></p>
-      </div>
+      </div> --}}
     </div>
   </section>
 
@@ -263,6 +263,17 @@
 @endsection
 @push('scripts')
 <script>
+  function scrollActiveTabIntoView() {
+    const activeTab = document.querySelector(".tab-btn.active");
+
+    if (activeTab) {
+      activeTab.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest"
+      });
+    }
+  }
   function scrollTabs(direction) {
     const tabBar = document.getElementById('tabBar');
 
@@ -334,39 +345,9 @@
     });
   }
 
-
-  // ================= CREATE CARD =================
-  // function createCard(item, index) {
-  //   console.log("item => ", item)
-  //   const div = document.createElement("div");
-  //   div.className = "gallery-item";
-
-  //   if (item.size) {
-  //     div.classList.add(item.size); // ✅ IMPORTANT
-  //   }
-  //   div.innerHTML = `<a href="/product/${item.slug}">
-  //     <img src="${item.image}" alt="${item.title}" loading="lazy" />
-  //     <div class="gallery-overlay">
-  //       <div class="overlay-content">
-  //         <span class="oc-tag">${CAT_LABELS[item.category] || item.category}</span>
-  //         <h4>${item.title}</h4>
-  //         <p>${item.desc}</p>
-  //       </div>
-  //     </div>
-  //     <div class="overlay-zoom">⊕</div></a>
-  //   `;
-
-  //   div.addEventListener("click", () => openLightbox(index));
-
-  //   return div;
-  // }
   function createCard(item, index) {
     const div = document.createElement("div");
     div.className = "gallery-item";
-
-    // if (item.size) {
-    //   div.classList.add(item.size);
-    // }
 
     div.innerHTML = `
     <div class="card-inner gallery-card">
@@ -380,20 +361,14 @@
         <div class="card-image">
             <img src="${item.image}" alt="${item.title}" loading="lazy" />
         </div>
-
         <div class="card-overlay"></div>
-
-        
-
         <!-- BOTTOM CONTENT -->
         <div class="card-content">
             <div class="card-text">
                 <span class="category">
                     ${CAT_LABELS[item.category] || item.category}
                 </span>
-
                 <h4>${item.title}</h4>
-
                 <div class="ganesha-btn-wrapper">
                     <a
                         href="/product/${item.slug}"
@@ -650,7 +625,19 @@
   $(document).ready(function() {
     const urlParams = new URLSearchParams(window.location.search);
     const category = urlParams.get('c') ?? 'all';
+    // ✅ Active class set manually
+    $(".tab-btn").removeClass("active");
 
+    $(".tab-btn").each(function () {
+      if ($(this).attr("onclick")?.includes(`'${category}'`)) {
+        $(this).addClass("active");
+      }
+    });
+
+    // ✅ Scroll active tab into view
+    setTimeout(() => {
+      scrollActiveTabIntoView();
+    }, 100); // small delay for DOM render
     fetchProducts(category, true);
   });
 </script>

@@ -104,15 +104,42 @@
                                 </div>
                             </div>
 
+                            <!-- SSEO Details -->
+                            <div class="card mb-3">
+                                <div class="card-header">SEO Meta Details</div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <!-- Meta Title -->
+                                        <div class="col-md-6 mb-2">
+                                            <label>Meta Title</label>
+                                            <input type="text" name="meta_title" class="form-control">
+                                        </div>
+                                        <!-- Meta Keywords -->
+                                        <div class="col-md-6 mb-2">
+                                            <label>Meta Keywords</label>
+                                            <div class="tag-container border p-2 d-flex flex-wrap" id="metaTagContainer">
+                                                <input type="text" id="metaTagInput" placeholder="Type and press Enter"
+                                                    class="border-0 flex-grow-1" style="outline:none;">
+                                            </div>
+
+                                            <input type="hidden" name="meta_keywords" id="metaKeywordsHidden">
+
+                                            <small class="text-muted">Press Enter to add keyword</small>
+                                        </div>
+                                        <!-- Meta Description -->
+                                        <div class="col-md-12 mb-2">
+                                            <label>Meta Description</label>
+                                            <textarea name="meta_description" class="form-control" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-primary">Save Page</button>
-
                         </form>
-
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </section>
 @endsection
@@ -209,6 +236,33 @@
             });
 
         });
+
+        // ── Tags ──
+        let tags = [];
+        $('#metaTagInput').on('keypress', function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                let value = $(this).val().trim();
+                if (value !== '' && !tags.includes(value)) {
+                    tags.push(value);
+                    $('#metaTagContainer').prepend(`
+                        <div class="apf-chip tag">
+                            ${value}
+                            <span class="apf-chip__remove remove-tag" data-value="${value}">&times;</span>
+                        </div>
+                    `);
+                    $(this).val('');
+                    updateHiddenInput();
+                }
+            }
+        });
+        $(document).on('click', '.remove-tag', function () {
+            let value = $(this).data('value');
+            tags = tags.filter(tag => tag !== value);
+            $(this).parent().remove();
+            updateHiddenInput();
+        });
+        function updateHiddenInput() { $('#metaKeywordsHidden').val(tags.join(',')); }
 
     });
 

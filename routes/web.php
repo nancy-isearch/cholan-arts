@@ -20,12 +20,16 @@ Route::view('/contact-us', 'frontend.pages.contact');
 Route::view('/terms-of-use', 'frontend.pages.terms-conditions');
 Route::post('/enquiry', [EnquiryController::class, 'store']);
 
+Route::get('/product-bulk-upload', [ProductController::class, 'importProducts']);
+
 Route::get('/', [FrontendController::class, 'getHomeContent']);
 Route::get('/product/{id}', [FrontendController::class, 'productDetail']);
 Route::get('/products', [FrontendController::class, 'categoryList']);
 Route::get('/get-products', [FrontendController::class, 'getProducts']);  
 Route::get('/search-suggest', [FrontendController::class, 'suggest']);  
 Route::get('/{slug}', [FrontendController::class, 'showPage'])->name('page.show');
+
+
 
 
 

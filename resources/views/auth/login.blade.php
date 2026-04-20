@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" href="{{ asset('assets/admin/images/favicon.svg')}}" type="image/x-icon" />
+  <link rel="shortcut icon" href="{{ asset('assets/svg/favicon-16x16.png') }}" type="image/x-icon" />
   <title>Sign In</title>
 
   <!-- ========== All CSS files linkup ========= -->
@@ -86,15 +86,15 @@
                       </div>
                     </div>
                     <!-- end col -->
-                    <div class="col-xxl-6 col-lg-12 col-md-6">
-                      <div class="text-start text-md-end text-lg-start text-xxl-end mb-30">
-                        @if (Route::has('password.request'))
-                        <a class="btn btn-link" class="hover-underline" href="{{ route('password.request') }}">
-                          {{ __('Forgot Your Password?') }}
-                        </a>
-                        @endif
-                      </div>
-                    </div>
+                    <!--<div class="col-xxl-6 col-lg-12 col-md-6">-->
+                    <!--  <div class="text-start text-md-end text-lg-start text-xxl-end mb-30">-->
+                    <!--    @if (Route::has('password.request'))-->
+                    <!--    <a class="btn btn-link" class="hover-underline" href="{{ route('password.request') }}">-->
+                    <!--      {{ __('Forgot Your Password?') }}-->
+                    <!--    </a>-->
+                    <!--    @endif-->
+                    <!--  </div>-->
+                    <!--</div>-->
                     <!-- end col -->
                     <div class="col-12">
                       <div class="button-group d-flex justify-content-center flex-wrap">

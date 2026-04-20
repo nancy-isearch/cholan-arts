@@ -126,7 +126,7 @@
   position: relative;
   overflow: hidden;
   background: var(--green-dark);
-  min-height: 92vh;
+  height: auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
@@ -185,7 +185,7 @@
 
 .hero-h1 {
   
-  font-size: clamp(3rem, 5.5vw, 5.5rem);
+  font-size: clamp(2rem, 5.5vw, 5.5rem);
   font-weight: 400;
   color: var(--white);
   line-height: 1.05;
@@ -426,7 +426,7 @@
 .story-img-main img {
   width: 100%;
   display: block;
-  aspect-ratio: 3/4;
+  aspect-ratio: 4/4;
   object-fit: cover;
 }
 .story-img-float {
@@ -1208,8 +1208,7 @@
     min-height: auto;
   }
   .hero-right {
-    height: 50vw;
-    min-height: 300px;
+    display: none;
   }
   .hero-left {
     padding: 4rem 2rem;
@@ -1254,6 +1253,17 @@
   }
 }
 @media (max-width: 768px) {
+  .story-year-pill{
+    left: 1rem;
+  }
+  .timeline-section, .story-section, .values-section, .founder-section, .stats-section, .philosophy-section, .awards-section, .impact-section{
+    padding: 3rem 1rem;
+    overflow-x: hidden;
+  }
+  .values-head{
+    margin-bottom: 1.5rem;
+  }
+  
   .timeline::before {
     left: 24px;
   }
@@ -1279,6 +1289,12 @@
   }
 }
 @media (max-width: 600px) {
+    .hero-eyebrow{
+     font-size: 0.65rem;
+    }
+    .hero-sub {
+  font-size: 1rem;
+}
   .hero-stats {
     gap: 1.5rem;
   }
@@ -1437,4 +1453,38 @@
 .breadcrumb .active {
   color: #000;
   font-weight: 600;
+}
+
+.mobile-dropdown .dropdown-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 12px 0;
+  font-weight: 500;
+}
+
+.mobile-dropdown .dropdown-menu {
+  display: none;
+  padding-left: 10px;
+}
+
+.mobile-dropdown .dropdown-menu li {
+  list-style: none;
+}
+
+.mobile-dropdown .dropdown-menu a {
+  display: block;
+  padding: 8px 0;
+  color: #333;
+  font-size: 14px;
+}
+
+/* Active state */
+.mobile-dropdown.active .dropdown-menu {
+  display: block;
+}
+
+.mobile-dropdown.active .arrow {
+  transform: rotate(180deg);
 }

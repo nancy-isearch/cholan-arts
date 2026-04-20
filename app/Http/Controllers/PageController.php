@@ -58,6 +58,7 @@ class PageController extends Controller
             'content' => 'nullable',
             'hero_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'status' => 'required|in:0,1',
+            
         ]);
 
         if ($validator->fails()) {

@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@yield('title', 'Cholan Arts')</title>
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url()->current() }}" />
+
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/svg/favicon-16x16.png') }}">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -22,16 +26,33 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/pages/about-us.css') }}" />
+    <!-- Elfsight Google Reviews | Cholan Arts  -->
+    <script src="https://elfsightcdn.com/platform.js" async></script>
   </head>
   <body>
     @include('frontend.components.header')
     @yield('content')
     @include('frontend.components.footer') 
-
+<script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
+      function toggleMobileDropdown() {
+        const dropdown = document.querySelector(".mobile-dropdown");
+        dropdown.classList.toggle("active");
+      }
       // ===== REVIEWS SWIPER =====
       new Swiper(".reviews-swiper", {
         slidesPerView: 1,
@@ -142,5 +163,46 @@
           }
       });
     </script>
+    <script>
+
+      // ===== HAMBURGER =====
+      const hamburger = document.querySelector(".hamburger");
+      const mobileNav = document.querySelector(".mobile-nav");
+
+      hamburger.addEventListener("click", () => {
+        const isOpen = mobileNav.classList.toggle("open");
+        hamburger.classList.toggle("open", isOpen);
+        hamburger.setAttribute("aria-expanded", isOpen);
+        document.body.style.overflow = isOpen ? "hidden" : "";
+      });
+
+      // Close mobile nav when a link is clicked
+      mobileNav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileNav.classList.remove("open");
+          hamburger.classList.remove("open");
+          hamburger.setAttribute("aria-expanded", "false");
+          document.body.style.overflow = "";
+        });
+      });
+
+      // ===== NAVBAR SCROLL SHADOW =====
+      const nav = document.querySelector("nav");
+      window.addEventListener(
+        "scroll",
+        () => {
+          nav.style.boxShadow =
+            window.scrollY > 10
+              ? "0 4px 20px rgba(0,0,0,0.12)"
+              : "0 2px 16px rgba(0,0,0,0.08)";
+        },
+        { passive: true },
+      );
+      
+    </script>
+    @stack('scripts') 
+    
+
+    
   </body>
 </html>

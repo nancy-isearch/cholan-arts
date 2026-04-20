@@ -14,7 +14,25 @@
         <li><a href="/" {{ request()->is('/') ? 'aria-current=page' : '' }}>Home</a></li>
         <li><a href="/about-us" {{ request()->is('about-us') ? 'aria-current=page' : '' }}>About Us</a></li>
         <li><a href="/products" {{ request()->is('products') ? 'aria-current=page' : '' }} >Products</a></li>
-        <li><a href="#">Best Sellers</a></li>
+        <!--<li><a href="#">Best Sellers</a></li>-->
+        <!-- Categories Dropdown -->
+        <li class="dropdown">
+          <span class="dropdown-toggle">Categories</span>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="{{ url('products') }}">
+                All Products
+              </a>
+            </li>
+            @foreach($menuCategories as $category)
+              <li>
+                <a href="{{ url('products?c='.$category->name) }}">
+                  {{ ucfirst($category->name) }}
+                </a>
+              </li>
+            @endforeach
+          </ul>
+        </li>
         <li><a href="/contact-us" {{ request()->is('contact-us') ? 'aria-current=page' : '' }}>Contact Us</a></li>
       </ul>
 
@@ -82,8 +100,29 @@
       aria-label="Mobile navigation"
     >
       <a href="/">Home</a>
-      <a href="/about-us.html">About Us</a>
-      <a href="/catalog.html">Catalog</a>
-      <a href="#">Best Sellers</a>
-      <a href="/contact-us.html" class="btn-orange">Contact Us</a>
+      <a href="/about-us">About Us</a>
+      <a href="/products">Products</a>
+      <!--<a href="#">Best Sellers</a>-->
+      <!-- Categories Dropdown -->
+      <div class="mobile-dropdown">
+        <div class="dropdown-toggle" onclick="toggleMobileDropdown()">
+          Categories
+          <span class="arrow">▼</span>
+        </div>
+
+        <ul class="dropdown-menu" id="mobileCategoryMenu">
+          <li>
+            <a href="{{ url('products') }}">All Products</a>
+          </li>
+
+          @foreach($menuCategories as $category)
+            <li>
+              <a href="{{ url('products?c='.$category->name) }}">
+                {{ ucfirst($category->name) }}
+              </a>
+            </li>
+          @endforeach
+        </ul>
+      </div>
+      <a href="/contact-us" class="btn-orange">Contact Us</a>
     </nav>

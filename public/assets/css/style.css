@@ -94,7 +94,7 @@ nav {
   gap: 10px;
   background: var(--orange);
   border-radius: 200px;
-  padding: 14px 28px;
+  padding: 10px 18px;
   font-size: 16px;
   font-weight: 600;
   color: #000;
@@ -208,7 +208,7 @@ nav {
 }
 .hero-content h1 {
   font-family: var(--font-serif);
-  font-size: clamp(36px, 4.5vw, 52px);
+  font-size: clamp(28px, 4.5vw, 52px);
   font-weight: 400;
   line-height: 1.22;
   color: var(--green);
@@ -333,6 +333,7 @@ nav {
   font-size: clamp(28px, 3vw, 52px);
   font-weight: 400;
   color: var(--green);
+  margin-bottom: 0;
 }
 .explore-link {
   display: flex;
@@ -354,10 +355,10 @@ nav {
 .products-swiper {
   max-width: 1820px;
   margin: 0 auto;
-  padding-bottom: 50px !important;
+  padding-bottom: 25px !important;
 }
 .products-swiper .swiper-pagination-bullet {
-  width: 44px;
+  width: 20px;
   height: 4.5px;
   border-radius: 10px;
   background: #ddd;
@@ -372,7 +373,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   max-width: 1820px;
-  margin: 0 auto 24px;
+  margin: 0 auto 30px;
 }
 .swiper-nav-btn {
   display: flex;
@@ -424,7 +425,7 @@ nav {
   padding: 20px 0px;
 }
 .product-card-title {
-  font-size: clamp(15px, 1.1vw, 18px);
+  font-size: clamp(18px, 1.1vw, 18px);
   font-weight: 600;
   color: var(--dark);
   margin-bottom: 8px;
@@ -545,6 +546,7 @@ nav {
   overflow: hidden;
   cursor: pointer;
   background: var(--cream);
+  min-height: 400px;
 }
 .category-half-bg {
   position: absolute;
@@ -744,7 +746,7 @@ nav {
 
 /* ===== TESTIMONIALS SWIPER ===== */
 .testimonials-section {
-/* background-image: url(../images/bg/testimonial-bg.jpg); */
+background-image: url(../images/bg/testimonial-bg.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -880,10 +882,8 @@ nav {
 
 /* HEADING */
 .featured-card-body h3 {
-  font-family: "Playfair Display", serif;
   font-size: 36px;
   font-weight: 500;
-  margin-bottom: 20px;
   color: #1e1e1e;
 }
 
@@ -892,7 +892,6 @@ nav {
   font-size: 16px;
   line-height: 1.8;
   color: #5a5a5a;
-  margin-bottom: 30px;
   max-width: 420px;
 }
 
@@ -1070,12 +1069,20 @@ nav {
 }
 
 @media (max-width: 991px) {
+  
   .service-strip .service-grid {
      grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 900px) {
+  .ganesha-left img{
+    width: 150px; margin: auto;
+  }
+  .crafting-img-center img{
+    width: 150px; margin: auto;
+  }
+  .category-split .info-row {gap: 20px !important;}
   .nav-links,
   .search-bar {
     display: none;
@@ -1110,6 +1117,38 @@ nav {
 }
 
 @media (max-width: 768px) {
+  product-card p {
+    font-size: 14px;
+  }
+  nav img {height: 70px !important; width: 100% !important;}
+  .btn-orange {
+    gap: 5px !important;
+    padding: 10px 18px !important;
+    font-size: 14px !important;
+  }
+  .hero-swiper .swiper-slide{
+    align-items: start;
+    padding-top: 30px;
+  }
+  .hero-swiper{
+    height: 650px;
+  }
+  .hero-overlay{
+    display: none;
+  }
+  .category-split .info-row {gap: 20px;}
+  .swiper-nav-row{
+    display:block;
+    text-align: center;
+  }
+  .explore-link  {
+    justify-content: center;
+    margin-top: 6px !important;
+  }
+  .features-bar {
+    background-image: none;
+    background-color: #e9e2cf;
+  }
   .service-strip .service-grid {
      grid-template-columns: repeat(1, 1fr);
   }
@@ -1118,7 +1157,7 @@ nav {
   }
 
   .featured-card-body {
-    padding: 30px 25px;
+    padding: 20px;
   }
   .category-split {
     grid-template-columns: 1fr;
@@ -1148,7 +1187,7 @@ nav {
   }
   .product-cards-mini {
     grid-template-columns: repeat(2, 1fr);
-  }
+  }  
 }
 
 @media (max-width: 480px) {
@@ -1239,15 +1278,12 @@ nav {
     height:550px;
   }
 
-  .category-split .info-row{
+  /* .category-split .info-row{
     flex-direction:column;
     gap:30px;
-  }
+  } */
 
-  .category-split .info-divider{
-    display:none;
-  }
-
+  
   .category-split .info-title h3{
     font-size:22px;
   }
@@ -1543,10 +1579,19 @@ nav {
         gap: 1.25rem;
       }
       .form-row { grid-template-columns: 1fr; }
-      .contact-grid { padding: 2rem;}
+      .contact-grid { padding: 1rem;}
     }
     @media (max-width: 480px) {
       .form-side { padding: 1.75rem 1.5rem; }
+      .category-split .info-col p{
+          font-size:16px;
+        }
+        .category-split .info-title h3{
+          font-size: 20px; margin-bottom: 30px;
+        }
+        .category-split .info-line{
+          margin-top: 20px;
+        }
     }
 
     /* Entrance animation */
@@ -1567,7 +1612,7 @@ nav {
     .gallery-section { max-width: 1280px; margin: 0 auto; padding: 3.5rem 2rem 5rem; }
     .section-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--orange); text-align: center; margin-bottom: 0.5rem; }
     .section-label::before { content: '— '; }
-    .section-title {  font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; color: var(--green); text-align: center; margin-bottom: 2rem; }
+    .gallery-section .section-title {  font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; color: var(--green); text-align: center; margin-bottom: 1.5rem }
 
     /* ── TAB BAR — screenshot style ── */
     .tab-bar-outer {
@@ -1931,5 +1976,74 @@ nav {
 
 .faq-item.active .faq-icon {
     transform: rotate(45deg);
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+  /* padding: 10px; */
+  display: inline-block;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  min-width: 200px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  z-index: 999;
+}
+
+.dropdown-menu li {
+  list-style: none;
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 10px;
+  color: #333;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.mobile-dropdown .dropdown-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 12px 0;
+  font-weight: 500;
+}
+
+.mobile-dropdown .dropdown-menu {
+  display: none;
+  padding-left: 10px;
+}
+
+.mobile-dropdown .dropdown-menu li {
+  list-style: none;
+}
+
+.mobile-dropdown .dropdown-menu a {
+  display: block;
+  padding: 8px 0;
+  color: #333;
+  font-size: 14px;
+}
+
+/* Active state */
+.mobile-dropdown.active .dropdown-menu {
+  display: block;
+}
+
+.mobile-dropdown.active .arrow {
+  transform: rotate(180deg);
 }
 

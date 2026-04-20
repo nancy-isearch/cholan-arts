@@ -16,12 +16,12 @@ return new class extends Migration
             $table->string('full_name');
             $table->string('email');
             $table->string('phone')->nullable();
-            $table->string('program')->nullable();
+            $table->string('country_city')->nullable();
             $table->string('product_id')->nullable();
             $table->string('preferred_size')->nullable();
             $table->string('purpose')->nullable();
             $table->string('preferred_finish')->nullable();
-            $table->string('preferred_time')->nullable();
+            // $table->string('preferred_time')->nullable();
             $table->text('message');
             $table->enum('status', ['pending', 'in-progress', 'completed'])->default('pending');
             $table->timestamps();

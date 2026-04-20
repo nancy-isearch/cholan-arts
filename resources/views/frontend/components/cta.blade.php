@@ -4,7 +4,7 @@
         Cholan Arts is dedicated to preserving and celebrating the ancient
         tradition of handcrafted Hindu deity idols.
     </p>
-    <a href="/contact-us" class="btn-orange-inv">
+    <a href="/products" class="btn-orange-inv">
         Shop Now
         <svg
         xmlns="http://www.w3.org/2000/svg"

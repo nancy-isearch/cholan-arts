@@ -11,6 +11,9 @@ use App\Models\ProductSection;
 use Illuminate\Support\Str;
 use DB;
 
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Http;
+
 class ProductController extends Controller
 {
 
@@ -235,7 +238,7 @@ class ProductController extends Controller
         $product = Product::with(['images', 'sections', 'faqs'])->findOrFail($id);
         $productCategoryIds = $product->categories->pluck('id')->toArray();
         $categories = Category::where('is_active', 1)->get();
-
+        
         return view('admin.modules.Product.edit', compact('product', 'categories', 'productCategoryIds'));
     }
 
@@ -577,5 +580,145 @@ class ProductController extends Controller
         };
 
         return response()->stream($callback, 200, $headers);
+    }
+
+    private function downloadImage($url, $productId, $key = 0)
+    {
+        try {
+            // Get image content
+            $contents = file_get_contents($url);
+
+            if (!$contents) return null;
+
+            // Extension detect
+            $extension = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION);
+            if (!$extension) {
+                $extension = 'jpg'; // fallback
+            }
+
+            // Same naming pattern like your code
+            $imageName = time() . '_image_' . $key . '.' . $extension;
+
+            // Path same as your logic
+            $destinationPath = public_path('uploads/products/' . $productId . '/');
+
+            // Folder create if not exists
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+
+            // Save image
+            file_put_contents($destinationPath . $imageName, $contents);
+
+            return $imageName;
+
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
+    private function generateSizes($dimension)
+    {
+        // Agar tumhe AX ignore karke fixed sizes chahiye
+        $sizes = [];
+
+        for ($i = 8; $i <= 32; $i += 8) {
+            $sizes[] = $i . '"';
+        }
+
+        return implode(',', $sizes);
+    }
+
+    public function importProducts()
+    {
+        ini_set('max_execution_time', 300); // 5 minutes
+            // ya
+            // set_time_limit(300);
+        $file = storage_path('app/p15.xlsx');
+        $rows = Excel::toArray([], $file)[0];
+
+        // ✅ Skip header row
+        unset($rows[0]);
+        $rows = array_values($rows);
+
+        // ✅ Slug handling
+        $existingSlugs = Product::pluck('slug')->toArray();
+        $slugs = [];
+
+        $lastProduct = null;
+        $key = 0;
+
+        foreach (array_chunk($rows, 100) as $chunk) {
+
+            foreach ($chunk as $row) {
+
+                $title = trim($row[1] ?? '');
+                $description = $row[2] ?? '';
+                $imageUrl = $row[32] ?? '';
+                $dimension = $row[49] ?? ''; // AX column
+
+                // 👉 SIZE LOGIC (fixed as per your requirement)
+                $sizes = $this->generateSizes($dimension);
+
+                // 👉 NEW PRODUCT
+                if (!empty($title)) {
+
+                    $baseSlug = Str::slug($title);
+                    $slug = $baseSlug;
+                    $i = 1;
+
+                    while (
+                        in_array($slug, $existingSlugs) ||
+                        isset($slugs[$slug])
+                    ) {
+                        $slug = $baseSlug . '-' . $i++;
+                    }
+
+                    $existingSlugs[] = $slug;
+                    $slugs[$slug] = true;
+
+                    $product = Product::create([
+                        'name' => $title,
+                        'description' => $description,
+                        'price' => 0,
+                        'slug' => $slug,
+                        'available_sizes' => $sizes // 👈 SAVE SIZE HERE
+                    ]);
+
+                    $lastProduct = $product;
+                    $key = 0;
+
+                    // 👉 Feature Image
+                    if (!empty($imageUrl)) {
+                        $imagePath = $this->downloadImage($imageUrl, $product->id, $key);
+
+                        if ($imagePath) {
+                            $product->update([
+                                'feature_image' => $imagePath
+                            ]);
+                        }
+
+                        $key++;
+                    }
+                }
+
+                // 👉 SAME PRODUCT (gallery images)
+                else if ($lastProduct && !empty($imageUrl)) {
+
+                    $imagePath = $this->downloadImage($imageUrl, $lastProduct->id, $key);
+
+                    if ($imagePath) {
+                        ProductImage::create([
+                            'product_id' => $lastProduct->id,
+                            'image' => $imagePath
+                        ]);
+                    }
+
+                    $key++;
+                }
+            }
+        }
+
+        return "✅ Import Completed Successfully";
     }
 }

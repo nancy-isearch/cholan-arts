@@ -1,5 +1,9 @@
 @extends('frontend.layouts.app')
 @section('title', $page->title)
+@section('seo_title', $page->meta_title)
+@section('seo_description', $page->meta_description)
+@section('seo_keywords', $page->meta_keywords ?? $product->name)
+@section('seo_image', asset('uploads/pages/'.$page->hero_image))
 
 @section('content')
 

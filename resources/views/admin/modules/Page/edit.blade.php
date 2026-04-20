@@ -1,5 +1,4 @@
 @extends('admin.layouts.app')
-
 @section('content')
 <section class="section">
     <div class="container-fluid">
@@ -24,6 +23,7 @@
                         <form id="pageForm" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" id="pageId" value="{{ $page->id }}">
+                            <input type="hidden" id="oldKeywords" value="{{ $page->meta_keywords }}">
                             <!-- Basic Info -->
                             <div class="card mb-3">
                                 <div class="card-header">Basic Info</div>
@@ -74,6 +74,44 @@
                                 <div class="card-body">
                                     <textarea name="content" id="editor" class="form-control">{{ $page->content }}</textarea>
                                     <small class="text-danger error-text content_error"></small>
+                                </div>
+                            </div>
+                            <!-- SEO Meta -->
+                            <div class="card mb-3">
+                                <div class="card-header">SEO Meta Details</div>
+                                <div class="card-body">
+
+                                    <div class="row">
+
+                                        <!-- Meta Title -->
+                                        <div class="col-md-6 mb-2">
+                                            <label>Meta Title</label>
+                                            <input type="text" name="meta_title" value="{{ $page->meta_title }}" class="form-control">
+                                        </div>
+
+                                        <!-- Meta Keywords (Tags UI) -->
+                                        <div class="col-md-6 mb-2">
+                                            <div class="epf-field">
+                                                <label class="epf-label">Meta Keywords</label>
+
+                                                <div class="tag-container border p-2 d-flex flex-wrap" id="tagContainer">
+                                                    <input type="text" id="tagInput" class="epf-tag-input border-0 flex-grow-1" placeholder="Type and press Enter">
+                                                </div>
+                                                <input type="hidden" name="meta_keywords" id="tagsHidden">
+                                                <small class="epf-field-hint">Press <kbd>Enter</kbd> to add a keyword</small>
+                                            </div>
+                                        </div>
+
+                                        <!-- Meta Description -->
+                                        <div class="col-md-12 mb-2">
+                                            <label>Meta Description</label>
+                                            <textarea name="meta_description" class="form-control">{{ $page->meta_description }}</textarea>
+                                        </div>
+
+                                        
+
+                                    </div>
+
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Update</button>
@@ -162,6 +200,48 @@
                 }
             }
         });
+    });
+    let tags = [];
+    $(document).ready(function () {
+        // ── Tags (pre-populate from existing) ──
+        let oldTags = $('#oldKeywords').val();
+        if (oldTags) {
+            tags = oldTags.split(',');
+            tags.forEach(tag => {
+                $('#tagContainer').prepend(`
+                    <div class="epf-chip tag">
+                        ${tag}
+                        <span class="epf-chip__remove remove-tag" data-value="${tag}">&times;</span>
+                    </div>
+                `);
+            });
+            updateHiddenInput();
+        }
+
+        $('#tagInput').on('keypress', function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                let value = $(this).val().trim();
+                if (value !== '' && !tags.includes(value)) {
+                    tags.push(value);
+                    $('#tagContainer').prepend(`
+                        <div class="epf-chip tag">
+                            ${value}
+                            <span class="epf-chip__remove remove-tag" data-value="${value}">&times;</span>
+                        </div>
+                    `);
+                    $(this).val('');
+                    updateHiddenInput();
+                }
+            }
+        });
+        $(document).on('click', '.remove-tag', function () {
+            let value = $(this).data('value');
+            tags = tags.filter(tag => tag != value);
+            $(this).parent().remove();
+            updateHiddenInput();
+        });
+        function updateHiddenInput() { $('#tagsHidden').val(tags.join(',')); }
     });
 </script>
 @endpush

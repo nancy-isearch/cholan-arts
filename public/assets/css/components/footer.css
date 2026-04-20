@@ -11,14 +11,14 @@ footer::before {
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
+  left: 0; 
   right: 0;
   height: 2px;
   background: linear-gradient(90deg, var(--green), var(--orange), var(--green));
 }
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1.5fr 1fr;
+  grid-template-columns: 2fr 1fr 1.5fr 1.5fr;
   gap: clamp(30px, 4vw, 60px);
   max-width: 1820px;
   margin: 0 auto;

@@ -19,7 +19,7 @@
 
         @if($product->categories && $product->categories->count())
           <li>
-            <a href="{{ url('/products?ca=' . $product->categories->first()->name) }}">
+            <a href="{{ url('/products?c=' . $product->categories->first()->name) }}">
               {{ ucfirst($product->categories->first()->name) }}
             </a>
           </li>
@@ -38,7 +38,6 @@
 
           {{-- MAIN IMAGE --}}
           <div class="main-img-wrap">
-
               <a href="{{ $product->feature_image ? asset('uploads/products/'.$product->id .'/' . $product->feature_image) : asset('assets/images/products-img/placeholder-product.jpg') }}" data-fancybox="gallery">
                   <img
                       id="mainImg"
@@ -46,7 +45,6 @@
                       alt="Product Image"
                   />
               </a>
-
               <div class="img-badge">
                   <div class="ib-label">Craft Origin</div>
                   <div class="ib-val">{{ $product->origin }}</div>
@@ -56,13 +54,19 @@
           {{-- THUMBNAILS --}}
           @if(count($product->images) > 0)
               <div class="thumb-row">
-                  @foreach($product->images as $index => $img)
+                  <a href="{{ $product->feature_image ? asset('uploads/products/'.$product->id .'/' . $product->feature_image) : asset('assets/images/products-img/placeholder-product.jpg') }}" data-fancybox="gallery"></a>
 
+                  <div 
+                      class="thumb active"
+                      onclick="changeImg(this, '{{ $product->feature_image ? asset('uploads/products/'.$product->id .'/' . $product->feature_image) : asset('assets/images/products-img/placeholder-product.jpg') }}')"
+                  >
+                      <img src="{{ $product->feature_image ? asset('uploads/products/'.$product->id .'/' . $product->feature_image) : asset('assets/images/products-img/placeholder-product.jpg') }}" alt="thumb">
+                  </div>
+                  @foreach($product->images as $index => $img)
                       <!-- Hidden anchor for gallery -->
                       <a href="{{ asset('uploads/products/'.$product->id .'/' . $img->image) }}" data-fancybox="gallery"></a>
-
                       <div 
-                          class="thumb {{ $index == 0 ? 'active' : '' }}"
+                          class="thumb"
                           onclick="changeImg(this, '{{ asset('uploads/products/'.$product->id .'/' . $img->image) }}')"
                       >
                           <img src="{{ asset('uploads/products/'.$product->id .'/' . $img->image) }}" alt="thumb">
@@ -76,23 +80,13 @@
 
       <!-- RIGHT: DETAIL -->
       <div class="detail-col reveal" style="animation-delay: 0.1s">
-        <div class="idol-category-tag">
-          @php
-              $discountedPrice = 0;
-              if($product->discount > 0){
-                  $discountedPrice = $product->price - ($product->price * $product->discount / 100);
-              }
-          @endphp
-          <del>₹{{ $product->price }}</del><ins>₹{{ round($discountedPrice) }}</ins>
-        </div>
+        
         <h1 class="idol-name">{{ $product->name }}</h1>
         <div class="idol-subtitle">{{ $product->sub_title }}</div>
         <div class="fancy-divider"><span>✦</span></div>
         <p class="idol-desc">
           {!! $product->description !!}
-         
         </p>
-
         <!-- SPECS -->
         <div class="specs-grid">
           @if($product->material)
@@ -369,7 +363,7 @@
         <div class="swiper-wrapper">
           @foreach ($relatedProducts as $relatedProduct)
             <div class="swiper-slide">
-              <a href="/product/{{ $relatedProduct->id }}">
+              <a href="/product/{{ $relatedProduct->slug }}">
                 <article class="product-card">
                   <div class="product-card-img">
                     <img
