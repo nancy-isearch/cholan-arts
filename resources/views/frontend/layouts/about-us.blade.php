@@ -3,10 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@yield('title', 'Cholan Arts')</title>
+    <title>{{ $seo->meta_title ?? 'Cholan Arts' }}</title>
+
+    <meta name="description" content="{{ $seo->meta_description ?? '' }}">
+    <meta name="keywords" content="{{ $seo->meta_keywords ?? '' }}">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ url()->current() }}" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ $seo->meta_title ?? 'Cholan Arts' }}">
+    <meta property="og:description" content="{{ $seo->meta_description ?? '' }}">
+    <meta property="og:type" content="website">
+
 
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/svg/favicon-16x16.png') }}">
     <!-- Fonts -->
@@ -36,6 +45,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/pages/about-us.css') }}" />
     <!-- Elfsight Google Reviews | Cholan Arts  -->
     <script src="https://elfsightcdn.com/platform.js" async></script>
+    <!-- 🔥 Schema JSON-LD -->
+    @if($seo && !empty($seo->schema_json))
+    <script type="application/ld+json">
+    {!! $seo->schema_json !!}
+    </script>
+    @endif
   </head>
   <body>
     @include('frontend.components.header')

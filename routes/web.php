@@ -8,16 +8,15 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductImportController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\SeoController;
 
 //Frontend Controllers
 use App\Http\Controllers\FrontendController;
 
 Auth::routes();
 // Route::view('/', 'frontend.pages.home');
-Route::view('/about-us', 'frontend.pages.about');
-Route::view('/product-details', 'frontend.pages.product-detail');
-Route::view('/contact-us', 'frontend.pages.contact');
-Route::view('/terms-of-use', 'frontend.pages.terms-conditions');
+Route::view('/about-us', 'frontend.pages.about')->name('about');
+Route::view('/contact-us', 'frontend.pages.contact')->name('contact');
 Route::post('/enquiry', [EnquiryController::class, 'store']);
 
 Route::get('/product-bulk-upload', [ProductController::class, 'importProducts']);
@@ -25,7 +24,7 @@ Route::get('/product-bulk-upload', [ProductController::class, 'importProducts'])
 Route::get('/', [FrontendController::class, 'getHomeContent']);
 Route::get('/product/{id}', [FrontendController::class, 'productDetail']);
 Route::get('/products', [FrontendController::class, 'categoryList']);
-Route::get('/get-products', [FrontendController::class, 'getProducts']);  
+Route::get('/get-products', [FrontendController::class, 'getProducts'])->name('products');  
 Route::get('/search-suggest', [FrontendController::class, 'suggest']);  
 Route::get('/{slug}', [FrontendController::class, 'showPage'])->name('page.show');
 
@@ -66,6 +65,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/products-bulk-upload', [ProductController::class, 'bulkUpload']);
     Route::get('/admin/products/sample-csv', [ProductController::class, 'downloadSample'])->name('products.sample.csv');
     
+    Route::get('/seo', [SeoController::class, 'index'])->name('seo.index');
+    Route::get('/seo/{page_key}', [SeoController::class, 'edit'])->name('seo.edit');
+    Route::post('/seo/{page_key}', [SeoController::class, 'update'])->name('seo.update');
+
+
     Route::get('pages/list', [PageController::class, 'list'])->name('pages.list');
     Route::put('pages/update-status', [PageController::class, 'updateStatus']);
     Route::delete('pages/delete/{id}', [PageController::class, 'destroy']);

@@ -28,24 +28,7 @@
     <meta name="twitter:description" content="@yield('seo_description', 'Cholan Arts preserves the ancient Lost Wax tradition of the Chola Dynasty. Shop authentic handcrafted bronze deity idols - Ganesha, Shiva, Nataraja, Lakshmi and more.')" />
     <meta name="twitter:image" content="@yield('seo_image', 'https://img.freepik.com/free-photo/traditional-bronze-idol_og.jpg')" />
 
-    {{-- <!-- Structured Data -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Store",
-        "name": "Cholan Arts Emporium",
-        "description": "Handcrafted bronze Hindu deity idols preserving the Lost Wax tradition of the Chola Dynasty",
-        "url": "https://cholanarts.com",
-        "telephone": "",
-        "email": "support@cholanarts.com",
-        "openingHours": "Mo-Su 10:00-19:00",
-        "address": { "@type": "PostalAddress", "addressCountry": "IN" },
-        "sameAs": [
-          "https://www.instagram.com/cholanarts",
-          "https://www.facebook.com/cholanarts"
-        ]
-      }
-    </script> --}}
+    
 
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/svg/favicon-16x16.png') }}">
     <!-- Fonts -->
@@ -76,7 +59,11 @@
     <script src="https://elfsightcdn.com/platform.js" async></script>
       <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+    @if($seo && !empty($seo->schema_json))
+    <script type="application/ld+json">
+    {!! $seo->schema_json !!}
+    </script>
+    @endif
   </head>
 
     <body>

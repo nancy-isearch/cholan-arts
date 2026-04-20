@@ -27,8 +27,24 @@ class AppServiceProvider extends ServiceProvider
             $menuCategories = Category::where('is_active', 1)->whereHas('products', function ($q) {
                 $q->where('status', 1);
             })->get();
+
             
-            $view->with('pages', $pages)->with('menuCategories', $menuCategories);
+
+            $map = [
+                'home' => 'home',
+                'about' => 'about',
+                'contact' => 'contact',
+                'products' => 'product_list',
+            ];
+            $routeName = request()->route()->getName();
+            $pageKey = $map[$routeName] ?? null;
+            $seo = null;
+            if ($pageKey) {
+                $seo = \App\Models\SeoSetting::where('page_key', $pageKey)->first();
+                $view->with('seo', $seo);
+            }
+            
+            $view->with('pages', $pages)->with('menuCategories', $menuCategories)->with('seo', $seo);
         });
     }
 }

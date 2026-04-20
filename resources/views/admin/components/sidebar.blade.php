@@ -63,6 +63,14 @@
                 <span class="text">Pages</span>
               </a>
             </li>
+            <li class="nav-item {{ request()->is('admin/seo*') ? 'active' : '' }}">
+              <a href="/admin/seo" data-label="Pages">
+                <span class="icon">
+                  <i class="lni lni-tag"></i>
+                </span>
+                <span class="text">SEO Settings</span>
+              </a>
+            </li>
 
             {{-- <li class="nav-item">
               <a href="invoice.html">
