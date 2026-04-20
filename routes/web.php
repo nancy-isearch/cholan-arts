@@ -25,7 +25,13 @@ Route::get('/', [FrontendController::class, 'getHomeContent']);
 Route::get('/product/{id}', [FrontendController::class, 'productDetail']);
 Route::get('/products', [FrontendController::class, 'categoryList'])->name('products');
 Route::get('/get-products', [FrontendController::class, 'getProducts']);  
-Route::get('/search-suggest', [FrontendController::class, 'suggest']);  
+Route::get('/search-suggest', [FrontendController::class, 'suggest']); 
+
+// Categories list page
+Route::get('/categories', [FrontendController::class, 'categories'])->name('categories');
+// Category wise products page
+Route::get('/category/{slug}', [FrontendController::class, 'categoryProducts'])->name('category.products');
+
 Route::get('/{slug}', [FrontendController::class, 'showPage'])->name('page.show');
 
 

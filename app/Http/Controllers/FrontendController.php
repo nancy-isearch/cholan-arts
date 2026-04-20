@@ -150,4 +150,22 @@ class FrontendController extends Controller
         
         return view('frontend.pages.page', compact('page'));
     }
+
+    public function categories()
+    {
+        $categories = Category::where('is_active', 1)->whereHas('products', function ($q) {
+            $q->where('status', 1);
+        })->withCount(['products as active_products_count' => function ($q) {
+            $q->where('status', 1);
+        }])->get();
+
+        return view('frontend.pages.categories', compact('categories'));
+    }
+
+    public function categoryProducts($slug)
+    {
+        $category = Category::where('name', $slug)->firstOrFail();
+       
+        return view('frontend.pages.category-products', compact('category'));
+    }
 }

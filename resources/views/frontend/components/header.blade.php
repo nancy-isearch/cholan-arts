@@ -17,16 +17,11 @@
         <!--<li><a href="#">Best Sellers</a></li>-->
         <!-- Categories Dropdown -->
         <li class="dropdown">
-          <span class="dropdown-toggle">Categories</span>
+          <a class="dropdown-toggle" href="/categories" {{ request()->is('products') ? 'aria-current=page' : '' }} >Categories</a>
           <ul class="dropdown-menu">
-            <li>
-              <a href="{{ url('products') }}">
-                All Products
-              </a>
-            </li>
             @foreach($menuCategories as $category)
               <li>
-                <a href="{{ url('products?c='.$category->name) }}">
+                <a href="{{ url('category/'.$category->name) }}">
                   {{ ucfirst($category->name) }}
                 </a>
               </li>
@@ -38,24 +33,6 @@
 
       <div class="nav-actions">
         <div class="search-bar" role="search" aria-label="Search products">
-          <!-- HugeIcons: Search icon stroke-rounded -->
-          {{-- <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#888"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M17.5 17.5L22 22" />
-            <path
-              d="M20 11C20 15.9706 15.9706 20 11 20C6.02944 20 2 15.9706 2 11C2 6.02944 6.02944 2 11 2C15.9706 2 20 6.02944 20 11Z"
-            />
-          </svg>
-          <span>Search</span> --}}
           <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off" style="border: none; background: none;">
           <div id="suggestions"></div>
         </div>
@@ -105,15 +82,12 @@
       <!--<a href="#">Best Sellers</a>-->
       <!-- Categories Dropdown -->
       <div class="mobile-dropdown">
-        <div class="dropdown-toggle" onclick="toggleMobileDropdown()">
+        <a class="dropdown-toggle" onclick="toggleMobileDropdown()">
           Categories
           <span class="arrow">▼</span>
-        </div>
+        </a>
 
         <ul class="dropdown-menu" id="mobileCategoryMenu">
-          <li>
-            <a href="{{ url('products') }}">All Products</a>
-          </li>
 
           @foreach($menuCategories as $category)
             <li>

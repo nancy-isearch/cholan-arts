@@ -1,0 +1,170 @@
+@extends('frontend.layouts.app')
+
+@section('content')
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb-wrap">
+  <div class="container">
+    <ul class="breadcrumb">
+      <li><a href="{{ url('/') }}">Home</a></li>
+      <li><a href="{{ url('/categories') }}">Categories</a></li>
+
+      <!-- ✅ IMPORTANT: slug store -->
+      <li class="active cat_name" data-slug="{{ $category->name }}">
+        {{ $category->name }}
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="inner-banner">
+  <span class="mb-3">Our {{ ucfirst($category->name) }} Products</span>
+  <h1>Moments of <em>Art & Grace</em></h1>
+  <p>
+    A visual journey through divine performances, sacred art forms,
+    workshops, festivals, and cultural celebrations at Cholan Arts.
+  </p>
+</section>
+
+<main>
+
+  <!-- GALLERY -->
+  <section class="gallery-section">
+    <div class="section-label">Browse by Category</div>
+    <h2 class="section-title">Sacred Art, Captured Eternally</h2>
+
+    <!-- GRID -->
+    <div class="masonry-grid" id="mainGrid"></div>
+
+    <!-- PAGINATION -->
+    <div class="pagination-wrap">
+      <div class="page-info" id="pageInfo"></div>
+
+      <button class="load-more-btn" id="loadMoreBtn" onclick="loadMore()">
+        Load More Photos
+      </button>
+
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+      </div>
+    </div>
+  </section>
+
+  @include('frontend.components.cta')
+
+</main>
+
+@endsection
+
+
+@push('scripts')
+<script>
+let currentPage = 1;
+let lastPage = 1;
+let totalItems = 0;
+
+let activeCat = null; // ✅ dynamic
+let lbItems = [];
+
+// ================= FETCH PRODUCTS =================
+function fetchProducts(reset = true) {
+
+    if (!activeCat) return;
+
+    if (reset) {
+        currentPage = 1;
+        $("#mainGrid").html("<p>Loading...</p>");
+        lbItems = [];
+    }
+
+    $.ajax({
+        url: "/get-products",
+        type: "GET",
+        data: {
+            category: activeCat, // ✅ slug
+            page: currentPage,
+        },
+        success: function(res) {
+
+            if (reset) $("#mainGrid").html("");
+
+            totalItems = res.total;
+            lastPage = res.last_page;
+
+            res.data.forEach((item) => {
+                lbItems.push(item);
+                $("#mainGrid").append(createCard(item));
+            });
+
+            updatePaginationUI();
+        },
+        error: function() {
+            $("#mainGrid").html("<p>Failed to load products</p>");
+        }
+    });
+}
+
+// ================= CREATE CARD =================
+function createCard(item) {
+    return `
+    <div class="gallery-item">
+        <div class="card-inner gallery-card">
+
+            <a href="/product/${item.slug}">
+                <div class="card-image">
+                    <img src="${item.image}" alt="${item.title}" loading="lazy" />
+                </div>
+
+                <div class="card-overlay"></div>
+
+                <div class="card-content">
+                    <span class="category">${item.category}</span>
+                    <h4>${item.title}</h4>
+
+                    <div class="ganesha-btn-wrapper">
+                        <span class="ganesha-btn">View Details →</span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>`;
+}
+
+// ================= LOAD MORE =================
+function loadMore() {
+    if (currentPage < lastPage) {
+        currentPage++;
+        fetchProducts(false);
+    }
+}
+
+// ================= PAGINATION =================
+function updatePaginationUI() {
+    const shown = $("#mainGrid .gallery-item").length;
+
+    let pct = Math.round((shown / totalItems) * 100);
+    $("#progressFill").css("width", pct + "%");
+
+    $("#pageInfo").html(
+        `Showing <span>${shown}</span> of <span>${totalItems}</span> photos`
+    );
+
+    if (currentPage >= lastPage) {
+        $("#loadMoreBtn").text("All Photos Loaded ✓").prop("disabled", true);
+    } else {
+        $("#loadMoreBtn").text("Load More Photos ↓").prop("disabled", false);
+    }
+}
+
+// ================= PAGE LOAD =================
+$(document).ready(function () {
+
+    // ✅ slug pick karo (NOT name)
+    activeCat = $(".cat_name").data("slug");
+
+    fetchProducts(true);
+});
+</script>
+@endpush
