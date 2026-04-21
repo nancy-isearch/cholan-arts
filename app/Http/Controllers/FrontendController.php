@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Collection;
 use App\Models\Product;
 use App\Models\Page;
 
@@ -81,12 +82,17 @@ class FrontendController extends Controller
     public function getProducts(Request $request)
     {
         $category = $request->category;
+        $collection = $request->collection;
 
         $query = Product::where('status', 1);
 
-        if ($category != 'all') {
+        if ($request->has('category') && $category != 'all') {
             $query->whereHas('categories', function ($q) use ($category) {
                 $q->where('name', $category);
+            });
+        } elseif($request->has('collection')) {
+            $query->whereHas('collections', function ($q) use ($collection) {
+                $q->where('name', $collection);
             });
         }
 
@@ -167,5 +173,21 @@ class FrontendController extends Controller
         $category = Category::where('name', $slug)->firstOrFail();
        
         return view('frontend.pages.category-products', compact('category'));
+    }
+
+    public function collections()
+    {
+        $collections = Collection::where('is_active', 1)->withCount(['products as active_products_count' => function ($q) {
+            $q->where('status', 1);
+        }])->get();
+
+        return view('frontend.pages.collections', compact('collections'));
+    }
+
+    public function collectionProducts($slug)
+    {
+        $collection = Collection::where('name', $slug)->firstOrFail();
+       
+        return view('frontend.pages.collection-products', compact('collection'));
     }
 }

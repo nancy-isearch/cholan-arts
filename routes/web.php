@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PageController;
@@ -32,6 +33,11 @@ Route::get('/categories', [FrontendController::class, 'categories'])->name('cate
 // Category wise products page
 Route::get('/category/{slug}', [FrontendController::class, 'categoryProducts'])->name('category.products');
 
+// Collections list page
+Route::get('/collections', [FrontendController::class, 'collections'])->name('collections');
+// Category wise products page
+Route::get('/collection/{slug}', [FrontendController::class, 'collectionProducts'])->name('collection.products');
+
 Route::get('/{slug}', [FrontendController::class, 'showPage'])->name('page.show');
 
 
@@ -56,6 +62,15 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categories.show');
     Route::post('/categories/update-status', [CategoryController::class, 'updateStatus'])->name('categories.updateStatus');
     Route::delete('/categories/delete/{id}', [CategoryController::class, 'destroy'])->name('categories.delete');
+
+    Route::get('/collections', [CollectionController::class, 'index'])->name('collections.index');
+    Route::post('/collections/store', [CollectionController::class, 'store'])->name('collections.store');
+    Route::get('/collections/{id}', [CollectionController::class, 'show'])->name('collections.show');
+    Route::post('/collections/update/{id}', [CollectionController::class, 'update'])->name('collections.update');
+
+
+    Route::post('/collections/update-status', [CollectionController::class, 'updateStatus'])->name('collections.updateStatus');
+    Route::delete('/collections/delete/{id}', [CollectionController::class, 'destroy'])->name('collections.delete');
 
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/list', [ProductController::class, 'getList'])->name('products.list');

@@ -17,9 +17,9 @@ class SeoController extends Controller
 
     public function edit($page_key)
     {
-        $seo = SeoSetting::firstOrCreate(['page_key' => $page_key]);
+        $seoSetting = SeoSetting::firstOrCreate(['page_key' => $page_key]);
         
-        return view('admin.modules.SEO.edit', compact('seo'));
+        return view('admin.modules.SEO.edit', compact('seoSetting'));
     }
 
     public function update(Request $request, $page_key)
@@ -31,7 +31,7 @@ class SeoController extends Controller
             'schema_json' => 'nullable|json',
         ]);
 
-        $seo = SeoSetting::updateOrCreate(
+        SeoSetting::updateOrCreate(
             ['page_key' => $page_key],
             $data
         );

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Collection;
 use App\Models\ProductImage;
 use App\Models\ProductSection;
 use Illuminate\Support\Str;
@@ -40,8 +41,12 @@ class ProductController extends Controller
 
                 return $row->categories->pluck('name')->implode(', ');
             })
-            ->addColumn('price', function ($row) {
-                return '<span>₹'.$row->price.'</span>';
+            ->addColumn('collections', function ($row) {
+                if ($row->collections->isEmpty()) {
+                    return 'NA';
+                }
+
+                return $row->collections->pluck('name')->implode(', ');
             })
             ->addColumn('is_featured', function ($row) {
                 $checked = $row->is_featured ? 'checked' : '';
@@ -57,19 +62,6 @@ class ProductController extends Controller
                         <input class="form-check-input toggle-status" type="checkbox"  data-id="'.$row->id.'" '.$checked.'>
                     </div>';
             })
-            // ->addColumn('actions', function ($row) {
-            //     return '
-            //         <a href="/admin/products/'.$row->id.'/edit" class="btn btn-primary">
-            //             <i class="lni lni-pencil"></i>
-            //         </a>
-            //         <a href="/admin/products/'.$row->id.'/" class="btn btn-info">
-            //             <i class="lni lni-eye"></i>
-            //         </a>
-            //         <button class="btn btn-danger dltBtn" data-id="'.$row->id.'">
-            //             <i class="lni lni-trash-can"></i>
-            //         </button>
-            //     ';
-            // })
             ->addColumn('actions', function ($row) {
                 return '
                     <a href="/admin/products/'.$row->id.'/edit" class="btn primary-btn me-2 border">
@@ -87,8 +79,9 @@ class ProductController extends Controller
     public function add()
     {
         $categories = Category::where('is_active', 1)->get();
+        $collections = Collection::where('is_active', 1)->get();
 
-        return view('admin.modules.Product.add', compact('categories'));
+        return view('admin.modules.Product.add', compact('categories', 'collections'));
     }
 
     /**
@@ -144,6 +137,9 @@ class ProductController extends Controller
 
             // attach multiple categories
             $product->categories()->attach($request->category_id);  
+
+            // attach multiple collections
+            $product->collections()->attach($request->callection_id);  
 
             //Upload Images
             if ($request->hasFile('images')) {
@@ -238,8 +234,11 @@ class ProductController extends Controller
         $product = Product::with(['images', 'sections', 'faqs'])->findOrFail($id);
         $productCategoryIds = $product->categories->pluck('id')->toArray();
         $categories = Category::where('is_active', 1)->get();
+
+        $productCollectionIds = $product->collections->pluck('id')->toArray();
+        $collections = Collection::where('is_active', 1)->get();
         
-        return view('admin.modules.Product.edit', compact('product', 'categories', 'productCategoryIds'));
+        return view('admin.modules.Product.edit', compact('product', 'categories', 'productCategoryIds', 'productCollectionIds', 'collections'));
     }
 
     /**
@@ -296,6 +295,9 @@ class ProductController extends Controller
             
             // sync categories (important 🔥)
             $product->categories()->sync($request->category_id);
+
+            // sync categories (important 🔥)
+            $product->collections()->sync($request->collection_id);
 
             // Images (optional - append only)
             if ($request->hasFile('images')) {

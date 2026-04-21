@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Page;
 use App\Models\Category;
+use App\Models\Collection;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,13 +29,15 @@ class AppServiceProvider extends ServiceProvider
                 $q->where('status', 1);
             })->get();
 
-            
+            $menuCollections = Collection::where('is_active', 1)->get();
 
             $map = [
                 'home' => 'home',
                 'about' => 'about',
                 'contact' => 'contact',
                 'products' => 'product_list',
+                'categories' => 'categories',
+                'collections' => 'collections',
             ];
             $routeName = request()->route()->getName();
             $pageKey = $map[$routeName] ?? null;
@@ -44,7 +47,7 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('seo', $seo);
             }
             
-            $view->with('pages', $pages)->with('menuCategories', $menuCategories)->with('seo', $seo);
+            $view->with('pages', $pages)->with('menuCategories', $menuCategories)->with('menuCollections', $menuCollections)->with('seo', $seo);
         });
     }
 }

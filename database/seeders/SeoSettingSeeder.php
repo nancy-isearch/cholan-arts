@@ -103,5 +103,99 @@ class SeoSettingSeeder extends Seeder
                 ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
             ]
         );
+
+        SeoSetting::updateOrCreate(
+            ['page_key' => 'categories'],
+            [
+                'meta_title' => 'Browse Categories | Cholan Arts - Traditional Sculptures & Handcrafted Art',
+                'meta_description' => 'Explore categories of authentic South Indian handicrafts, bronze idols, sculptures, and traditional artworks at Cholan Arts. Discover timeless craftsmanship by category.',
+                'meta_keywords' => 'Cholan Arts categories, sculpture categories, bronze idols categories, handicrafts India categories, traditional art collections',
+
+                'index_page' => true,
+
+                'schema_json' => json_encode([
+                    "@context" => "https://schema.org",
+                    "@type" => "CollectionPage",
+
+                    "name" => "Cholan Arts Categories",
+                    "url" => "https://www.cholanarts.com/categories",
+                    "description" => "Browse product categories of traditional South Indian handicrafts, bronze statues, and sculptures at Cholan Arts.",
+
+                    "mainEntity" => [
+                        "@type" => "ItemList",
+                        "name" => "Product Categories",
+                        "numberOfItems" => 10, // ⚠️ update dynamically later
+
+                        "itemListElement" => [
+                            [
+                                "@type" => "ListItem",
+                                "position" => 1,
+                                "name" => "Bronze Sculptures",
+                                "url" => "https://www.cholanarts.com/categories/bronze-sculptures"
+                            ],
+                            [
+                                "@type" => "ListItem",
+                                "position" => 2,
+                                "name" => "Brass Idols",
+                                "url" => "https://www.cholanarts.com/categories/brass-idols"
+                            ],
+                            [
+                                "@type" => "ListItem",
+                                "position" => 3,
+                                "name" => "Handcrafted Artworks",
+                                "url" => "https://www.cholanarts.com/categories/handcrafted-artworks"
+                            ]
+                        ]
+                    ]
+                ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
+            ]
+        );
+
+        SeoSetting::updateOrCreate(
+            ['page_key' => 'collections'],
+            [
+                'meta_title' => 'Explore Collections | Cholan Arts - Curated Traditional Art & Sculptures',
+                'meta_description' => 'Discover curated collections of traditional South Indian sculptures, bronze idols, and handcrafted masterpieces at Cholan Arts. Handpicked themes with timeless artistry.',
+                'meta_keywords' => 'Cholan Arts collections, sculpture collections, bronze idols collection, curated handicrafts India, traditional art themes',
+
+                'index_page' => true,
+
+                'schema_json' => json_encode([
+                    "@context" => "https://schema.org",
+                    "@type" => "CollectionPage",
+
+                    "name" => "Cholan Arts Collections",
+                    "url" => "https://www.cholanarts.com/collections",
+                    "description" => "Explore curated collections of traditional South Indian handicrafts, bronze sculptures, and artistic masterpieces at Cholan Arts.",
+
+                    "mainEntity" => [
+                        "@type" => "ItemList",
+                        "name" => "Collections List",
+                        "numberOfItems" => 8, // ⚠️ update dynamically later
+
+                        "itemListElement" => [
+                            [
+                                "@type" => "ListItem",
+                                "position" => 1,
+                                "name" => "Temple Sculptures Collection",
+                                "url" => "https://www.cholanarts.com/collections/temple-sculptures"
+                            ],
+                            [
+                                "@type" => "ListItem",
+                                "position" => 2,
+                                "name" => "Home Decor Collection",
+                                "url" => "https://www.cholanarts.com/collections/home-decor"
+                            ],
+                            [
+                                "@type" => "ListItem",
+                                "position" => 3,
+                                "name" => "Spiritual Idols Collection",
+                                "url" => "https://www.cholanarts.com/collections/spiritual-idols"
+                            ]
+                        ]
+                    ]
+                ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
+            ]
+        );
     }
 }

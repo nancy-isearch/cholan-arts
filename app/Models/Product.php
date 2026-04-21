@@ -53,6 +53,11 @@ class Product extends Model
         return $this->belongsToMany(Category::class);
     }
 
+    public function collections()
+    {
+        return $this->belongsToMany(Collection::class);
+    }
+
     public function faqs()
     {
         return $this->hasMany(ProductFaq::class);

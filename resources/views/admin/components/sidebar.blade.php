@@ -47,6 +47,14 @@
                     <span class="text">Categories</span>
                 </a>
             </li>
+            <li class="nav-item {{ request()->is('admin/collections*') ? 'active' : '' }}">
+                <a href="/admin/collections" data-label="Collections">
+                    <span class="icon">
+                        <i class="lni lni-menu"></i>
+                    </span>
+                    <span class="text">Collections</span>
+                </a>
+            </li>
             <li class="nav-item {{ request()->is('admin/products*') ? 'active' : '' }}">
                 <a href="/admin/products" data-label="Products">
                     <span class="icon">

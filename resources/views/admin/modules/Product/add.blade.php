@@ -74,6 +74,22 @@
                                     </div>
                                 </div>
 
+                                {{-- Collection --}}
+                                <div class="col-md-6">
+                                    <div class="apf-field">
+                                        <label class="apf-label">Category <span class="apf-required">*</span></label>
+                                        <select name="collection_id[]" class="form-control apf-input collection-select" multiple>
+                                            @foreach($collections as $collection)
+                                                <option value="{{ $collection->id }}"
+                                                    {{ isset($product) && $product->collections->contains($collection->id) ? 'selected' : '' }}>
+                                                    {{ ucfirst($collection->name) }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <small class="text-danger error-text collection_id_error"></small>
+                                    </div>
+                                </div>
+
                                 {{-- Price --}}
                                 <div class="col-md-3">
                                     <div class="apf-field">
@@ -421,6 +437,11 @@
         // ── Select2 ──
         $('.category-select').select2({
             placeholder: "Select Categories",
+            allowClear: true,
+            width: '100%'
+        });
+        $('.collection-select').select2({
+            placeholder: "Select Collections",
             allowClear: true,
             width: '100%'
         });

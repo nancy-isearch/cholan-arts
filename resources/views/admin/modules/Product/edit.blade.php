@@ -81,6 +81,22 @@
                                     </div>
                                 </div>
 
+                                {{-- Collection --}}
+                                <div class="col-md-4">
+                                    <div class="epf-field">
+                                        <label class="epf-label">Collection <span class="epf-required">*</span></label>
+                                        <select name="collection_id[]" class="form-control collection-select2" multiple>
+                                            @foreach($collections as $collection)
+                                                <option value="{{ $collection->id }}"
+                                                    {{ in_array($collection->id, $productCollectionIds) ? 'selected' : '' }}>
+                                                    {{ ucfirst($collection->name) }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <small class="text-danger error-text collection_id_error"></small>
+                                    </div>
+                                </div>
+
                                 {{-- Price --}}
                                 <div class="col-md-4">
                                     <div class="epf-field">
@@ -551,6 +567,11 @@
         // ── Select2 ──
         $('.select2').select2({
             placeholder: "Select Categories",
+            allowClear: true
+        });
+
+        $('.collection-select2').select2({
+            placeholder: "Select Collections",
             allowClear: true
         });
 

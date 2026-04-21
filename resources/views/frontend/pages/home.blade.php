@@ -740,7 +740,33 @@ Heritage')
       </div>
     </div>
     <div class="collection-grid">
-      <div class="collection-card">
+      @foreach($menuCollections as $key => $collection)
+
+        <div class="collection-card {{ $loop->last ? 'wide' : '' }}">
+            <a href="{{ url('/products?collection='.$collection->slug) }}">
+
+                <div class="collection-card-bg"
+                    style="
+                        background-image: url('{{ $collection->image ? asset($collection->image) : asset('assets/images/default.jpg') }}');
+                        background-color: #c5b89a;
+                    ">
+                </div>
+
+                <div class="collection-card-overlay"></div>
+
+                <div class="collection-card-info">
+                    <h3>{{ $collection->name }}</h3>
+
+                    <p>
+                        {{ $collection->description ?? 'Explore premium handcrafted collections' }}
+                    </p>
+                </div>
+
+            </a>
+        </div>
+
+      @endforeach
+      {{-- <div class="collection-card">
         <a href="/products">
           <div
             class="collection-card-bg"
@@ -825,7 +851,7 @@ Heritage')
             </p>
           </div>
         </a>
-      </div>
+      </div> --}}
     </div>
   </section>
 

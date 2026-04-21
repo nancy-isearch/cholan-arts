@@ -86,7 +86,7 @@
                         <th><h6>Image</h6></th>
                         <th><h6>Name</h6></th>
                         <th><h6>Categories</h6></th>
-                        <th><h6>Price</h6></th>
+                        <th><h6>Collections</h6></th>
                         <th><h6>Is Featured?</h6></th>
                         <th><h6>Status</h6></th>
                         <th><h6>Actions</h6></th>
@@ -204,7 +204,7 @@ $(document).ready(function () {
                 render: function(data){ return `<p>${data}</p>`; }
             },
             {
-                data: 'price', name: 'price',
+                data: 'collections', name: 'collections',
                 createdCell: function(td){ $(td).addClass('min-width'); },
                 render: function(data){ return `<p>${data}</p>`; }
             },
