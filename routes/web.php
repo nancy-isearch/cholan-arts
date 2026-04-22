@@ -22,7 +22,7 @@ Route::post('/enquiry', [EnquiryController::class, 'store']);
 
 Route::get('/product-bulk-upload', [ProductController::class, 'importProducts']);
 
-Route::get('/', [FrontendController::class, 'getHomeContent']);
+Route::get('/', [FrontendController::class, 'getHomeContent'])->name('home');
 Route::get('/product/{id}', [FrontendController::class, 'productDetail']);
 Route::get('/products', [FrontendController::class, 'categoryList'])->name('products');
 Route::get('/get-products', [FrontendController::class, 'getProducts']);  

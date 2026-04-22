@@ -60,9 +60,25 @@
       <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @if($seo && !empty($seo->schema_json))
-    <script type="application/ld+json">
-    {!! $seo->schema_json !!}
-    </script>
+      
+      @if($seo->page_key == 'home')
+        @php
+          $schemas = [];
+          if (is_string($seo->schema_json)) {
+              $decoded = json_decode($seo->schema_json, true);
+              $schemas = is_array($decoded) ? $decoded : [];
+          }
+        @endphp
+          @foreach($schemas as $schema)
+              @if($schema['position'] === 'head')
+                  {!! $schema['code'] !!}
+              @endif
+          @endforeach
+      @else
+          <script type="application/ld+json">
+          {!! $seo->schema_json !!}
+          </script>
+      @endif
     @endif
   </head>
 
@@ -72,6 +88,27 @@
        @yield('content')
 
        @include('frontend.components.footer') 
+
+
+      @if($seo && !empty($seo->schema_json))
+        @if($seo->page_key == 'home')
+          @php
+            $schemas = [];
+            if (is_string($seo->schema_json)) {
+                $decoded = json_decode($seo->schema_json, true);
+                $schemas = is_array($decoded) ? $decoded : [];
+            }
+          @php
+            @foreach($schemas as $schema)
+                @if($schema['position'] === 'body')
+                    {!! $schema['code'] !!}
+                @endif
+            @endforeach
+        @endif
+      @endif
+
+
+
         <!-- Swiper.js -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
-
-@section('title','Cholan Arts - Handcrafted Divine Idols | Bronze Sculptures | Chola
-Heritage')
+@section('seo_title', $seo->meta_title )
+@section('seo_description', $seo->meta_description )
+@section('seo_keywords', $seo->meta_keywords )
 
 @section('content')
 

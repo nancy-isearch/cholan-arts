@@ -28,8 +28,27 @@ class SeoController extends Controller
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
-            'schema_json' => 'nullable|json',
+            'schema_json' => 'nullable',
         ]);
+
+        if ($request->page_key === 'home') {
+
+            $schemas = [];
+
+            if ($request->has('schema_json')) {
+                foreach ($request->schema_json as $index => $code) {
+                    $schemas[] = [
+                        'position' => $request->schema_position[$index] ?? 'head',
+                        'code' => $code
+                    ];
+                }
+            }
+
+            $data['schema_json'] = json_encode($schemas);
+
+        } else {
+            $data['schema_json'] = $request->schema_json;
+        }
 
         SeoSetting::updateOrCreate(
             ['page_key' => $page_key],

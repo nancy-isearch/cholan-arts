@@ -68,7 +68,39 @@
                                 <div class="col-md-12">
                                     <div class="epf-field">
                                         <label class="epf-label">Schema JSON</label>
-                                        <textarea name="schema_json" id="about_description" class="form-control epf-input epf-textarea" rows="10">{{ old('schema_json', $seoSetting->schema_json) }}</textarea>
+
+                                        <button type="button" id="add_schema" class="btn btn-secondary mt-2">
+                                            + Add Schema
+                                        </button>
+
+                                        @if($seoSetting->page_key === 'home')
+                                            <div id="schema-wrapper">
+
+                                                {{-- Existing schemas (if any) --}}
+                                                @if(!empty($seoSetting->schema_json))
+                                                    @foreach(json_decode($seoSetting->schema_json, true) as $index => $schema)
+                                                        <div class="schema-item mb-3">
+                                                            <select name="schema_position[]" class="form-control mb-2">
+                                                                <option value="head" {{ $schema['position'] == 'head' ? 'selected' : '' }}>Head</option>
+                                                                <option value="body" {{ $schema['position'] == 'body' ? 'selected' : '' }}>Body</option>
+                                                            </select>
+
+                                                            <textarea name="schema_json[]" class="form-control epf-input" rows="5">{{ $schema['code'] }}</textarea>
+
+                                                            <button type="button" class="btn btn-danger btn-sm mt-2 remove-schema">Remove</button>
+                                                        </div>
+                                                    @endforeach
+                                                @endif
+
+                                            </div>
+
+                                            
+                                        @else
+                                            {{-- Single schema for other pages --}}
+                                            <textarea name="schema_json" class="form-control epf-input" rows="10">
+                                                {{ old('schema_json', $seoSetting->schema_json) }}
+                                            </textarea>
+                                        @endif
                                     </div>
                                 </div>
                                  <!-- Submit -->
@@ -96,6 +128,27 @@
 <script>
 
     $(document).ready(function () {
+        $(document).on('click', '#add_schema', function () {
+            let html = `
+                <div class="schema-item mb-3">
+                    <select name="schema_position[]" class="form-control mb-2">
+                        <option value="head">Head</option>
+                        <option value="body">Body</option>
+                    </select>
+
+                    <textarea name="schema_json[]" class="form-control epf-input" rows="5"></textarea>
+
+                    <button type="button" class="btn btn-danger btn-sm mt-2 remove-schema">Remove</button>
+                </div>
+            `;
+
+            $('#schema-wrapper').append(html);
+        });
+
+        $(document).on('click', '.remove-schema', function () {
+            $(this).closest('.schema-item').remove();
+        });
+
         $('#seoForm').on('submit', function(e){
             e.preventDefault();
 
