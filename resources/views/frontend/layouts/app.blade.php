@@ -71,7 +71,9 @@
         @endphp
           @foreach($schemas as $schema)
               @if($schema['position'] === 'head')
+              <script type="application/ld+json">
                   {!! $schema['code'] !!}
+                  </script>
               @endif
           @endforeach
       @else
@@ -101,7 +103,9 @@
           @php
             @foreach($schemas as $schema)
                 @if($schema['position'] === 'body')
+                <script type="application/ld+json">
                     {!! $schema['code'] !!}
+                    </script> 
                 @endif
             @endforeach
         @endif
