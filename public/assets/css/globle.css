@@ -115,7 +115,7 @@ ul {
 .cta-banner {
     height: 600px;
     padding: clamp(60px, 9vw, 90px) clamp(20px, 5vw, 50px);
-    background-image: url(../images/bg/CTA-bg.jpg);
+    background-image: url(../images/bg/CTA-bg.webp);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

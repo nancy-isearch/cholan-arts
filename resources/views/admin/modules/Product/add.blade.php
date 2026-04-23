@@ -77,7 +77,7 @@
                                 {{-- Collection --}}
                                 <div class="col-md-6">
                                     <div class="apf-field">
-                                        <label class="apf-label">Category <span class="apf-required">*</span></label>
+                                        <label class="apf-label">Collection <span class="apf-required">*</span></label>
                                         <select name="collection_id[]" class="form-control apf-input collection-select" multiple>
                                             @foreach($collections as $collection)
                                                 <option value="{{ $collection->id }}"

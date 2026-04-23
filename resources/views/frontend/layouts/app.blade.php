@@ -100,10 +100,10 @@
                 $decoded = json_decode($seo->schema_json, true);
                 $schemas = is_array($decoded) ? $decoded : [];
             }
-          @php
+          @endphp
             @foreach($schemas as $schema)
                 @if($schema['position'] === 'body')
-                <script type="application/ld+json">
+                  <script type="application/ld+json">
                     {!! $schema['code'] !!}
                     </script> 
                 @endif

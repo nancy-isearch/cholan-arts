@@ -47,7 +47,7 @@ class FrontendController extends Controller
             return $item->categories->pluck('id')->first();
         })
         ->values();
-
+        
         return view('frontend.pages.home', compact('products', 'ganeshas', 'sculptures', 'deities'));
     }
 

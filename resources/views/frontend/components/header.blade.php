@@ -19,22 +19,17 @@
         <li class="dropdown">
           <a class="dropdown-toggle" href="/categories" {{ request()->is('categories') ? 'aria-current=page' : '' }} >Categories</a>
           <ul class="dropdown-menu">
-            @foreach($menuCategories as $category)
-              <li>
-                <a href="{{ url('category/'.$category->name) }}">
-                  {{ ucfirst($category->name) }}
-                </a>
-              </li>
-            @endforeach
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" href="/collections" {{ request()->is('collections') ? 'aria-current=page' : '' }} >Collections</a>
-          <ul class="dropdown-menu">
             @foreach($menuCollections as $collection)
               <li>
                 <a href="{{ url('collection/'.$collection->name) }}">
                   {{ ucfirst($collection->name) }}
+                </a>
+              </li>
+            @endforeach
+            @foreach($menuCategories as $category)
+              <li>
+                <a href="{{ url('category/'.$category->name) }}">
+                  {{ ucfirst($category->name) }}
                 </a>
               </li>
             @endforeach

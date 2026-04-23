@@ -743,7 +743,7 @@
       @foreach($menuCollections as $key => $collection)
 
         <div class="collection-card {{ $loop->last ? 'wide' : '' }}">
-            <a href="{{ url('/products?collection='.$collection->slug) }}">
+            <a href="{{ url('/collection/'.$collection->name) }}">
 
                 <div class="collection-card-bg"
                     style="
@@ -755,7 +755,7 @@
                 <div class="collection-card-overlay"></div>
 
                 <div class="collection-card-info">
-                    <h3>{{ $collection->name }}</h3>
+                    <h3>{{ ucfirst($collection->name) }}</h3>
 
                     <p>
                         {{ $collection->description ?? 'Explore premium handcrafted collections' }}
