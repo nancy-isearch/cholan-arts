@@ -408,7 +408,7 @@
     <div class="ganesha-overlay"></div>
     <div class="ganesha-container">
       <div class="ganesha-left">
-        <img src="{{ asset('assets/images/products-img/ganesha-idol.png') }}"
+        <img src="{{ asset('assets/images/products-img/ganesha-idol.webp') }}"
           alt="Ganesha Left"
           width="300" />
       </div>
@@ -448,7 +448,7 @@
       <div
         class="category-half-bg"
         style="
-              background-image: url('{{ asset('assets/images/products-img/buddha-img.jpg') }}');
+              background-image: url('{{ asset('assets/images/products-img/buddha-img.webp') }}');
               background-color: #c5b89a;
             "></div>
       <div class="category-half-overlay"></div>
@@ -480,7 +480,7 @@
       <div
         class="category-half-bg"
         style="
-              background-image: url('{{ asset('assets/images/products-img/kali-mata.jpg') }}');
+              background-image: url('{{ asset('assets/images/products-img/kali-mata.webp') }}');
               background-color: #b8c9b0;
             "></div>
       <div class="category-half-overlay"></div>
@@ -564,7 +564,7 @@
   <section class="about-section" aria-labelledby="about-title">
     <div
       class="about-section-bg"
-      style="background-image: url('{{ asset('assets/images/bg/about-bg.png') }}')"></div>
+      style="background-image: url('{{ asset('assets/images/bg/about-bg.webp') }}')"></div>
     <div class="about-content">
       <h2 id="about-title">About Cholan Arts</h2>
       <p>
@@ -603,7 +603,7 @@
   <section
     class="products-section pe-0"
     style="
-          background-image: url('{{ asset('assets/images/bg/bg-pettern.png') }}');
+          background-image: url('{{ asset('assets/images/bg/bg-pettern.webp') }}');
           background-repeat: no-repeat;
           background-position: top left;
         "
@@ -685,7 +685,7 @@
             </div>
           </div>
           <div class="crafting-img-center">
-            <img src="{{ asset('assets/images/products-img/shiv-parvatiji.png') }}"
+            <img src="{{ asset('assets/images/products-img/shiv-parvatiji.webp') }}"
               alt="Artisan crafting a bronze idol using the lost-wax technique"
               loading="lazy"
               width="294"
@@ -764,94 +764,7 @@
 
             </a>
         </div>
-
       @endforeach
-      {{-- <div class="collection-card">
-        <a href="/products">
-          <div
-            class="collection-card-bg"
-            style="
-                  background-image: url('{{ asset('assets/images/products-img/Frame-img1.jpg') }}');
-                  background-color: #c5b89a;
-                "></div>
-          <div class="collection-card-overlay"></div>
-          <div class="collection-card-info">
-            <h3>Brass Collections</h3>
-            <p>Elegant brass pieces for timeless spaces</p>
-          </div>
-        </a>
-      </div>
-      <div class="collection-card">
-        <a href="/products">
-          <div
-            class="collection-card-bg"
-            style="
-                  background-image: url('{{ asset('assets/images/products-img/Frame-img2.jpg') }}');
-                  background-color: #b8c9b0;
-                "></div>
-          <div class="collection-card-overlay"></div>
-          <div class="collection-card-info">
-            <h3>New Year Gifts</h3>
-            <p>Cheerful gifts to welcome fresh beginnings</p>
-          </div>
-        </a>
-      </div>
-      <div class="collection-card">
-        <a href="/products">
-          <div
-            class="collection-card-bg"
-            style="
-                  background-image: url('{{ asset('assets/images/products-img/Frame-img3.jpg') }}');
-                  background-color: #c4b8cc;
-                "></div>
-          <div class="collection-card-overlay"></div>
-          <div class="collection-card-info">
-            <h3>Corporate Gifts</h3>
-            <p>Meaningful gifting for every occasion</p>
-          </div>
-        </a>
-      </div>
-      <div class="collection-card">
-        <a href="/products">
-          <div
-            class="collection-card-bg"
-            style="
-                  background-image: url('{{ asset('assets/images/products-img/Frame-img4.jpg') }}');
-                  background-color: #b8c4cc;
-                "></div>
-          <div class="collection-card-overlay"></div>
-          <div class="collection-card-info">
-            <h3>Antique Bronze Vessels</h3>
-            <p>Rare pieces steeped in Chola heritage</p>
-          </div>
-        </a>
-      </div>
-      <div class="collection-card wide">
-        <a href="/products">
-          <div
-            class="collection-card-bg"
-            style="
-                  background-image: url('{{ asset('assets/images/products-img/Frame-img5.jpg') }}');
-                  background-color: #385632;
-                "></div>
-          <div
-            class="collection-card-overlay"
-            style="
-                  background: linear-gradient(
-                    180deg,
-                    rgba(0, 0, 0, 0) 20%,
-                    rgba(0, 0, 0, 0.6) 100%
-                  );
-                "></div>
-          <div class="collection-card-info">
-            <h3>Types of Deity Idols</h3>
-            <p>
-              Explore the diverse divine pantheon, each with unique spiritual
-              significance
-            </p>
-          </div>
-        </a>
-      </div> --}}
     </div>
   </section>
 
@@ -862,98 +775,7 @@
     <div class="container-fluid">
       <div class="row justify-content-center">
         <div class="col-md-10">
-          {{-- <div class="testimonials-header">
-                <h2 id="testimonials-title" class="text-white">
-                  Customer Reviews
-                </h2>
-                <p class="text-white">
-                  Hear from devotees and collectors who have brought home a
-                  piece of living heritage.
-                </p>
-              </div> --}}
           <div class="elfsight-app-e77f002b-5e22-409e-81f8-79014679d1c9" data-elfsight-app-lazy></div>
-          {{-- <div class="reviews-swiper swiper">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide">
-                    <article class="review-card">
-                      <div class="review-stars" aria-label="5 out of 5 stars">
-                        ★★★★★
-                      </div>
-                      <p class="review-text">
-                        The Lord Shiva murti I received is beyond words -
-                        majestic, powerful, and deeply spiritual. The detailing
-                        is exquisite, and it brings a divine presence.
-                      </p>
-                      <div class="reviewer">
-                        <div class="reviewer-avatar" aria-hidden="true">P</div>
-                        <div>
-                          <div class="reviewer-name">Priyanka S.</div>
-                          <div class="reviewer-loc">Chennai, India</div>
-                        </div>
-                      </div>
-                    </article>
-                  </div>
-                  <div class="swiper-slide">
-                    <article class="review-card">
-                      <div class="review-stars" aria-label="5 out of 5 stars">
-                        ★★★★★
-                      </div>
-                      <p class="review-text">
-                        The Nataraja I ordered arrived beautifully packaged and
-                        exceeded all my expectations. The craftsmanship is
-                        museum-quality.
-                      </p>
-                      <div class="reviewer">
-                        <div class="reviewer-avatar" aria-hidden="true">R</div>
-                        <div>
-                          <div class="reviewer-name">Rajan M.</div>
-                          <div class="reviewer-loc">Bengaluru, India</div>
-                        </div>
-                      </div>
-                    </article>
-                  </div>
-                  <div class="swiper-slide">
-                    <article class="review-card">
-                      <div class="review-stars" aria-label="5 out of 5 stars">
-                        ★★★★★
-                      </div>
-                      <p class="review-text">
-                        I gifted this Ganesha idol to my parents for their new
-                        home. They were moved to tears by the beauty and
-                        quality. Cholan Arts truly delivers divine artistry.
-                      </p>
-                      <div class="reviewer">
-                        <div class="reviewer-avatar" aria-hidden="true">A</div>
-                        <div>
-                          <div class="reviewer-name">Ananya K.</div>
-                          <div class="reviewer-loc">Mumbai, India</div>
-                        </div>
-                      </div>
-                    </article>
-                  </div>
-                  <div class="swiper-slide">
-                    <article class="review-card">
-                      <div class="review-stars" aria-label="5 out of 5 stars">
-                        ★★★★★
-                      </div>
-                      <p class="review-text">
-                        Ordered the Lakshmi idol for Diwali. Fast shipping,
-                        exquisite packaging, and the idol itself is simply
-                        breathtaking. Customer service was warm and helpful
-                        throughout.
-                      </p>
-                      <div class="reviewer">
-                        <div class="reviewer-avatar" aria-hidden="true">S</div>
-                        <div>
-                          <div class="reviewer-name">Sunita V.</div>
-                          <div class="reviewer-loc">Hyderabad, India</div>
-                        </div>
-                      </div>
-                    </article>
-                  </div>
-                </div>
-                <div class="swiper-pagination"></div>
-              </div> --}}
         </div>
       </div>
     </div>

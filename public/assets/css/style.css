@@ -274,7 +274,7 @@ nav {
 
 /* ===== FEATURES BAR ===== */
 .features-bar {
-  background-image: url(../images/bg/bg-4351.jpg);
+  background-image: url(../images/bg/bg-4351.webp);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -624,7 +624,7 @@ nav {
 /* ===== CRAFTING SECTION ===== */
 .crafting-section {
   padding: var(--section-pad);
-  background-image: url(../images/bg/shiv-parvatiji-bg.jpg);
+  background-image: url(../images/bg/shiv-parvatiji-bg.webp);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -746,7 +746,7 @@ nav {
 
 /* ===== TESTIMONIALS SWIPER ===== */
 .testimonials-section {
-background-image: url(../images/bg/testimonial-bg.jpg);
+background-image: url(../images/bg/testimonial-bg.webp);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -916,7 +916,7 @@ background-image: url(../images/bg/testimonial-bg.jpg);
 
 /* ===== SERVICE STRIP ===== */
 .service-strip {
-    background-image: url(../images/bg/why-bg.jpg);
+    background-image: url(../images/bg/why-bg.webp);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -967,7 +967,7 @@ background-image: url(../images/bg/testimonial-bg.jpg);
   position:relative;
   width:100%;
   padding:80px 5%;
-  background: url("../images/bg/ganesha-idol-bg.jpg") no-repeat center center/cover;
+  background: url("../images/bg/ganesha-idol-bg.webp") no-repeat center center/cover;
   overflow:hidden;
 }
 

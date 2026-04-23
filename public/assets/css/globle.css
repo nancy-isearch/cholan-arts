@@ -69,7 +69,7 @@ ul {
 
 /* ── HERO BANNER ── */
 .inner-banner {
-    background-image: url(../images/bg/inner-bg.jpg);
+    background-image: url(../images/bg/inner-bg.webp);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
