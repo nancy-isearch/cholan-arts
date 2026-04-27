@@ -1,87 +1,111 @@
 @extends('frontend.layouts.app')
-
-@section('title','Collections – Cholan Arts')
-
+@section('seo_title', $seo->meta_title)
+@section('seo_description', $seo->meta_description)
+@section('seo_keywords', $seo->meta_keywords)
 @section('content')
-
-<!-- ===== BREADCRUMB ===== -->
-<div class="breadcrumb-wrap">
-  <div class="container">
-    <ul class="breadcrumb">
-      <li><a href="{{ url('/') }}">Home</a></li>
-      <li class="active">Collections</li>
-    </ul>
-  </div>
-</div>
-
-<!-- ===== HERO ===== -->
-<section class="inner-banner">
-  <span class="mb-3">Our Collections</span>
-  <h1>Explore <em>Sacred Categories</em></h1>
-  <p>
-    Discover divine artistry through beautifully curated categories —
-    each representing a unique expression of tradition, culture, and craftsmanship.
-  </p>
-</section>
-
-<main>
-
-  <!-- ===== CATEGORY GRID ===== -->
-  <section class="gallery-section">
-    <div class="section-label">Browse by Theme</div>
-    <h2 class="section-title">Sacred Art, Organized Beautifully</h2>
-
-    <div class="masonry-grid">
-
-      @foreach($collections as $cat)
-      <div class="gallery-item">
-
-        <div class="card-inner gallery-card">
-
-          <a href="{{ route('collection.products', $cat->name) }}">
-
-            <!-- IMAGE -->
-            <div class="card-image">
-              <img src="{{ asset($cat->image)  }}" alt="{{ $cat->name }}" loading="lazy" />
-            </div>
-            <div class="card-overlay"></div>
-            <!-- CONTENT -->
-            <div class="card-content">
-              <div class="card-text">
-                <h4>{{ ucfirst($cat->name) }}</h4>
-                <p class="mb-2" style="font-size:13px;opacity:0.8;">
-                  {{ $cat->subtitle }}
-                </p>
-                <p class="mb-2" style="font-size:13px;opacity:0.8;">
-                  {{ $cat->active_products_count }} Items
-                </p>
-
-                <div class="ganesha-btn-wrapper">
-                  <span class="ganesha-btn">
-                    View Collection →
-                  </span>
-                </div>
-
-              </div>
-            </div>
-
-          </a>
-
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb-wrap">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="{{ url('/') }}">Home</a></li>
+                <li class="active">Collections</li>
+            </ul>
         </div>
-
-      </div>
-      @endforeach
-
     </div>
 
-  </section>
+    <!-- HERO -->
+    <section class="inner-banner">
+        <span class="mb-3">Our Collections</span>
+        <h1>Explore <em>Sacred Collections</em></h1>
+        <p>
+            A visual journey through divine performances, sacred art forms,
+            workshops, festivals, and cultural celebrations at Cholan Arts.
+        </p>
+    </section>
 
-  <!-- ===== CTA ===== -->
-  @include('frontend.components.cta')
+    <main>
+        <!-- GALLERY -->
+        <section class="gallery-section">
+            <div class="section-label">Browse by Theme</div>
+            <h2 class="section-title">Sacred Art, Captured Eternally</h2>
 
-  <!-- ===== SERVICE STRIP ===== -->
-  @include('frontend.components.service-strip')
+            <!-- GRID -->
+            <div class="masonry-grid" id="mainGrid">
+                @foreach ($collections as $cat)
+                    <div class="gallery-item">
+                        <div class="card-inner gallery-card">
+                            <!-- TOP ACTION -->
+                            <div class="top-action">
+                                
+                            </div>
+                            <a href="{{ route('collection.products', $cat->name) }}">
+                                <div class="card-image">
+                                    <img src="{{ asset($cat->image) }}"
+                                        alt="Panel Elephant Family (Colour)" loading="lazy">
+                                </div>
+                                <div class="card-overlay"></div>
+                                <!-- BOTTOM CONTENT -->
+                            </a>
+                            <div class="card-content"><a href="{{ route('collection.products', $cat->name) }}">
+                                </a>
+                                <div class="card-text"><a href="{{ route('collection.products', $cat->name) }}">
 
-</main>
+                                        <h4>{{ ucfirst($cat->name) }}</h4>
+                                        <p class="mb-2" style="font-size:13px;opacity:0.8;">
+                                            {{ $cat->subtitle }}
+                                        </p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </section>
 
+        <!-- ===== CTA BANNER ===== -->
+        @include('frontend.components.cta')
+
+        <!-- ===== SERVICE STRIP ===== -->
+        <section class="service-strip" aria-label="Our services">
+            <div class="service-grid">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <!-- HugeIcons: Call stroke-rounded -->
+                        <img src="{{ asset('assets/svg/headphones.svg') }}" alt="" width="50" />
+                    </div>
+                    <div class="service-title">Reach out to us</div>
+                    <p class="service-desc">
+                        Our dedicated support team is here to assist you. Reach out
+                        anytime for prompt and friendly help.
+                    </p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">
+                        <!-- HugeIcons: Exchange 01 stroke-rounded -->
+                        <img src="{{ asset('assets/svg/package.svg') }}" alt="" width="50" />
+                    </div>
+                    <div class="service-title">Easy Exchanges & Returns</div>
+                    <p class="service-desc">
+                        Hassle-free returns and easy exchanges for a worry-free shopping
+                        experience.
+                    </p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">
+                        <!-- HugeIcons: Gift stroke-rounded -->
+                        <img src="{{ asset('assets/svg/Sucure.svg') }}" alt="" width="50" />
+                    </div>
+                    <div class="service-title">Gifting &amp; Corporate Orders</div>
+                    <p class="service-desc">
+                        Make every occasion special with our customized gifting and
+                        corporate solutions.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
 @endsection
+@push('scripts')
+    <script></script>
+@endpush

@@ -19,7 +19,7 @@
 
         @if($product->categories && $product->categories->count())
           <li>
-            <a href="{{ url('/products?c=' . $product->categories->first()->name) }}">
+            <a href="{{ url('/category/' . $product->categories->first()->name) }}">
               {{ ucfirst($product->categories->first()->name) }}
             </a>
           </li>
