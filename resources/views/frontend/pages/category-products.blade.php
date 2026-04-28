@@ -1,5 +1,13 @@
 @extends('frontend.layouts.app')
+@php
+$metaTitle = "Buy ". $category->name ." Idol Online | Cholan Arts";
 
+$metaDescription = "Buy ". $category->name ." idol online with premium handcrafted brass and bronze statues. Perfect for home, temples, gifting & spiritual decor. Fast delivery across India.";
+
+@endphp
+@section('seo_title', $metaTitle)
+@section('seo_description', $metaDescription)
+@section('seo_keywords', ($seo ? $seo->meta_keywords : null))
 @section('content')
 
 <!-- BREADCRUMB -->
