@@ -12,6 +12,7 @@ class SeoSetting extends Model
         'meta_description',
         'meta_keywords',
         'schema_json',
-        'index_page'
+        'index_page',
+        'h1'
     ];
 }

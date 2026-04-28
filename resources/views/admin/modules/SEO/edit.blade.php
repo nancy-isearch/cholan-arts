@@ -64,6 +64,13 @@
                                         <small class="text-danger error-text meta_description_error"></small>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="epf-field">
+                                        <label class="epf-label">H1 Text<span class="epf-required">*</span></label>
+                                        <input type="text" name="h1" value="{{ old('h1', $seoSetting->h1) }}" class="form-control epf-input" placeholder="">
+                                        <small class="text-danger error-text h1_error"></small>
+                                    </div>
+                                </div>
                                 {{-- Schema JSON --}}
                                 <div class="col-md-12">
                                     <div class="epf-field">

@@ -29,6 +29,7 @@ class SeoController extends Controller
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
             'schema_json' => 'nullable',
+            'h1' => 'nullable',
         ]);
 
         if ($request->page_key === 'home') {
