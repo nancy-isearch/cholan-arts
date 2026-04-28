@@ -20,11 +20,7 @@
 <!-- HERO -->
 <section class="inner-banner">
   <span class="mb-3">Our {{ ucfirst($category->name) }} Products</span>
-  <h1>{{ ucfirst($category->name) }}</h1>
-  {{-- <p>
-    A visual journey through divine performances, sacred art forms,
-    workshops, festivals, and cultural celebrations at Cholan Arts.
-  </p> --}}
+  <h1>{{ ucfirst($category->name) }} Idol Online</h1>
 </section>
 
 <main>
