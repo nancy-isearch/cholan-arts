@@ -24,11 +24,11 @@
                     {{-- Categories - 3 columns --}}
                     @if ($menuCategories->isNotEmpty())
                         <div class="mega-section categories-section">
-                            <p class="mega-section-label">Categories</p>
+                            <p class="mega-section-label">Idols</p>
                             <ul class="mega-list">
                                 @foreach ($menuCategories as $category)
                                     <li>
-                                        <a href="{{ url('category/' . $category->name) }}" class="mega-link">
+                                        <a href="{{ url('category/' . $category->name.'-idols') }}" class="mega-link">
                                             <span class="mega-link-icon">&#9670;</span>
                                             {{ ucfirst($category->name) }}
                                         </a>
@@ -115,11 +115,11 @@
             {{-- Categories --}}
             @if ($menuCategories->isNotEmpty())
                 <div class="mobile-mega-section">
-                    <p class="mobile-mega-label">Categories</p>
+                    <p class="mobile-mega-label">Idols</p>
                     <ul class="mobile-mega-list categories-list">
                         @foreach ($menuCategories as $category)
                             <li>
-                                <a href="{{ url('category/' . $category->name) }}" class="mobile-mega-link">
+                                <a href="{{ url('category/' . $category->name.'-idols') }}" class="mobile-mega-link">
                                     <span class="mobile-mega-icon">&#9670;</span>
                                     {{ ucfirst($category->name) }}
                                 </a>
@@ -158,59 +158,59 @@
 
 <script>
     // ===== HAMBURGER — mobile nav open/close =====
-    const hamburger = document.querySelector('.hamburger');
-    const mobileNav = document.getElementById('mobile-nav');
+    // const hamburger = document.querySelector('.hamburger');
+    // const mobileNav = document.getElementById('mobile-nav');
 
-    if (hamburger && mobileNav) {
-        hamburger.addEventListener('click', function() {
-            const isOpen = mobileNav.classList.toggle('open');
-            hamburger.classList.toggle('open', isOpen);
-            hamburger.setAttribute('aria-expanded', isOpen);
+    // if (hamburger && mobileNav) {
+    //     hamburger.addEventListener('click', function() {
+    //         const isOpen = mobileNav.classList.toggle('open');
+    //         hamburger.classList.toggle('open', isOpen);
+    //         hamburger.setAttribute('aria-expanded', isOpen);
 
-            // Jab mobile nav band ho to dropdown bhi band karo
-            if (!isOpen) closeMobileDropdown();
-        });
-    }
+    //         // Jab mobile nav band ho to dropdown bhi band karo
+    //         if (!isOpen) closeMobileDropdown();
+    //     });
+    // }
 
-    // ===== MOBILE DROPDOWN — Categories toggle =====
-    function toggleMobileDropdown(e) {
-        e.preventDefault(); // Page redirect rok do
-        const wrapper = document.querySelector('.mobile-dropdown');
-        const menu = document.getElementById('mobileCategoryMenu');
-        if (!wrapper || !menu) return;
+    // // ===== MOBILE DROPDOWN — Categories toggle =====
+    // function toggleMobileDropdown(e) {
+    //     e.preventDefault(); // Page redirect rok do
+    //     const wrapper = document.querySelector('.mobile-dropdown');
+    //     const menu = document.getElementById('mobileCategoryMenu');
+    //     if (!wrapper || !menu) return;
 
-        const isOpen = wrapper.classList.toggle('open');
-        menu.classList.toggle('open', isOpen);
-    }
+    //     const isOpen = wrapper.classList.toggle('open');
+    //     menu.classList.toggle('open', isOpen);
+    // }
 
-    function closeMobileDropdown() {
-        const wrapper = document.querySelector('.mobile-dropdown');
-        const menu = document.getElementById('mobileCategoryMenu');
-        if (wrapper) wrapper.classList.remove('open');
-        if (menu) menu.classList.remove('open');
-    }
+    // function closeMobileDropdown() {
+    //     const wrapper = document.querySelector('.mobile-dropdown');
+    //     const menu = document.getElementById('mobileCategoryMenu');
+    //     if (wrapper) wrapper.classList.remove('open');
+    //     if (menu) menu.classList.remove('open');
+    // }
 
     // ===== MOBILE NAV LINKS — click par mobile nav band karo =====
     // Sirf non-toggle links (Home, About, Products, Contact, mega-menu items)
-    document.addEventListener('DOMContentLoaded', function() {
-        // Mobile nav ke direct <a> links (Home, About Us, Products, Contact Us)
-        document.querySelectorAll('#mobile-nav > a').forEach(function(link) {
-            link.addEventListener('click', function() {
-                mobileNav.classList.remove('open');
-                hamburger.classList.remove('open');
-                hamburger.setAttribute('aria-expanded', 'false');
-                closeMobileDropdown();
-            });
-        });
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     // Mobile nav ke direct <a> links (Home, About Us, Products, Contact Us)
+    //     document.querySelectorAll('#mobile-nav > a').forEach(function(link) {
+    //         link.addEventListener('click', function() {
+    //             mobileNav.classList.remove('open');
+    //             hamburger.classList.remove('open');
+    //             hamburger.setAttribute('aria-expanded', 'false');
+    //             closeMobileDropdown();
+    //         });
+    //     });
 
-        // Mega menu ke andar category/collection links — click par sab band
-        document.querySelectorAll('.mobile-mega-link').forEach(function(link) {
-            link.addEventListener('click', function() {
-                mobileNav.classList.remove('open');
-                hamburger.classList.remove('open');
-                hamburger.setAttribute('aria-expanded', 'false');
-                closeMobileDropdown();
-            });
-        });
-    });
+    //     // Mega menu ke andar category/collection links — click par sab band
+    //     document.querySelectorAll('.mobile-mega-link').forEach(function(link) {
+    //         link.addEventListener('click', function() {
+    //             mobileNav.classList.remove('open');
+    //             hamburger.classList.remove('open');
+    //             hamburger.setAttribute('aria-expanded', 'false');
+    //             closeMobileDropdown();
+    //         });
+    //     });
+    // });
 </script>

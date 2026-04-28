@@ -31,7 +31,7 @@ Route::get('/search-suggest', [FrontendController::class, 'suggest']);
 // Categories list page
 Route::get('/categories', [FrontendController::class, 'categories'])->name('categories');
 // Category wise products page
-Route::get('/category/{slug}', [FrontendController::class, 'categoryProducts'])->name('category.products');
+Route::get('/category/{slug}-idols', [FrontendController::class, 'categoryProducts'])->name('category.products');
 
 // Collections list page
 Route::get('/collections', [FrontendController::class, 'collections'])->name('collections');

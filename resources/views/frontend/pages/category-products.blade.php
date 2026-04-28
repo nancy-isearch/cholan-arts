@@ -11,7 +11,7 @@
 
       <!-- ✅ IMPORTANT: slug store -->
       <li class="active cat_name" data-slug="{{ $category->name }}">
-        {{ $category->name }}
+        {{ ucfirst($category->name) }} - Idols
       </li>
     </ul>
   </div>
@@ -20,11 +20,11 @@
 <!-- HERO -->
 <section class="inner-banner">
   <span class="mb-3">Our {{ ucfirst($category->name) }} Products</span>
-  <h1>Moments of <em>Art & Grace</em></h1>
-  <p>
+  <h1>{{ ucfirst($category->name) }}</h1>
+  {{-- <p>
     A visual journey through divine performances, sacred art forms,
     workshops, festivals, and cultural celebrations at Cholan Arts.
-  </p>
+  </p> --}}
 </section>
 
 <main>

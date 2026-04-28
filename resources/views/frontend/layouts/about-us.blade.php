@@ -194,6 +194,25 @@
                 passive: true
             },
         );
+
+        function toggleMobileDropdown(e) {
+            // const dropdown = document.querySelector(".mobile-dropdown");
+            // dropdown.classList.toggle("active");
+
+
+            e.preventDefault(); // Page redirect rok do
+
+            const wrapper = document.querySelector('.mobile-dropdown');
+            
+            const menu = document.getElementById('mobileCategoryMenu');
+            if (!wrapper || !menu) return;
+
+            const isOpen = wrapper.classList.toggle('open');
+            menu.classList.toggle('open', isOpen);
+
+
+
+        }
     </script>
     @stack('scripts')
 

@@ -39,13 +39,19 @@ class AppServiceProvider extends ServiceProvider
                 'categories' => 'categories',
                 'collections' => 'collections',
             ];
-            $routeName = request()->route()->getName();
-            $pageKey = $map[$routeName] ?? null;
             $seo = null;
-            if ($pageKey) {
-                $seo = \App\Models\SeoSetting::where('page_key', $pageKey)->first();
-                $view->with('seo', $seo);
+
+            
+            if(request()->route()) {
+                $routeName = request()->route()->getName();
+                $pageKey = $map[$routeName] ?? null;
+                
+                if ($pageKey) {
+                    $seo = \App\Models\SeoSetting::where('page_key', $pageKey)->first();
+                    $view->with('seo', $seo);
+                }
             }
+            
             
             $view->with('pages', $pages)->with('menuCategories', $menuCategories)->with('menuCollections', $menuCollections)->with('seo', $seo);
         });

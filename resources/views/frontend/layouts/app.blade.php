@@ -114,9 +114,23 @@
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
     @stack('scripts')
     <script>
-        function toggleMobileDropdown() {
-            const dropdown = document.querySelector(".mobile-dropdown");
-            dropdown.classList.toggle("active");
+        function toggleMobileDropdown(e) {
+            // const dropdown = document.querySelector(".mobile-dropdown");
+            // dropdown.classList.toggle("active");
+
+
+            e.preventDefault(); // Page redirect rok do
+
+            const wrapper = document.querySelector('.mobile-dropdown');
+            
+            const menu = document.getElementById('mobileCategoryMenu');
+            if (!wrapper || !menu) return;
+
+            const isOpen = wrapper.classList.toggle('open');
+            menu.classList.toggle('open', isOpen);
+
+
+
         }
         // ===== HERO SWIPER =====
         new Swiper(".hero-swiper", {
@@ -232,15 +246,62 @@
             },
         });
 
-        // ===== HAMBURGER =====
-        const hamburger = document.querySelector(".hamburger");
-        const mobileNav = document.querySelector(".mobile-nav");
+        // ===== HAMBURGER — mobile nav open/close =====
+        const hamburger = document.querySelector('.hamburger');
+        const mobileNav = document.getElementById('mobile-nav');
 
-        hamburger.addEventListener("click", () => {
-            const isOpen = mobileNav.classList.toggle("open");
-            hamburger.classList.toggle("open", isOpen);
-            hamburger.setAttribute("aria-expanded", isOpen);
-            document.body.style.overflow = isOpen ? "hidden" : "";
+        if (hamburger && mobileNav) {
+            hamburger.addEventListener('click', function() {
+                const isOpen = mobileNav.classList.toggle('open');
+                hamburger.classList.toggle('open', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+                document.body.style.overflow = isOpen ? "hidden" : "";
+
+                // Jab mobile nav band ho to dropdown bhi band karo
+                if (!isOpen) closeMobileDropdown();
+            });
+        }
+
+        // // ===== HAMBURGER =====
+        // const hamburger = document.querySelector(".hamburger");
+        // const mobileNav = document.querySelector(".mobile-nav");
+
+        // hamburger.addEventListener("click", () => {
+        //     const isOpen = mobileNav.classList.toggle("open");
+        //     hamburger.classList.toggle("open", isOpen);
+        //     hamburger.setAttribute("aria-expanded", isOpen);
+        //     document.body.style.overflow = isOpen ? "hidden" : "";
+        // });
+
+        function closeMobileDropdown() {
+            const wrapper = document.querySelector('.mobile-dropdown');
+            const menu = document.getElementById('mobileCategoryMenu');
+            if (wrapper) wrapper.classList.remove('open');
+            if (menu) menu.classList.remove('open');
+        }
+
+        // ===== MOBILE NAV LINKS — click par mobile nav band karo =====
+        // Sirf non-toggle links (Home, About, Products, Contact, mega-menu items)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile nav ke direct <a> links (Home, About Us, Products, Contact Us)
+            document.querySelectorAll('#mobile-nav > a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    mobileNav.classList.remove('open');
+                    hamburger.classList.remove('open');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                    closeMobileDropdown();
+                });
+            });
+
+            // Mega menu ke andar category/collection links — click par sab band
+            document.querySelectorAll('.mobile-mega-link').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    mobileNav.classList.remove('open');
+                    hamburger.classList.remove('open');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                    closeMobileDropdown();
+                });
+            });
         });
 
         // ===== NAVBAR SCROLL SHADOW =====

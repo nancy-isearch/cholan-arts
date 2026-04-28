@@ -7,6 +7,7 @@
 @section('seo_image', asset('uploads/products/' . $product->id .'/'. $product->feature_image))
 
 @section('content')
+
   <!-- BREADCRUMB -->
   <div class="breadcrumb-wrap">
     <div class="container">
