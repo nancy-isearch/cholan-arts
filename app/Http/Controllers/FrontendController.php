@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Collection;
 use App\Models\Product;
 use App\Models\Page;
+use Illuminate\Support\Str; 
 
 class FrontendController extends Controller
 {
@@ -186,7 +187,14 @@ class FrontendController extends Controller
 
     public function collectionProducts($slug)
     {
-        $collection = Collection::where('name', $slug)->firstOrFail();
+        //$collection = Collection::where('name', $slug)->firstOrFail();
+
+        $collection = Collection::get()
+        ->first(function ($item) use ($slug) {
+            return Str::slug($item->name) === $slug;
+        });
+
+        abort_if(!$collection, 404);
        
         return view('frontend.pages.collection-products', compact('collection'));
     }

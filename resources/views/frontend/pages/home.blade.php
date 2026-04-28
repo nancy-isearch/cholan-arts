@@ -744,7 +744,7 @@
       @foreach($menuCollections as $key => $collection)
 
         <div class="collection-card {{ $loop->last ? 'wide' : '' }}">
-            <a href="{{ url('/collection/'.$collection->name) }}">
+            <a href="{{ url('/collection/'.Str::slug($collection->name)) }}">
 
                 <div class="collection-card-bg"
                     style="

@@ -50,7 +50,7 @@
                             <ul class="mega-list">
                                 @foreach ($menuCollections as $collection)
                                     <li>
-                                        <a href="{{ url('collection/' . $collection->name) }}" class="mega-link">
+                                        <a href="{{ url('collection/' . Str::slug($collection->name)) }}" class="mega-link">
                                             <span class="mega-link-icon">&#9670;</span>
                                             {{ ucfirst($collection->name) }}
                                         </a>
@@ -137,7 +137,7 @@
                     <ul class="mobile-mega-list collections-list">
                         @foreach ($menuCollections as $collection)
                             <li>
-                                <a href="{{ url('collection/' . $collection->name) }}" class="mobile-mega-link">
+                                <a href="{{ url('collection/' . Str::slug($collection->name)) }}" class="mobile-mega-link">
                                     <span class="mobile-mega-icon">&#9670;</span>
                                     {{ ucfirst($collection->name) }}
                                 </a>

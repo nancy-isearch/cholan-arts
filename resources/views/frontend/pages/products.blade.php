@@ -367,10 +367,9 @@
         <!-- BOTTOM CONTENT -->
         <div class="card-content">
             <div class="card-text">
-                <span class="category">
-                    ${CAT_LABELS[item.category] || item.category}
-                </span>
-                <h4>${item.title}</h4>
+                
+                ${item.category ? `<span class="category">${CAT_LABELS[item.category] || item.category}</span>` : ''}
+                <h4>${item.title.length > 16 ? item.title.substring(0, 16) + '...' : item.title}</h4>
                 <div class="ganesha-btn-wrapper">
                     <a
                         href="/product/${item.slug}"
