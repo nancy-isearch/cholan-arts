@@ -1,18 +1,22 @@
 @extends('frontend.layouts.app')
 @section('title', $product->name)
 
-@section('seo_title', $product->seo_title)
-@section('seo_description', $product->seo_description)
-@section('seo_keywords', $product->seo_keywords ?? $product->name)
+@php
+  
+$previousUrl = url()->previous();
+$fromCategory = str_contains($previousUrl, '/category/');
+$fromProducts = str_contains($previousUrl, '/products');
+
+$metaTitle = "Buy ". $product->name ." Online | Cholan Arts";
+$metaDescription = "Buy ". $product->name ." in India from Cholan Arts at reasonable price.";
+
+@endphp
+@section('seo_title', $product->meta_title ? $product->meta_title : $metaTitle)
+@section('seo_description', $product->meta_description ? $product->meta_description : $metaDescription)
+@section('seo_keywords', $product->meta_keywords ?? $product->name)
 @section('seo_image', asset('uploads/products/' . $product->id .'/'. $product->feature_image))
 
 @section('content')
-@php
-    $previousUrl = url()->previous();
-
-    $fromCategory = str_contains($previousUrl, '/category/');
-    $fromProducts = str_contains($previousUrl, '/products');
-@endphp
   <!-- BREADCRUMB -->
   <div class="breadcrumb-wrap">
     <div class="container">

@@ -291,6 +291,9 @@ class ProductController extends Controller
                 'stock' => $request->stock,
                 'about_title' => $request->about_title,
                 'about_description' => $request->about_description,
+                'meta_title' => $request->meta_title,
+                'meta_description' => $request->meta_description,
+                'meta_keywords' => $request->meta_keywords,
             ]);
             
             // sync categories (important 🔥)
