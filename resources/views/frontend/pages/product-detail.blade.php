@@ -7,17 +7,22 @@
 @section('seo_image', asset('uploads/products/' . $product->id .'/'. $product->feature_image))
 
 @section('content')
+@php
+    $previousUrl = url()->previous();
 
+    $fromCategory = str_contains($previousUrl, '/category/');
+    $fromProducts = str_contains($previousUrl, '/products');
+@endphp
   <!-- BREADCRUMB -->
   <div class="breadcrumb-wrap">
     <div class="container">
       <ul class="breadcrumb">
         <li><a href="{{ url('/') }}">Home</a></li>
-
-        <li>
-          <a href="{{ url('/products') }}">Products</a>
-        </li>
-
+        @if ($fromProducts)
+          <li>
+            <a href="{{ url('/products') }}">Products</a>
+          </li> 
+        @endif
         @if($product->categories && $product->categories->count())
           <li>
             <a href="{{ url('/category/' . $product->categories->first()->name) }}">
