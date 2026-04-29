@@ -29,7 +29,7 @@ $metaDescription = "Buy ". $product->name ." in India from Cholan Arts at reason
         @endif
         @if($product->categories && $product->categories->count())
           <li>
-            <a href="{{ url('/category/' . $product->categories->first()->name) }}">
+            <a href="{{ url('/category/' . $product->categories->first()->name.'-idols') }}">
               {{ ucfirst($product->categories->first()->name) }}
             </a>
           </li>

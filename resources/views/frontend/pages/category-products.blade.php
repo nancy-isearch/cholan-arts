@@ -1,8 +1,8 @@
 @extends('frontend.layouts.app')
 @php
-$metaTitle = "Buy ". $category->name ." Idol Online | Cholan Arts";
+$metaTitle = "Buy ". $category->name ." Idols Online – ". $category->name ." Murti | Cholan Arts";
 
-$metaDescription = "Buy ". $category->name ." idol online with premium handcrafted brass and bronze statues. Perfect for home, temples, gifting & spiritual decor. Fast delivery across India.";
+$metaDescription = "Buy ". $category->name ." idols online with premium handcrafted brass and bronze statues. Perfect for home, temples, gifting & spiritual decor. Fast delivery across India.";
 
 @endphp
 @section('seo_title', $metaTitle)
@@ -28,7 +28,7 @@ $metaDescription = "Buy ". $category->name ." idol online with premium handcraft
 <!-- HERO -->
 <section class="inner-banner">
   <span class="mb-3">Our {{ ucfirst($category->name) }} Products</span>
-  <h1>{{ ucfirst($category->name) }} Idol Online</h1>
+  <h1>{{ ucfirst($category->name) }} Idols Online</h1>
 </section>
 
 <main>

@@ -38,7 +38,7 @@
                             <div class="top-action">
                                 
                             </div>
-                            <a href="{{ route('collection.products', $cat->name) }}">
+                            <a href="{{ route('collection.products', Str::slug($cat->name)) }}">
                                 <div class="card-image">
                                     <img src="{{ asset($cat->image) }}"
                                         alt="Panel Elephant Family (Colour)" loading="lazy">

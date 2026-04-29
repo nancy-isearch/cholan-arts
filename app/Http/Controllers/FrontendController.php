@@ -171,7 +171,7 @@ class FrontendController extends Controller
 
     public function categoryProducts($slug)
     {
-        $category = Category::where('name', $slug)->firstOrFail();
+        $category = Category::where('name', $slug)->where('is_active', 1)->firstOrFail();
        
         return view('frontend.pages.category-products', compact('category'));
     }
@@ -189,10 +189,11 @@ class FrontendController extends Controller
     {
         //$collection = Collection::where('name', $slug)->firstOrFail();
 
-        $collection = Collection::get()
+        $collection = Collection::where('is_active', 1)->get()
         ->first(function ($item) use ($slug) {
             return Str::slug($item->name) === $slug;
         });
+        
 
         abort_if(!$collection, 404);
        

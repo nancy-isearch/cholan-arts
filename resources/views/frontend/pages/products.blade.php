@@ -15,8 +15,6 @@
 
       @if(!empty($categoryName) && $categoryName !== 'all')
         <li class="active">{{ ucfirst($categoryName) }}</li>
-      @else
-        <li class="active">All Photos</li>
       @endif
     </ul>
   </div>
@@ -25,7 +23,8 @@
 <!-- HERO -->
 <section class="inner-banner">
   <span class="mb-3">Our Catalog</span>
-  <h1>Moments of <em>Art & Grace</em></h1>
+  <h1>{{ $seo->h1 ? $seo->h1 : 'Explore Sacred Categories' }}</h1>
+  <!--<h1>Moments of <em>Art & Grace</em></h1>-->
   <p>
     A visual journey through divine performances, sacred art forms,
     workshops, festivals, and cultural celebrations at Cholan Arts.
