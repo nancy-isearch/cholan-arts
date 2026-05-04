@@ -1699,9 +1699,15 @@ background-image: url(../images/bg/testimonial-bg.webp);
     .tab-btn.active .tab-count { background: rgba(255,255,255,0.2); color: rgba(255,255,255,0.85); }
 
     /* ── MASONRY GRID ── */
-    .masonry-grid { columns: 4; column-gap: 1rem; }
+    .masonry-grid { 
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      grid-auto-flow: dense;
+      
+     }
     .gallery-item {
-      break-inside: avoid; margin-bottom: 1rem;
+      break-inside: avoid;
       border-radius: 14px; overflow: hidden; position: relative;
       cursor: pointer; background: var(--cream-dark);
       border: 1px solid var(--border);
@@ -1800,32 +1806,30 @@ background-image: url(../images/bg/testimonial-bg.webp);
 }
 
 /* ===== GALLERY GRID FIX ===== */
-#mainGrid {
-  column-count: 4;
-  column-gap: 20px;
-}
 
 .gallery-item {
   break-inside: avoid;
-  margin-bottom: 20px;
   width: 100%;
 }
 
 @media (max-width: 992px) {
-  #mainGrid {
-    column-count: 3;
+  .masonry-grid{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
   }
 }
 
 @media (max-width: 768px) {
-  #mainGrid {
-    column-count: 2;
+  .masonry-grid{
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 }
 
 @media (max-width: 480px) {
-  #mainGrid {
-    column-count: 1;
+  .masonry-grid{
+    grid-template-columns: repeat(1, 1fr);
+    gap: 8px;
   }
 }
 .square { height: 250px; }
