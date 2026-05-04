@@ -165,7 +165,7 @@
         <span>© 2026 Cholan Arts Emporium. All rights reserved</span>
         <div class="footer-bottom-links" aria-label="Legal links">
           <a href="/privacy-policy">Privacy Policy</a>
-          <a href="/terms-of-use">Terms of Use</a>
+          <a href="/terms-conditions">Terms of Use</a>
           <a href="#">Sitemap</a>
         </div>
       </div>
