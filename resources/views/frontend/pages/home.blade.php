@@ -409,7 +409,7 @@
     <div class="ganesha-container">
       <div class="ganesha-left">
         <img src="{{ asset('assets/images/products-img/ganesha-idol.webp') }}"
-          alt="Ganesha Left"
+          alt="Ganesha Left" loading="lazy"
           width="300" />
       </div>
       <div class="ganesha-content text-center">
@@ -418,7 +418,7 @@
         </h2>
         <div class="mb-3 text-center m-auto">
           <img src="{{ asset('assets/images/products-img/trishul.svg') }}"
-            alt="Ganesha Left"
+            alt="Ganesha Left" loading="lazy"
             class="m-auto" />
         </div>
         <a href="/category/ganesha" class="ganesha-btn">View All Ganesha’s →</a>
@@ -430,7 +430,7 @@
             <div class="swiper-slide">
               <div class="ganesha-card">
                 <img src="{{ $ganesha->feature_image ? asset('uploads/products/'.$ganesha->id .'/' . $ganesha->feature_image) : asset('assets/images/products-img/placeholder-product.jpg') }}"
-                  alt="" />
+                  alt="" loading="lazy" />
                 <h4>{{ $ganesha->name }}</h4>
                 <div class="stars">★★★★☆</div>
               </div>
@@ -639,7 +639,7 @@
         <div class="swiper-slide">
           <article class="featured-card">
             <div class="featured-card-img">
-              <img src="{{ asset('uploads/products/'.$sculpture->id .'/' . $sculpture->feature_image) }}"
+              <img src="{{ asset('uploads/products/'.$sculpture->id .'/' . $sculpture->feature_image) }}" loading="lazy"
                 alt="Relaxing Ganesh handcrafted wooden idol" />
             </div>
             <div class="featured-card-body">
@@ -792,7 +792,7 @@
       <div class="service-item">
         <div class="service-icon">
           <!-- HugeIcons: Call stroke-rounded -->
-          <img src="{{ asset('assets/svg/headphones.svg') }}" alt="" width="50" />
+          <img src="{{ asset('assets/svg/headphones.svg') }}" alt="" width="50" loading="lazy" />
         </div>
         <div class="service-title">Reach out to us</div>
         <p class="service-desc">
@@ -802,8 +802,8 @@
       </div>
       <div class="service-item">
         <div class="service-icon">
-          <!-- HugeIcons: Exchange 01 stroke-rounded -->
-          <img src="{{ asset('assets/svg/package.svg') }}" alt="" width="50" />
+          <!-- Huge Icons: Exchange 01 stroke-rounded -->
+          <img src="{{ asset('assets/svg/package.svg') }}" alt="" width="50" loading="lazy" />
         </div>
         <div class="service-title">Easy Exchanges & Returns</div>
         <p class="service-desc">
@@ -814,7 +814,7 @@
       <div class="service-item">
         <div class="service-icon">
           <!-- HugeIcons: Gift stroke-rounded -->
-          <img src="{{ asset('assets/svg/Sucure.svg') }}" alt="" width="50" />
+          <img src="{{ asset('assets/svg/Sucure.svg') }}" alt="" width="50" loading="lazy" />
         </div>
         <div class="service-title">Gifting &amp; Corporate Orders</div>
         <p class="service-desc">
@@ -827,3 +827,74 @@
 </main>
 
 @endsection
+
+@push('scripts')
+<script>
+// ===== HERO SWIPER =====
+new Swiper(".hero-swiper", {
+    loop: true,
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false
+    },
+    speed: 700,
+    effect: "fade",
+    fadeEffect: {
+        crossFade: true
+    },
+    pagination: {
+        el: ".hero-swiper .swiper-pagination",
+        clickable: true,
+        dynamicBullets: true,
+    },
+    navigation: {
+        nextEl: "#hero-next-btn",
+        prevEl: "#hero-prev-btn",
+    },
+    a11y: {
+        prevSlideMessage: "Previous slide",
+        nextSlideMessage: "Next slide",
+    },
+});
+
+var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 1.2,
+    spaceBetween: 20,
+    loop: true,
+    autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+    },
+    breakpoints: {
+        0: {
+            slidesPerView: 1.2,
+        },
+        768: {
+            slidesPerView: 1.5,
+        },
+        1024: {
+            slidesPerView: 2.2,
+        },
+    },
+});
+
+var swiper = new Swiper(".featuredSwiper", {
+    slidesPerView: 1.25, // shows next 3/4 slide
+    spaceBetween: 30,
+    loop: true,
+    autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+    },
+    breakpoints: {
+        768: {
+            slidesPerView: 1.4,
+        },
+        1024: {
+            slidesPerView: 1.75, // desktop pe better 3/4 effect
+        },
+    },
+});
+
+</script>
+@endpush

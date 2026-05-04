@@ -8,48 +8,71 @@ use App\Models\Collection;
 use App\Models\Product;
 use App\Models\Page;
 use Illuminate\Support\Str; 
+use Illuminate\Support\Facades\Cache;
 
 class FrontendController extends Controller
 {
+    
     public function getHomeContent()
     {
-        //take 10 products
-        $products = Product::with(['images', 'categories'])
-        ->where('status', 1)->where('is_featured', 1)
-        ->take(10)
-        ->get();
 
-        //take 5 from ganesha
-        $ganeshas = Product::with(['images', 'categories'])
-        ->where('status', 1)->where('is_featured', 1)
-        ->whereHas('categories', function ($query) {
-            $query->where('name', 'ganesha');
-        })
-        ->take(5)
-        ->get();
+        $data = Cache::remember('home_page_data', 3600, function () {
 
-        //5 from scupture
-        $sculptures = Product::with(['images', 'categories'])
-        ->where('status', 1)->where('is_featured', 1)
-        ->whereHas('categories', function ($query) {
-            $query->where('name', 'sculptures');
-        })
-        ->take(5)
-        ->get();
+            $products = Product::with([
+                'images:id,product_id,image',
+                'categories:id,name'
+            ])
+            ->where('status', 1)
+            ->where('is_featured', 1)
+            ->select('id','name','slug','description','feature_image')
+            ->take(5)
+            ->get();
 
-        //latest deity of every category
-        $deities = Product::with(['images', 'categories'])
-        ->where('status', 1)
-        ->where('is_featured', 1)
-        ->whereHas('categories')
-        ->latest()
-        ->get()
-        ->unique(function ($item) {
-            return $item->categories->pluck('id')->first();
-        })
-        ->values();
-        
-        return view('frontend.pages.home', compact('products', 'ganeshas', 'sculptures', 'deities'));
+            $ganeshas = Product::with([
+                'images:id,product_id,image',
+                'categories:id,name'
+            ])
+            ->where('status', 1)
+            ->where('is_featured', 1)
+            ->whereHas('categories', function ($query) {
+                $query->where('name', 'ganesha');
+            })
+            ->select('id','name','slug','feature_image')
+            ->take(3)
+            ->get();
+
+            $sculptures = Product::with([
+                'images:id,product_id,image',
+                'categories:id,name'
+            ])
+            ->where('status', 1)
+            ->where('is_featured', 1)
+            ->whereHas('categories', function ($query) {
+                $query->where('name', 'sculptures');
+            })
+            ->select('id','name','slug','description','feature_image')
+            ->take(5)
+            ->get();
+
+            // Existing logic preserved
+            $deities = Product::with([
+                'images:id,product_id,image',
+                'categories:id,name'
+            ])
+            ->where('status', 1)
+            ->where('is_featured', 1)
+            ->whereHas('categories')
+            ->latest()
+            ->get()
+            ->unique(function ($item) {
+                return optional($item->categories->first())->id;
+            })
+            ->values();
+
+            return compact('products', 'ganeshas', 'sculptures', 'deities');
+        });
+
+        return view('frontend.pages.home', $data);
     }
 
     public function categoryList(Request $request)
