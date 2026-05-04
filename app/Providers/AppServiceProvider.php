@@ -37,7 +37,9 @@ class AppServiceProvider extends ServiceProvider
                 'contact' => 'contact',
                 'products' => 'product_list',
                 'categories' => 'categories',
+                'category.products' => 'categories',
                 'collections' => 'collections',
+                'collection.products' => 'collections',
             ];
             $seo = null;
 

@@ -16,8 +16,13 @@
 <!-- HERO -->
 <section @class(['inner-banner'])>
   <span @class(['mb-3'])>Get in Touch</span>
-  <h1>We'd Love to Hear<br><em>From You</em></h1>
-  <p>Whether you're a student, parent, art lover, or patron - reach out and our team will respond within 24 hours.</p>
+  <h1>{{ $seo->h1 ? $seo->h1 : "We'd Love to Hear From You" }}</h1>
+  <!--<h1>Moments of <em>Art & Grace</em></h1>-->
+  <p>
+    {{ $seo->tagline ? $seo->tagline : 'Bringing India’s sacred bronze and brass heritage to life through timeless craftsmanship, soulful stories, and extraordinary artistry.' }}
+  </p>
+  {{-- <h1>We'd Love to Hear<br><em>From You</em></h1>
+  <p>Whether you're a student, parent, art lover, or patron - reach out and our team will respond within 24 hours.</p> --}}
 </section>
 <!-- MAIN BODY -->
 <div @class(['contact-body'])>

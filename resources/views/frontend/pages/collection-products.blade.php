@@ -1,4 +1,7 @@
 @extends('frontend.layouts.app')
+@section('seo_title', $seo->meta_title)
+@section('seo_description', $seo->meta_description)
+@section('seo_keywords', $seo->meta_keywords)
 
 @section('content')
 
@@ -19,12 +22,12 @@
 
 <!-- HERO -->
 <section class="inner-banner">
-  <span class="mb-3">Our {{ ucfirst($collection->name) }} Products</span>
-  <h1>Moments of <em>Art & Grace</em></h1>
-  <p>
-    A visual journey through divine performances, sacred art forms,
-    workshops, festivals, and cultural celebrations at Cholan Arts.
-  </p>
+    <span class="mb-3">Our {{ ucfirst($collection->name) }} Products</span>
+    <h1>{{ $seo->h1 ? $seo->h1 : 'Explore Sacred Categories' }}</h1>
+    <!--<h1>Moments of <em>Art & Grace</em></h1>-->
+    <p>
+        {{ $seo->tagline ? $seo->tagline : 'Bringing India’s sacred bronze and brass heritage to life through timeless craftsmanship, soulful stories, and extraordinary artistry.' }}
+    </p>
 </section>
 
 <main>

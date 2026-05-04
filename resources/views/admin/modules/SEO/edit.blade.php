@@ -71,6 +71,13 @@
                                         <small class="text-danger error-text h1_error"></small>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="epf-field">
+                                        <label class="epf-label">Tagline Text<span class="epf-required">*</span></label>
+                                        <input type="text" name="tagline" value="{{ old('tagline', $seoSetting->tagline) }}" class="form-control epf-input" placeholder="">
+                                        <small class="text-danger error-text tagline_error"></small>
+                                    </div>
+                                </div>
                                 {{-- Schema JSON --}}
                                 <div class="col-md-12">
                                     <div class="epf-field">

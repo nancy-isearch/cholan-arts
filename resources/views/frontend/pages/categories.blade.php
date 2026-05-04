@@ -16,11 +16,9 @@
     <!-- HERO -->
     <section class="inner-banner">
         <span class="mb-3">Our Categories</span>
-        {{-- <h1>Explore <em>Sacred Categories</em></h1> --}}
         <h1>{{ $seo->h1 ? $seo->h1 : 'Explore Sacred Categories' }}</h1>
         <p>
-            A visual journey through divine performances, sacred art forms,
-            workshops, festivals, and cultural celebrations at Cholan Arts.
+            {{ $seo->tagline ? $seo->tagline : 'Bringing India’s sacred bronze and brass heritage to life through timeless craftsmanship, soulful stories, and extraordinary artistry.' }}
         </p>
     </section>
 
