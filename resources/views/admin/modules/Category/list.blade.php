@@ -79,6 +79,7 @@
                     <thead>
                         <tr>
                             <th><h6>#</h6></th>
+                            <th><h6>Image</h6></th>
                             <th><h6>Name</h6></th>
                             <th><h6>Is Active?</h6></th>
                             <th><h6>Action</h6></th>
@@ -125,6 +126,7 @@
                 <form id="categoryForm">
                     @csrf
                     <div class="cat-modal__field">
+                        <input type="hidden" name="id" id="categoryId">
                         <label class="cat-modal__label" for="categoryName">
                             Category Name <span class="cat-required">*</span>
                         </label>
@@ -137,6 +139,20 @@
                             autocomplete="off"
                         >
                         <span class="cat-modal__hint">Use a clear, descriptive name for easy identification.</span>
+                    </div>
+                    <div class="cat-modal__field">
+                        <label class="cat-modal__label">
+                            Category Image
+                        </label>
+                        <!-- Image Preview -->
+                        <div id="imagePreview" style="margin-top:10px;"></div>
+                        <input 
+                            type="file" 
+                            name="image" 
+                            id="categoryImage"
+                            class="form-control cat-modal__input"
+                            accept="image/*"
+                        >
                     </div>
                 </form>
             </div>
@@ -184,6 +200,11 @@
                     render: function(data) {
                         return `<span class="cat-row-index">${data}</span>`;
                     }
+                },
+                {
+                    data: 'image', name: 'image',
+                    createdCell: function(td){ $(td).addClass('min-width'); },
+                    render: function(data){ return `<p>${data}</p>`; }
                 },
                 {
                     data: 'name',
@@ -274,6 +295,25 @@
             });
         });
 
+        // ----- Edit -----
+        $(document).on('click', '.editBtn', function () {
+
+            let id = $(this).data('id');
+            let name = $(this).data('name');
+            let image = $(this).data('image');
+
+            $('#categoryId').val(id);
+            $('#categoryName').val(name);
+
+            if (image) {
+                $('#imagePreview').html(`<img src="/${image}" width="60">`);
+            } else {
+                $('#imagePreview').html('');
+            }
+
+            $('#addCategoryModal').modal('show');
+        });
+
         // ── Delete ──
         $(document).on('click', '.dltBtn', function() {
             let id = $(this).data('id');
@@ -303,15 +343,28 @@
 
         // ── Save Category ──
         $('#saveCategory').click(function () {
-            let formData = {
-                name: $('input[name="name"]').val(),
-                _token: $('input[name="_token"]').val()
-            };
+            let form = document.getElementById('categoryForm');
+            let formData = new FormData(form);
 
+
+            // let formData = {
+            //     name: $('input[name="name"]').val(),
+            //     _token: $('input[name="_token"]').val()
+            // };
+
+            let id = $('#categoryId').val();
+            let url = id 
+            ? "/admin/categories/" + id   // UPDATE
+            : "{{ route('categories.store') }}"; // CREATE
+            console.log("id => ", id);
+            console.log("url => ", url);
             $.ajax({
-                url: "{{ route('categories.store') }}",
+                url: url,
                 type: "POST",
                 data: formData,
+                contentType: false,
+                processData: false,
+
                 success: function (response) {
                     if (response.status) {
                         Swal.fire({
@@ -320,6 +373,8 @@
                             text: response.message
                         });
                         $('#categoryForm')[0].reset();
+                        $('#categoryId').val('');
+                        $('#imagePreview').html('');
                         $('#addCategoryModal').modal('hide');
                         $('.dataTable').DataTable().ajax.reload();
                     }
@@ -338,6 +393,8 @@
         // ── Reset on modal close ──
         $('#addCategoryModal').on('hidden.bs.modal', function () {
             $('#categoryForm')[0].reset();
+            $('#categoryId').val('');
+            $('#imagePreview').html('');
         });
 
     });

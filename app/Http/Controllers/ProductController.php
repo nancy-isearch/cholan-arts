@@ -294,6 +294,7 @@ class ProductController extends Controller
                 'meta_title' => $request->meta_title,
                 'meta_description' => $request->meta_description,
                 'meta_keywords' => $request->meta_keywords,
+                'updated_at' => date('Y-m-d H:i:s')
             ]);
             
             // sync categories (important 🔥)

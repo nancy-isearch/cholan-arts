@@ -41,7 +41,7 @@
                             </div>
                             <a href="{{ route('category.products', $cat->name) }}">
                                 <div class="card-image">
-                                    <img src="{{ asset('/assets/images/products-img/placeholder-product.jpg') }}"
+                                    <img src="{{ $cat->image ? asset($cat->image) : asset('/assets/images/products-img/placeholder-product.jpg') }}" 
                                         alt="Panel Elephant Family (Colour)" loading="lazy">
                                 </div>
                                 <div class="card-overlay"></div>

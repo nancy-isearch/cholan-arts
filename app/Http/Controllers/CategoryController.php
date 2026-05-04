@@ -25,6 +25,11 @@ class CategoryController extends Controller
 
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->addColumn('image', function ($row) {
+                    return $row->image 
+                        ? '<img src="'.asset($row->image).'" width="50">' 
+                        : 'No Image';
+                })
                 ->addColumn('created_at', function ($row) {
                     return $row->created_at->format('d M Y');
                 })
@@ -39,13 +44,19 @@ class CategoryController extends Controller
                     return '
                         <div class="flex items-center gap-2 min-w-[180px]   ">
                             <div class="action">
-                              <button class="text-danger dltBtn" data-id="'.$row->id.'">
-                                <i class="lni lni-trash-can"></i>
-                              </button>
+                                <button class="editBtn btn primary-btn me-2 border" 
+                                    data-id="'.$row->id.'" 
+                                    data-name="'.$row->name.'" 
+                                    data-image="'.$row->image.'">
+                                    <i class="lni lni-pencil"></i>
+                                </button>
+                                <button class="text-danger dltBtn btn btn-danger" data-id="'.$row->id.'">
+                                    <i class="lni lni-trash-can"></i>
+                                </button>
                             </div>
                         </div>';
                 })
-                ->rawColumns(['is_active', 'actions'])
+                ->rawColumns(['image', 'is_active', 'actions'])
                 ->make(true);
         }
 
@@ -62,9 +73,22 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:categories,name'
+            'name' => 'required|unique:categories,name',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
         ]);
-        $this->categoryService->create($request->all());
+        $data = $request->all();
+
+        // Upload image
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+
+            $file->move(public_path('uploads/categories'), $filename);
+
+            $data['image'] = 'uploads/categories/' . $filename;
+        }
+
+        $this->categoryService->create($data);
 
         return response()->json([
             'status' => true,
@@ -82,16 +106,39 @@ class CategoryController extends Controller
     // Update
     public function update(Request $request, $id)
     {
+        $category = Category::findOrFail($id);
+
         $request->validate([
-            'name' => 'required'
+            'name' => 'required|unique:categories,name,' . $id,
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
         ]);
 
-        $this->categoryService->update($id, $request->all());
+        $data = $request->all();
 
-        return redirect()->route('categories.index')
-            ->with('success', 'Category updated');
+        // Upload new image
+        if ($request->hasFile('image')) {
+
+            // delete old image
+            if ($category->image && file_exists(public_path($category->image))) {
+                unlink(public_path($category->image));
+            }
+
+            $file = $request->file('image');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+
+            $file->move(public_path('uploads/categories'), $filename);
+
+            $data['image'] = 'uploads/categories/' . $filename;
+        }
+
+        $this->categoryService->update($id, $data);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Category updated successfully'
+        ]);
     }
-
+    
     public function updateStatus(Request $request)
     {
         $category = Category::findOrFail($request->id);

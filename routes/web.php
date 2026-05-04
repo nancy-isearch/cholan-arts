@@ -60,6 +60,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::post('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
     Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categories.show');
+    Route::post('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
     Route::post('/categories/update-status', [CategoryController::class, 'updateStatus'])->name('categories.updateStatus');
     Route::delete('/categories/delete/{id}', [CategoryController::class, 'destroy'])->name('categories.delete');
 
