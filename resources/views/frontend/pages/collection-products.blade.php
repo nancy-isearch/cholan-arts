@@ -11,7 +11,7 @@
 
       <!-- ✅ IMPORTANT: slug store -->
       <li class="active cat_name" data-slug="{{ $collection->name }}">
-        {{ $collection->name }}
+        {{ ucfirst($collection->name) }}
       </li>
     </ul>
   </div>
