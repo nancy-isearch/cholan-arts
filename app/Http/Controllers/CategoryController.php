@@ -74,7 +74,8 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:categories,name',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
+            // 'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
+            'image' => 'nullable'
         ]);
         $data = $request->all();
 
@@ -110,7 +111,8 @@ class CategoryController extends Controller
 
         $request->validate([
             'name' => 'required|unique:categories,name,' . $id,
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
+            // 'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
+            'image' => 'nullable'
         ]);
 
         $data = $request->all();

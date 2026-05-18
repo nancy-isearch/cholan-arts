@@ -91,7 +91,7 @@ class CollectionController extends Controller
         $request->validate([
             'name'  => 'required',
             'subtitle'  => 'required',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120'
+            // 'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120'
         ]);
 
         $this->collectionService->update($id, $request);

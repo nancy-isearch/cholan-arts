@@ -2,22 +2,34 @@
 
 namespace App\Services;
 
+use App\Mail\EnquiryAdminMail;
+use App\Mail\EnquiryUserMail;
 use App\Models\Enquiry;
+use Illuminate\Support\Facades\Mail;
 
 class EnquiryService
 {
-    public function store(array $data)
+    public function store(array $data): Enquiry
     {
-        return Enquiry::create($data);
-    }
+        $enquiry = Enquiry::create($data);
 
-    public function updateStatus($id, $status)
-    {
-        $enquiry = Enquiry::findOrFail($id);
-        $enquiry->update(['status' => $status]);
+        // Notify admin of the new enquiry
+        Mail::to(config('mail.admin_email'))
+            ->queue(new EnquiryAdminMail($enquiry));
+
+        // Send confirmation to the customer
+        if (!empty($enquiry->email)) {
+            Mail::to($enquiry->email)
+                ->queue(new EnquiryUserMail($enquiry));
+        }
 
         return $enquiry;
     }
-}
 
-?>
+    public function updateStatus(int $id, string $status): Enquiry
+    {
+        $enquiry = Enquiry::findOrFail($id);
+        $enquiry->update(['status' => $status]);
+        return $enquiry;
+    }
+}

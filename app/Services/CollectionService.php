@@ -107,7 +107,7 @@ class CollectionService
     {
         $collection = Collection::findOrFail($id);
         $data = $request->all();
-
+        // dd($data);
         $data['slug'] = Str::slug($data['name']);
 
         if ($request->hasFile('image')) {

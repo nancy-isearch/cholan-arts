@@ -306,10 +306,10 @@
       if (phone.startsWith('1')) phone = phone.substring(1);
 
       // length validation
-      if (rawPhone && (phone.length < 10 || phone.length > 11)) {
-        alert('Enter valid phone number (10–11 digits)');
-        return;
-      }
+    //   if (rawPhone && (phone.length < 10 || phone.length > 11)) {
+    //     alert('Enter valid phone number (10–11 digits)');
+    //     return;
+    //   }
 
       const btn = document.querySelector('.btn-send');
       btn.disabled = true;

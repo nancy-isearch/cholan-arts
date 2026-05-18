@@ -36,6 +36,16 @@ return [
     */
 
     'mailers' => [
+        
+        'smtp1' => [
+            'transport' => 'smtp',
+            'host' => env('MAIL_HOST_1'),
+            'port' => env('MAIL_PORT_1'),
+            'encryption' => env('MAIL_ENCRYPTION_1'),
+            'username' => env('MAIL_USERNAME_1'),
+            'password' => env('MAIL_PASSWORD_1'),
+            'timeout' => null,
+        ],
 
         'smtp' => [
             'transport' => 'smtp',
@@ -83,6 +93,7 @@ return [
             'transport' => 'failover',
             'mailers' => [
                 'smtp',
+                'smtp1', 
                 'log',
             ],
             'retry_after' => 60,
@@ -112,7 +123,9 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
+        'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
+
+    'admin_email' => env('MAIL_ADMIN_EMAIL', 'admin@example.com'),
 
 ];

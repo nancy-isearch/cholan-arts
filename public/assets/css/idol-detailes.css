@@ -1239,3 +1239,28 @@ html {
   color: #000;
   font-weight: 600;
 }
+
+.custom-note-box{
+    margin: 18px 0 28px;
+    padding: 18px 20px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-left: 4px solid #d89b4a;
+    background: rgba(255,255,255,0.03);
+    border-radius: 14px;
+    backdrop-filter: blur(8px);
+}
+
+.note-title{
+    font-size: 15px;
+    font-weight: 700;
+    color: #f2c078;
+    margin-bottom: 8px;
+    letter-spacing: 0.4px;
+}
+
+.note-text{
+    margin: 0;
+    /*color: rgba(255,255,255,0.82);*/
+    line-height: 1.7;
+    font-size: 14px;
+}
