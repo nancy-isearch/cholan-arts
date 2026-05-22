@@ -623,24 +623,6 @@ $metaDescription = "Buy ". $product->name ." in India from Cholan Arts at reason
 @push('scripts')
     <script>
       function openWhatsappChat() {
-          // // Elfsight floating launcher button
-          // let trigger = document.querySelector('.eapps-whatsapp-chat-launcher');
-          // console.log("trgger1 => ", trigger)
-          // if (trigger) {
-          //     trigger.click();
-          //     return;
-          // }
-          // console.log("trgger2 => ", trigger)
-          // // retry after widget load
-          // setTimeout(() => {
-          //     trigger = document.querySelector('.eapps-whatsapp-chat-launcher');
-          //     console.log("trgger3 => ", trigger)
-          //     if (trigger) {
-          //       console.log("trgger4 => ", trigger)
-          //         trigger.click();
-          //     }
-          // }, 1000);
-
           const phone = "919944964110";
 
           const message =

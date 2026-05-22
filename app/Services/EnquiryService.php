@@ -15,6 +15,7 @@ class EnquiryService
 
         // Notify admin of the new enquiry
         Mail::to(config('mail.admin_email'))
+            ->cc(config('mail.admin_cc_email')) 
             ->queue(new EnquiryAdminMail($enquiry));
 
         // Send confirmation to the customer
