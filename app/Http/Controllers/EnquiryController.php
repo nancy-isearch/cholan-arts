@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\EnquiryService;
 use App\Models\Enquiry;
+use Illuminate\Support\Facades\Http;
 use Yajra\DataTables\Facades\DataTables;
 
 class EnquiryController extends Controller
@@ -56,7 +57,26 @@ class EnquiryController extends Controller
     // Store (AJAX)
     public function store(Request $request)
     {
-        $this->enquiryService->store($request->all());
+        $captcha = $request->captcha;
+        
+        $response = Http::asForm()->post(
+            'https://www.google.com/recaptcha/api/siteverify',
+            [
+                'secret' => config('services.recaptcha.secret'),
+                'response' => $captcha,
+            ]
+        );
+
+        $captchaData = $response->json();
+        
+        if (!$captchaData['success']) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Captcha verification failed'
+            ], 422);
+        }
+        $data = $request->except('captcha');
+        $this->enquiryService->store($data);
 
         return response()->json([
             'status' => true,

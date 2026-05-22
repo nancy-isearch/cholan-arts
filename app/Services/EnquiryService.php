@@ -12,7 +12,6 @@ class EnquiryService
     public function store(array $data): Enquiry
     {
         $enquiry = Enquiry::create($data);
-
         // Notify admin of the new enquiry
         Mail::to(config('mail.admin_email'))
             ->cc(config('mail.admin_cc_email')) 

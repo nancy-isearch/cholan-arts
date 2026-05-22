@@ -146,7 +146,11 @@
             <textarea id="msg" placeholder="Tell us about yourself or your query…"></textarea>
           </div>
         </div>
-
+        <div @class(['form-row']) style="grid-template-columns:1fr;">
+          <div @class(['form-group', 'full' ])>
+            <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.key') }}"></div>
+          </div>
+        </div>
         <button @class(['btn-send']) onclick="submitForm()">
           Send Message
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -258,6 +262,7 @@
   </section>
   @endsection
   @push('scripts')
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script>
     function toggleMenu() {
       const nav = document.getElementById('navLinks');
@@ -310,7 +315,12 @@
     //     alert('Enter valid phone number (10–11 digits)');
     //     return;
     //   }
+      const captcha = grecaptcha.getResponse();
 
+      if (!captcha) {
+          alert('Please verify captcha');
+          return;
+      }
       const btn = document.querySelector('.btn-send');
       btn.disabled = true;
       btn.innerText = 'Sending...';
@@ -325,7 +335,8 @@
             email: email,
             phone: phone,
             country_city: country_city,
-            message: message
+            message: message,
+            captcha: captcha
           })
         })
         .then(response => response.json())

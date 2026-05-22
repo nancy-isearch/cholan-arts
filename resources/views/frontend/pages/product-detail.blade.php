@@ -567,11 +567,15 @@ $metaDescription = "Buy ". $product->name ." in India from Cholan Arts at reason
 
             <div class="mf-row" style="grid-template-columns: 1fr">
               <div class="mf-group full">
-                <label>Message</label>
+                <label>Message <span>*</span></label>
                 <textarea id="mfMsg" placeholder="Your message..."></textarea>
               </div>
             </div>
-
+            <div class="mf-row" style="grid-template-columns:1fr;">
+              <div class="mf-group full">
+                  <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.key') }}"></div>
+              </div>
+          </div>
             <button class="btn-submit-modal" onclick="submitInquiry()">
               Send Enquiry
             </button>
@@ -621,6 +625,7 @@ $metaDescription = "Buy ". $product->name ." in India from Cholan Arts at reason
     @endif
 @endsection
 @push('scripts')
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
       function openWhatsappChat() {
           const phone = "919944964110";
@@ -689,8 +694,8 @@ $metaDescription = "Buy ". $product->name ." in India from Cholan Arts at reason
           const validChars = /^[0-9+\-\s]+$/;
 
           //Required validation
-          if (!full_name || !rawPhone || !email) {
-              alert('Name/Phone/Email are required');
+          if (!full_name || !rawPhone || !email || !message) {
+              alert('Name/Phone/Email/Message are required');
               return;
           }
 
@@ -714,7 +719,12 @@ $metaDescription = "Buy ". $product->name ." in India from Cholan Arts at reason
         //       alert('Enter valid 10 digit phone number');
         //       return;
         //   }
+          const captcha = grecaptcha.getResponse();
 
+          if (!captcha) {
+              alert('Please verify captcha');
+              return;
+          }
           const btn = document.querySelector('.btn-submit-modal');
           btn.disabled = true;
           btn.innerText = 'Sending...';
@@ -733,7 +743,8 @@ $metaDescription = "Buy ". $product->name ." in India from Cholan Arts at reason
                   purpose,
                   preferred_finish,
                   message,
-                  product_id
+                  product_id,
+                  captcha
               })
           })
           .then(res => res.json())
@@ -747,6 +758,7 @@ $metaDescription = "Buy ". $product->name ." in India from Cholan Arts at reason
                   // reset form
                   document.querySelectorAll('.modal-form input, .modal-form textarea').forEach(el => el.value = '');
                   document.querySelectorAll('.modal-form select').forEach(el => el.selectedIndex = 0);
+                  grecaptcha.reset();
               } else {
                   alert('Something went wrong!');
               }
