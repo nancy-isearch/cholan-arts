@@ -27,15 +27,15 @@
     <meta property="og:title" content="@yield('seo_title', 'Cholan Arts - Handcrafted Divine Idols')" />
     <meta property="og:description" content="@yield('seo_description', 'Cholan Arts preserves the ancient Lost Wax tradition of the Chola Dynasty. Shop authentic handcrafted bronze deity idols - Ganesha, Shiva, Nataraja, Lakshmi and more.')" />
     <meta property="og:url" content="{{ url()->current() }}" />
-    <meta property="og:image" content="@yield('seo_image', 'https://img.freepik.com/free-photo/traditional-bronze-idol_og.jpg')" />
+    <meta property="og:image" content="{{ asset(trim($__env->yieldContent('seo_image', 'assets/images/banner-img/banner-slide-img1.webp'), '/')) }}" />
     <meta property="og:locale" content="en_IN" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="@yield('seo_title', 'Cholan Arts - Handcrafted Divine Idols')" />
     <meta name="twitter:description" content="@yield('seo_description', 'Cholan Arts preserves the ancient Lost Wax tradition of the Chola Dynasty. Shop authentic handcrafted bronze deity idols - Ganesha, Shiva, Nataraja, Lakshmi and more.')" />
-    <meta name="twitter:image" content="@yield('seo_image', 'https://img.freepik.com/free-photo/traditional-bronze-idol_og.jpg')" />
-
+    <meta name="twitter:image" content="{{ asset(trim($__env->yieldContent('seo_image', 'assets/images/banner-img/banner-slide-img1.webp'), '/')) }}" />
+    
 
 
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/svg/favicon-16x16.png') }}">
@@ -125,8 +125,8 @@ gtag('config', 'G-449V2HLR8Q');
 
 
     <!-- Elfsight WhatsApp Chat | CholanArts.com -->
-    <script src="https://elfsightcdn.com/platform.js" async></script>
-    <div class="elfsight-app-7f42fd9b-7d1b-4320-9531-97a420c1d3ae" data-elfsight-app-lazy></div>
+<script src="https://elfsightcdn.com/platform.js" async></script>
+<div class="elfsight-app-7f42fd9b-7d1b-4320-9531-97a420c1d3ae" data-elfsight-app-lazy></div>
     <!-- Swiper.js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">

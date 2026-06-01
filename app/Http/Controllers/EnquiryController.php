@@ -58,7 +58,7 @@ class EnquiryController extends Controller
     public function store(Request $request)
     {
         $captcha = $request->captcha;
-        
+
         $response = Http::asForm()->post(
             'https://www.google.com/recaptcha/api/siteverify',
             [
@@ -68,15 +68,15 @@ class EnquiryController extends Controller
         );
 
         $captchaData = $response->json();
-        
+
         if (!$captchaData['success']) {
             return response()->json([
                 'status' => false,
                 'message' => 'Captcha verification failed'
             ], 422);
         }
-        $data = $request->except('captcha');
-        $this->enquiryService->store($data);
+        
+        $this->enquiryService->store($request->all());
 
         return response()->json([
             'status' => true,

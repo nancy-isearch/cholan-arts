@@ -421,7 +421,7 @@
             alt="Ganesha Left" loading="lazy"
             class="m-auto" />
         </div>
-        <a href="/category/ganesha" class="ganesha-btn">View All Ganesha’s →</a>
+        <a href="/category/ganesha-idols" class="ganesha-btn">View All Ganesha’s →</a>
       </div>
       <div class="ganesha-slider">
         <div class="swiper mySwiper">
@@ -612,7 +612,7 @@
     <div class="text-center">
       <h2 class="section-title" id="featured-title">Featured Sculptures</h2>
       <div class="d-flex justify-content-center">
-        <a href="/category/sculptures" class="explore-link text-center m-auto">
+        <a href="/category/tribal-idols" class="explore-link text-center m-auto">
           Explore All
           <svg
             xmlns="http://www.w3.org/2000/svg"
