@@ -5,6 +5,30 @@
 
     RewriteEngine On
 
+    # ==========================
+    # SEO 301 Redirects (OLD → NEW)
+    # ==========================
+    RewriteCond %{THE_REQUEST} \s/+collection/antique%20bronze%20vessels[\s?] [NC]
+    RewriteRule ^collection/.*$ /collection/antique-bronze-vessels [R=301,L]
+    
+    RewriteCond %{THE_REQUEST} \s/+collection/corporate%20gifts[\s?] [NC]
+    RewriteRule ^collection/.*$ /collection/corporate-gifts [R=301,L]
+    
+    RewriteCond %{THE_REQUEST} \s/+collection/brass%20collections[\s?] [NC]
+    RewriteRule ^collection/.*$ /collection/brass-collections [R=301,L]
+    
+    RewriteCond %{THE_REQUEST} \s/+collection/new%20year%20gifts[\s?] [NC]
+    RewriteRule ^collection/.*$ /collection/new-year-gifts [R=301,L]
+    
+    RewriteCond %{THE_REQUEST} \s/+collection/types%20of%20deity%20idols[\s?] [NC]
+    RewriteRule ^collection/.*$ /collection/types-of-deity-idols [R=301,L]
+    
+    RewriteCond %{THE_REQUEST} \s/+category/radha%20krishna-idols[\s?] [NC]
+    RewriteRule ^category/.*$ /category/radha-krishna-idols [R=301,L]
+    
+    RewriteCond %{THE_REQUEST} \s/+category/boga%20sakthi-idols[\s?] [NC]
+    RewriteRule ^category/.*$ /category/boga-sakthi-idols [R=301,L]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
