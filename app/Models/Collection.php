@@ -10,7 +10,9 @@ class Collection extends Model
         'name',
         'subtitle',
         'is_active',
-        'image'
+        'image',
+        'meta_title',
+        'meta_description'
     ];
 
     public function products()

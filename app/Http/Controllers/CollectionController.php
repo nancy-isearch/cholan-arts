@@ -50,7 +50,7 @@ class CollectionController extends Controller
                 })
                 ->addColumn('actions', function ($row) {
                     return '
-                        <button class="btn primary-btn me-2 border editBtn" data-id="'.$row->id.'" data-name="'.$row->name.'" data-subtitle="'.$row->subtitle.'" data-image="'.asset($row->image).'">
+                        <button class="btn primary-btn me-2 border editBtn" data-id="'.$row->id.'" data-name="'.e($row->name).'" data-subtitle="'.e($row->subtitle).'" data-image="'.asset($row->image).'" data-meta_title="'.e((string)$row->meta_title).'" data-meta_description="'.e((string)$row->meta_description).'">
 
                             <i class="lni lni-pencil"></i>
                         

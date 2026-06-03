@@ -1,7 +1,11 @@
 @extends('frontend.layouts.app')
-@section('seo_title', $seo->meta_title)
-@section('seo_description', $seo->meta_description)
-@section('seo_keywords', $seo->meta_keywords)
+@php
+$metaTitle = $collection->meta_title ?? "Buy ". $collection->name ." Idols Online | Cholan Arts";
+$metaDescription = $collection->meta_description ?? "Buy ". $collection->name ." idols online with premium handcrafted brass and bronze statues.";
+@endphp
+@section('seo_title', $metaTitle)
+@section('seo_description', $metaDescription)
+@section('seo_keywords', ($seo ? $seo->meta_keywords : null))
 
 @section('content')
 
