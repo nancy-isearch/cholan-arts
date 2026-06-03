@@ -93,6 +93,16 @@
                         <input type="text" name="subtitle" class="form-control">
                     </div>
 
+                    <div class="mb-3">
+                        <label>Meta Title</label>
+                        <input type="text" name="meta_title" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Meta Description</label>
+                        <textarea name="meta_description" class="form-control" rows="3"></textarea>
+                    </div>
+
                     {{-- IMAGE --}}
                     <div class="mb-3">
                         <label>Collection Image</label>
@@ -146,6 +156,16 @@
                     <div class="mb-3">
                         <label>Subtitle *</label>
                         <input type="text" id="edit_subtitle" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Meta Title</label>
+                        <input type="text" id="edit_meta_title" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Meta Description</label>
+                        <textarea id="edit_meta_description" class="form-control" rows="3"></textarea>
                     </div>
 
                     <div class="mb-3">
@@ -270,6 +290,8 @@ $(document).ready(function () {
         let formData = new FormData();
         formData.append('name', $('input[name="name"]').val());
         formData.append('subtitle', $('input[name="subtitle"]').val());
+        formData.append('meta_title', $('input[name="meta_title"]').val());
+        formData.append('meta_description', $('textarea[name="meta_description"]').val());
         formData.append('_token', $('input[name="_token"]').val());
 
         let file = $('#collectionImage')[0].files[0];
@@ -307,6 +329,8 @@ $(document).ready(function () {
         $('#edit_id').val($(this).data('id'));
         $('#edit_name').val($(this).data('name'));
         $('#edit_subtitle').val($(this).data('subtitle'));
+        $('#edit_meta_title').val($(this).data('meta_title'));
+        $('#edit_meta_description').val($(this).data('meta_description'));
 
         let image = $(this).data('image');
 
@@ -344,6 +368,8 @@ $(document).ready(function () {
         let formData = new FormData();
         formData.append('name', $('#edit_name').val());
         formData.append('subtitle', $('#edit_subtitle').val());
+        formData.append('meta_title', $('#edit_meta_title').val());
+        formData.append('meta_description', $('#edit_meta_description').val());
 
         let file = $('#edit_image')[0].files[0];
         if(file) formData.append('image', file);

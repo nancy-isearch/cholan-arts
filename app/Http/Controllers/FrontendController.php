@@ -192,9 +192,17 @@ class FrontendController extends Controller
         return view('frontend.pages.categories', compact('categories'));
     }
 
-    public function categoryProducts($slug)
+    public function categoryProducts(Request $request, $slug = null)
     {
-        $category = Category::where('name', $slug)->where('is_active', 1)->firstOrFail();
+        $path = $request->path();
+        if($path == 'category/radha-krishna-idols') {
+            $category = Category::where('name', 'Radha Krishna')->where('is_active', 1)->firstOrFail();
+        } elseif($path == 'category/boga-sakthi-idols') {
+            $category = Category::where('name', "boga sakthi")->where('is_active', 1)->firstOrFail();
+        } else {
+            $category = Category::where('name', $slug)->where('is_active', 1)->firstOrFail();
+        }
+        
        
         return view('frontend.pages.category-products', compact('category'));
     }
