@@ -12,7 +12,8 @@ class Collection extends Model
         'is_active',
         'image',
         'meta_title',
-        'meta_description'
+        'meta_description',
+        'h1'
     ];
 
     public function products()

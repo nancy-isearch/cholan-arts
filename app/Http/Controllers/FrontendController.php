@@ -55,21 +55,22 @@ class FrontendController extends Controller
             ->get();
 
             // Existing logic preserved
-            $deities = Product::with([
-                'images:id,product_id,image',
-                'categories:id,name'
-            ])
-            ->where('status', 1)
-            ->where('is_featured', 1)
-            ->whereHas('categories')
-            ->latest()
-            ->get()
-            ->unique(function ($item) {
-                return optional($item->categories->first())->id;
-            })
-            ->values();
+            // $deities = Product::with([
+            //     'images:id,product_id,image',
+            //     'categories:id,name'
+            // ])
+            // ->where('status', 1)
+            // ->where('is_featured', 1)
+            // ->whereHas('categories')
+            // ->latest()
+            // ->get()
+            // ->unique(function ($item) {
+            //     return optional($item->categories->first())->id;
+            // })
+            // ->values();
 
-            return compact('products', 'ganeshas', 'sculptures', 'deities');
+            // return compact('products', 'ganeshas', 'sculptures', 'deities');
+            return compact('products', 'ganeshas', 'sculptures');
         });
 
         return view('frontend.pages.home', $data);

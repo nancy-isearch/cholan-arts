@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 @php
-$metaTitle = "Buy ". $category->name ." Idols Online – ". $category->name ." Murti | Cholan Arts";
+$metaTitle = "Buy ". ucfirst($category->name) ." Idols Online – ". ucfirst($category->name) ." Murti | Cholan Arts";
 
 $metaDescription = "Buy ". $category->name ." idols online with premium handcrafted brass and bronze statues. Perfect for home, temples, gifting & spiritual decor. Fast delivery across India.";
 

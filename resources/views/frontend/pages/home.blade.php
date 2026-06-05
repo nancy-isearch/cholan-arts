@@ -27,7 +27,8 @@
           <div class="row">
             <div class="col-md-6">
               <div class="hero-content">
-                <h1>Auspicious addition to your pooja space</h1>
+                {{-- <h1>Auspicious addition to your pooja space</h1> --}}
+                <div class="hero-heading">Auspicious addition to your pooja space</div>
                 <p>
                   Handcrafted Cholan-inspired idols that add grace,
                   positivity, and timeless beauty to your sacred space.
@@ -75,9 +76,9 @@
           <div class="row">
             <div class="col-md-6 offset-md-6">
               <div class="hero-content">
-                <h1 class="text-white">
+                <div class="hero-heading text-white">
                   The cosmic dance of Lord Nataraja
-                </h1>
+                </div>
                 <p class="text-white">
                   Masterfully cast in bronze using the ancient Lost Wax
                   technique - a timeless treasure for devotees and
@@ -123,7 +124,7 @@
           <div class="row">
             <div class="col-md-6 offset-md-6">
               <div class="hero-content">
-                <h1>Invite prosperity with Goddess Lakshmi</h1>
+                <div class="hero-heading">Invite prosperity with Goddess Lakshmi</div>
                 <p>
                   Each idol is a living tribute to centuries of sacred
                   artisan wisdom passed down through generations of Chola
@@ -169,9 +170,9 @@
           <div class="row">
             <div class="col-md-6 offset-md-6">
               <div class="hero-content">
-                <h1 class="text-white">
+                <div class="hero-heading text-white">
                   Divine craftsmanship, eternal devotion
-                </h1>
+                </div>
                 <p class="text-white">
                   From the Chola heartland to your home - authentic
                   handcrafted sculptures that carry the divine essence of
@@ -352,6 +353,19 @@
     </div>
   </section>
 
+  <section class="py-5 explore-section" aria-labelledby="intro-title">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-md-10">
+          <h1 id="intro-title" class="section-title mb-3">Explore Our Handcrafted Bronze & Brass Idols Collection</h1>
+          <p>
+            It's time to bring a piece of Tamil Nadu's soulful artistry into your home and make your space more optimistic. Each idol in our collection is carefully developed by our skilled artisans. Whether you are looking to create a divine corner for the living room or share a meaningful gift for someone special, these statues bring peaceful vibrations to any space. Check out our collection and pick the idol that speaks to you.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== PRODUCTS - DEITY IDOLS ===== -->
   <section class="products-section" aria-labelledby="deity-idols-title">
     <div class="swiper-nav-row">
@@ -511,7 +525,7 @@
   </section>
 
   <!-- ===== PRODUCTS - DEITY IDOLS ===== -->
-  <section class="products-section" aria-labelledby="deity-idols-title">
+  {{-- <section class="products-section" aria-labelledby="deity-idols-title">
     <div class="swiper-nav-row">
       <h2 class="section-title" id="deity-idols-title">
         Types of Deity Idols
@@ -559,7 +573,7 @@
       </div>
       <div class="swiper-pagination"></div>
     </div>
-  </section>
+  </section> --}}
 
   <!-- ===== ABOUT SECTION ===== -->
   <section class="about-section" aria-labelledby="about-title">

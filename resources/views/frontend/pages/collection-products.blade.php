@@ -27,7 +27,7 @@ $metaDescription = $collection->meta_description ?? "Buy ". $collection->name ."
 <!-- HERO -->
 <section class="inner-banner">
     <span class="mb-3">Our {{ ucfirst($collection->name) }} Products</span>
-    <h1>{{ $seo->h1 ? $seo->h1 : 'Explore Sacred Categories' }}</h1>
+    <h1>{{ ($seo->h1 ? $seo->h1 : ($collection->h1 ? $collection->h1 : 'Explore Sacred Categories')) }}</h1>
     <!--<h1>Moments of <em>Art & Grace</em></h1>-->
     <p>
         {{ $seo->tagline ? $seo->tagline : 'Bringing India’s sacred bronze and brass heritage to life through timeless craftsmanship, soulful stories, and extraordinary artistry.' }}
