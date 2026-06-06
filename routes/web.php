@@ -32,7 +32,7 @@ Route::get('/search-suggest', [FrontendController::class, 'suggest']);
 Route::get('/categories', [FrontendController::class, 'categories'])->name('categories');
 // Category wise products page
 Route::get('/category/radha-krishna-idols', [FrontendController::class, 'categoryProducts']);
-Route::get('/category/boga-sakhti-idols', [FrontendController::class, 'categoryProducts']);
+Route::get('/category/boga-sakthi-idols', [FrontendController::class, 'categoryProducts']);
 Route::get('/category/{slug}-idols', [FrontendController::class, 'categoryProducts'])->name('category.products');
 
 // Collections list page

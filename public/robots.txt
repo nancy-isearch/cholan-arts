@@ -1,2 +1,86 @@
-User-agent: *
+# robots.txt for Cholan Arts (https://www.cholanarts.com)
+# Generated: 2026-06-04
+
+# -----------------------------------------------
+# Allow all major search engine crawlers
+# -----------------------------------------------
+User-agent: Googlebot
 Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+# -----------------------------------------------
+# Block AI training crawlers
+# -----------------------------------------------
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+# -----------------------------------------------
+# Default rules for all other crawlers
+# -----------------------------------------------
+User-agent: *
+
+# Allow all public-facing pages
+Allow: /
+Allow: /about-us
+Allow: /products
+Allow: /categories
+Allow: /collections
+Allow: /contact-us
+Allow: /privacy-policy
+Allow: /terms-conditions
+Allow: /product/
+Allow: /category/
+Allow: /collection/
+
+# Allow static assets (needed for rendering and image search)
+Allow: /assets/
+Allow: /uploads/
+
+# Block admin and backend paths (precautionary)
+Disallow: /admin/
+Disallow: /admin
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /config/
+Disallow: /.env
+
+# Block duplicate content from URL query strings
+Disallow: /*?sort=
+Disallow: /*?filter=
+Disallow: /*?page=
+Disallow: /*?ref=
+Disallow: /*?utm_
+
+# Block utility paths
+Disallow: /cdn-cgi/
+
+
+# Sitemap location
+
+Sitemap: https://www.cholanarts.com/sitemap.xml

@@ -4,10 +4,13 @@
     </IfModule>
 
     RewriteEngine On
-
+    
     # ==========================
     # SEO 301 Redirects (OLD → NEW)
     # ==========================
+    RewriteRule ^product/ganesh-dancing-2/?$ /product/abhaya-hasta-ganesha-brass-idol/ [R=301,L,NC]
+    
+    RewriteRule ^product/saraswathi-plain-1/?$ /product/saraswati-with-veena-wooden-idol/ [R=301,L,NC]
     RewriteCond %{THE_REQUEST} \s/+collection/antique%20bronze%20vessels[\s?] [NC]
     RewriteRule ^collection/.*$ /collection/antique-bronze-vessels [R=301,L]
     

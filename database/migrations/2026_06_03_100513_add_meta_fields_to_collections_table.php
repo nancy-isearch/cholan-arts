@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::table('collections', function (Blueprint $table) {
             $table->string('meta_title')->nullable()->after('image');
             $table->text('meta_description')->nullable()->after('meta_title');
-            $table->text('h1')->nullable()->after('meta_description');
         });
     }
 
