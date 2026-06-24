@@ -64,7 +64,7 @@ $metaDescription = "Buy ". $product->name ." in India from Cholan Arts at reason
           {{-- THUMBNAILS --}}
           @if(count($product->images) > 0)
               <div class="thumb-row">
-                  <a href="{{ $product->feature_image ? asset('uploads/products/'.$product->id .'/' . $product->feature_image) : asset('assets/images/products-img/placeholder-product.jpg') }}" data-fancybox="gallery"></a>
+                  <!--<a href="{{ $product->feature_image ? asset('uploads/products/'.$product->id .'/' . $product->feature_image) : asset('assets/images/products-img/placeholder-product.jpg') }}" data-fancybox="gallery"></a>-->
 
                   <div 
                       class="thumb active"
@@ -359,7 +359,8 @@ $metaDescription = "Buy ". $product->name ." in India from Cholan Arts at reason
     </div>
 
     <!-- ===== Our Related Idols ===== -->
-    <section class="products-section" aria-labelledby="deity-idols-title">
+    @if (count($relatedProducts) > 0)
+      <section class="products-section" aria-labelledby="deity-idols-title">
       <div class="swiper-nav-row">
         <h2 class="section-title" id="deity-idols-title">Our Related Idols</h2>
         <a href="/products" class="explore-link" aria-label="Explore all deity idols">
@@ -408,6 +409,8 @@ $metaDescription = "Buy ". $product->name ." in India from Cholan Arts at reason
         <div class="swiper-pagination"></div>
       </div>
     </section>
+    @endif
+    
 
     <!-- ===== FAQs ===== -->
     @if($product->faqs && $product->faqs->count() > 0)
