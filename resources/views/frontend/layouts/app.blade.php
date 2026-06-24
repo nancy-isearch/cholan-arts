@@ -82,6 +82,17 @@
           </script>
         @endif
     @endif
+    
+    <noscript>
+        <style>
+            /* Fallback for SEO and users with JS disabled: force display of content */
+            .swiper-wrapper { display: block !important; transform: none !important; }
+            .swiper-slide { display: block !important; opacity: 1 !important; visibility: visible !important; width: auto !important; height: auto !important; }
+            .mobile-dropdown, .dropdown-menu, .mobile-category-menu { display: block !important; position: static !important; opacity: 1 !important; visibility: visible !important; transform: none !important; }
+            .d-none, .hidden, [hidden], [style*="display: none"] { display: block !important; }
+            #suggestions { display: block !important; position: static !important; }
+        </style>
+    </noscript>
 </head>
 <!-- Google tag (gtag.js) start --> 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-449V2HLR8Q"></script> 

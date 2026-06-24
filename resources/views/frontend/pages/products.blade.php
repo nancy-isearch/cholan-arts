@@ -68,6 +68,59 @@
 
     <!-- GRID -->
     <div class="masonry-grid" id="mainGrid"></div>
+    <noscript>
+        <div class="masonry-grid">
+            @if(isset($products) && $products->count() > 0)
+                @foreach($products as $item)
+                @php
+                    $catName = $item->categories->first()->name ?? '';
+                    $catLabels = [
+                        'ganesha' => 'Lord Ganesha',
+                        'shiva' => 'Lord Shiva',
+                        'buddha' => 'Buddha',
+                        'krishna' => 'Lord Krishna',
+                        'events' => 'Performances',
+                        'workshops' => 'Workshops',
+                        'festivals' => 'Festivals',
+                    ];
+                    $catLabel = $catLabels[$catName] ?? ucfirst($catName);
+                    $image = $item->feature_image ? asset('uploads/products/'.$item->id.'/'.$item->feature_image) : asset('assets/images/products-img/placeholder-product.jpg');
+                    $title = strlen($item->name) > 16 ? substr($item->name, 0, 16) . '...' : $item->name;
+                @endphp
+                <div class="gallery-item">
+                    <div class="card-inner gallery-card">
+                        <div class="top-action">
+                            <button class="btn-inquire">ⓘ</button>
+                        </div>
+                        <a href="{{ url('/product/'.$item->slug) }}">
+                            <div class="card-image">
+                                <img src="{{ $image }}" alt="{{ $item->name }}" loading="lazy" />
+                            </div>
+                            <div class="card-overlay"></div>
+                            <div class="card-content">
+                                <div class="card-text">
+                                    @if($catLabel)
+                                        <span class="category">{{ $catLabel }}</span>
+                                    @endif
+                                    <h4>{{ $title }}</h4>
+                                    <div class="ganesha-btn-wrapper">
+                                        <a href="{{ url('/product/'.$item->slug) }}" class="ganesha-btn inner-view-button">
+                                            View Details
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="currentColor" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M18.5 12L4.99997 12" />
+                                                <path d="M13 18C13 18 19 13.5811 19 12C19 10.4188 13 6 13 6" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                @endforeach
+            @endif
+        </div>
+    </noscript>
 
     <!-- PAGINATION -->
     <div class="pagination-wrap">
