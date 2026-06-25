@@ -359,8 +359,7 @@ $metaDescription = "Buy ". $product->name ." in India from Cholan Arts at reason
     </div>
 
     <!-- ===== Our Related Idols ===== -->
-    @if (count($relatedProducts) > 0)
-      <section class="products-section" aria-labelledby="deity-idols-title">
+    <section class="products-section" aria-labelledby="deity-idols-title">
       <div class="swiper-nav-row">
         <h2 class="section-title" id="deity-idols-title">Our Related Idols</h2>
         <a href="/products" class="explore-link" aria-label="Explore all deity idols">
@@ -409,8 +408,6 @@ $metaDescription = "Buy ". $product->name ." in India from Cholan Arts at reason
         <div class="swiper-pagination"></div>
       </div>
     </section>
-    @endif
-    
 
     <!-- ===== FAQs ===== -->
     @if($product->faqs && $product->faqs->count() > 0)

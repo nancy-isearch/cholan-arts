@@ -43,6 +43,48 @@ $metaDescription = $collection->meta_description ?? "Buy ". $collection->name ."
 
     <!-- GRID -->
     <div class="masonry-grid" id="mainGrid"></div>
+    <noscript>
+        <div class="masonry-grid">
+            @if(isset($products) && $products->count() > 0)
+                @foreach($products as $item)
+                @php
+                    $sizes = ['square', 'portrait', 'tall', 'wide'];
+                    $size = $sizes[array_rand($sizes)];
+                @endphp
+                <div class="gallery-item">
+                    <div class="card-inner gallery-card">
+                        <a href="{{ url('product/'.$item->slug) }}">
+                            <div class="card-image">
+                                <img src="{{ $item->feature_image ? asset('uploads/products/'.$item->id .'/'.$item->feature_image) : asset('assets/images/products-img/placeholder-product.jpg') }}" alt="{{ $item->name }}" loading="lazy" />
+                            </div>
+                            <div class="card-overlay"></div>
+                            <div class="card-content">
+                                <div class="card-text">
+                                    <span class="category">{{ ucfirst($item->categories->pluck('name')->first() ?? '') }}</span>
+                                    <h4>{{ Str::limit($item->name, 16) }}</h4>
+                                    <div class="ganesha-btn-wrapper">
+                                        <a href="{{ url('product/'.$item->slug) }}" class="ganesha-btn inner-view-button">
+                                            View Details
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="currentColor" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M18.5 12L4.99997 12" />
+                                                <path d="M13 18C13 18 19 13.5811 19 12C19 10.4188 13 6 13 6" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                @endforeach
+            @else
+                <p>No products found in this collection.</p>
+            @endif
+        </div>
+        <div class="pagination-wrap" style="margin-top: 30px;">
+            {{ $products->links() }}
+        </div>
+    </noscript>
 
     <!-- PAGINATION -->
     <div class="pagination-wrap">

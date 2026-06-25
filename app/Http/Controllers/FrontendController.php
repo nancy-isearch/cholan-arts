@@ -79,6 +79,7 @@ class FrontendController extends Controller
     public function categoryList(Request $request)
     {
         $categoryName = $request->c;
+        $searchQuery = $request->q;
 
         $categories = Category::where('is_active', 1)->whereHas('products', function ($q) {
             $q->where('status', 1);
@@ -89,7 +90,6 @@ class FrontendController extends Controller
         $totalProducts = Product::where('status', 1)->count();
 
         //Category based products list 
-        $categoryName = $request->c;
         $query = Product::with(['images', 'categories'])
             ->where('status', 1);
 
@@ -98,16 +98,21 @@ class FrontendController extends Controller
                 $q->where('name', $categoryName);
             });
         }
+        
+        if ($searchQuery) {
+            $query->where('name', 'LIKE', "%{$searchQuery}%");
+        }
 
         $products = $query->get();
 
-        return view('frontend.pages.products', compact('categories', 'totalProducts', 'products', 'categoryName'));
+        return view('frontend.pages.products', compact('categories', 'totalProducts', 'products', 'categoryName', 'searchQuery'));
     }
 
     public function getProducts(Request $request)
     {
         $category = $request->category;
         $collection = $request->collection;
+        $searchQuery = $request->q;
 
         $query = Product::where('status', 1);
 
@@ -119,6 +124,10 @@ class FrontendController extends Controller
             $query->whereHas('collections', function ($q) use ($collection) {
                 $q->where('name', $collection);
             });
+        }
+        
+        if ($searchQuery) {
+            $query->where('name', 'LIKE', "%{$searchQuery}%");
         }
 
         $products = $query->paginate(20);
@@ -204,8 +213,14 @@ class FrontendController extends Controller
             $category = Category::where('name', $slug)->where('is_active', 1)->firstOrFail();
         }
         
+        $products = Product::with(['images', 'categories'])
+            ->where('status', 1)
+            ->whereHas('categories', function ($q) use ($category) {
+                $q->where('categories.id', $category->id);
+            })
+            ->paginate(20);
        
-        return view('frontend.pages.category-products', compact('category'));
+        return view('frontend.pages.category-products', compact('category', 'products'));
     }
 
     public function collections()
@@ -228,7 +243,14 @@ class FrontendController extends Controller
         
 
         abort_if(!$collection, 404);
+        
+        $products = Product::with(['images', 'collections'])
+            ->where('status', 1)
+            ->whereHas('collections', function ($q) use ($collection) {
+                $q->where('collections.id', $collection->id);
+            })
+            ->paginate(20);
        
-        return view('frontend.pages.collection-products', compact('collection'));
+        return view('frontend.pages.collection-products', compact('collection', 'products'));
     }
 }

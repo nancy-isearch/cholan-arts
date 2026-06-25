@@ -45,17 +45,17 @@
         </svg>
       </button>
       <div class="tab-bar" id="tabBar">
-        <button class="tab-btn {{ empty($categoryName) || $categoryName == 'all' ? 'active' : '' }}" onclick="switchTab('all', this)">
+        <a href="{{ route('products', ['c' => 'all']) }}" style="text-decoration: none; color: inherit;" class="tab-btn {{ empty($categoryName) || $categoryName == 'all' ? 'active' : '' }}" onclick="event.preventDefault(); switchTab('all', this)">
           <span class="tab-emoji"></span> All Photos
           <span class="tab-count" id="tc-all">{{$totalProducts}}</span>
-        </button>
+        </a>
 
         {{-- Dynamic Categories --}}
         @foreach($categories as $category)
-        <button class="tab-btn {{ $categoryName == $category->name ? 'active' : '' }}" onclick="switchTab('{{ $category->name }}', this)">
+        <a href="{{ route('products', ['c' => $category->name]) }}" style="text-decoration: none; color: inherit;" class="tab-btn {{ $categoryName == $category->name ? 'active' : '' }}" onclick="event.preventDefault(); switchTab('{{ $category->name }}', this)">
           <span class="tab-emoji"></span> {{ ucfirst($category->name) }}
           <span class="tab-count" id="tc-{{ $category->name }}">{{$category->active_products_count}}</span>
-        </button>
+        </a>
         @endforeach
       </div>
       <!-- RIGHT BUTTON -->
@@ -380,6 +380,7 @@
       data: {
         category: category,
         page: currentPage,
+        q: new URLSearchParams(window.location.search).get('q') || ''
       },
       success: function(res) {
 

@@ -54,10 +54,10 @@ class EnquiryController extends Controller
         return view('admin.modules.Enquiry.list');
     }
 
-    // Store (AJAX)
+    // Store
     public function store(Request $request)
     {
-        $captcha = $request->captcha;
+        $captcha = $request->captcha ?? $request->input('g-recaptcha-response');
 
         $response = Http::asForm()->post(
             'https://www.google.com/recaptcha/api/siteverify',
@@ -70,18 +70,24 @@ class EnquiryController extends Controller
         $captchaData = $response->json();
 
         if (!$captchaData['success']) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Captcha verification failed'
-            ], 422);
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Captcha verification failed'
+                ], 422);
+            }
+            return back()->with('error', 'Captcha verification failed');
         }
         
         $this->enquiryService->store($request->all());
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Enquiry submitted successfully'
-        ]);
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Enquiry submitted successfully'
+            ]);
+        }
+        return back()->with('success', 'Enquiry submitted successfully');
     }
 
     public function show($id)

@@ -75,11 +75,11 @@
     </ul>
 
     <div class="nav-actions">
-        <div class="search-bar" role="search" aria-label="Search products">
-            <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off"
+        <form action="{{ route('products') }}" method="GET" class="search-bar" role="search" aria-label="Search products" style="margin: 0;">
+            <input type="text" name="q" id="searchInput" placeholder="Search products..." autocomplete="off"
                 style="border: none; background: none;">
             <div id="suggestions"></div>
-        </div>
+        </form>
 
         <a href="/contact-us" class="btn-outline-orange" aria-label="Contact Us">
             Contact Us
