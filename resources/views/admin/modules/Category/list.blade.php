@@ -14,9 +14,9 @@
                 <p class="cat-subtitle">Manage and organise your product catalogue categories</p>
             </div>
             <div class="cat-header__right">
-                <button class="cat-btn cat-btn--primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                <a href="{{ route('categories.create') }}" class="cat-btn cat-btn--primary">
                     <i class="lni lni-plus"></i> Add New Category
-                </button>
+                </a>
             </div>
         </div>
 
@@ -61,9 +61,9 @@
                     <span class="cat-card__toolbar-title">All Categories</span>
                 </div>
                 <div class="cat-card__toolbar-right">
-                    <button class="cat-btn cat-btn--primary cat-btn--sm" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                    <a href="{{ route('categories.create') }}" class="cat-btn cat-btn--primary cat-btn--sm">
                         <i class="lni lni-plus"></i> Add Category
-                    </button>
+                    </a>
                 </div>
             </div>
 
@@ -100,76 +100,7 @@
     </div>
 </section>
 
-{{-- ══ ADD CATEGORY MODAL ══ --}}
-<div class="modal fade cat-modal" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
 
-            {{-- Modal Header --}}
-            <div class="modal-header">
-                <div class="cat-modal__header-left">
-                    <div class="cat-modal__header-icon">
-                        <i class="lni lni-grid-alt"></i>
-                    </div>
-                    <div>
-                        <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
-                        <p class="cat-modal__header-sub">Fill in the details to create a category</p>
-                    </div>
-                </div>
-                <button type="button" class="cat-modal__close" data-bs-dismiss="modal" aria-label="Close">
-                    <i class="lni lni-close"></i>
-                </button>
-            </div>
-
-            {{-- Modal Body --}}
-            <div class="modal-body">
-                <form id="categoryForm">
-                    @csrf
-                    <div class="cat-modal__field">
-                        <input type="hidden" name="id" id="categoryId">
-                        <label class="cat-modal__label" for="categoryName">
-                            Category Name <span class="cat-required">*</span>
-                        </label>
-                        <input
-                            type="text"
-                            id="categoryName"
-                            name="name"
-                            class="form-control cat-modal__input"
-                            placeholder="e.g. Handwoven Textiles"
-                            autocomplete="off"
-                        >
-                        <span class="cat-modal__hint">Use a clear, descriptive name for easy identification.</span>
-                    </div>
-                    <div class="cat-modal__field">
-                        <label class="cat-modal__label">
-                            Category Image
-                        </label>
-                        <!-- Image Preview -->
-                        <div id="imagePreview" style="margin-top:10px;"></div>
-                        <input 
-                            type="file" 
-                            name="image" 
-                            id="categoryImage"
-                            class="form-control cat-modal__input"
-                            accept="image/*"
-                        >
-                    </div>
-                </form>
-            </div>
-
-            {{-- Modal Footer --}}
-            <div class="modal-footer">
-                <button type="button" class="cat-btn cat-btn--ghost" data-bs-dismiss="modal">
-                    <i class="lni lni-close"></i> Cancel
-                </button>
-                <button type="button" class="cat-btn cat-btn--primary" id="saveCategory">
-                    <i class="lni lni-save"></i> Save Category
-                </button>
-            </div>
-
-        </div>
-    </div>
-</div>
 
 @endsection
 
@@ -295,24 +226,7 @@
             });
         });
 
-        // ----- Edit -----
-        $(document).on('click', '.editBtn', function () {
 
-            let id = $(this).data('id');
-            let name = $(this).data('name');
-            let image = $(this).data('image');
-
-            $('#categoryId').val(id);
-            $('#categoryName').val(name);
-
-            if (image) {
-                $('#imagePreview').html(`<img src="/${image}" width="60">`);
-            } else {
-                $('#imagePreview').html('');
-            }
-
-            $('#addCategoryModal').modal('show');
-        });
 
         // ── Delete ──
         $(document).on('click', '.dltBtn', function() {
@@ -341,61 +255,7 @@
             });
         });
 
-        // ── Save Category ──
-        $('#saveCategory').click(function () {
-            let form = document.getElementById('categoryForm');
-            let formData = new FormData(form);
 
-
-            // let formData = {
-            //     name: $('input[name="name"]').val(),
-            //     _token: $('input[name="_token"]').val()
-            // };
-
-            let id = $('#categoryId').val();
-            let url = id 
-            ? "/admin/categories/" + id   // UPDATE
-            : "{{ route('categories.store') }}"; // CREATE
-            console.log("id => ", id);
-            console.log("url => ", url);
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-
-                success: function (response) {
-                    if (response.status) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: response.message
-                        });
-                        $('#categoryForm')[0].reset();
-                        $('#categoryId').val('');
-                        $('#imagePreview').html('');
-                        $('#addCategoryModal').modal('hide');
-                        $('.dataTable').DataTable().ajax.reload();
-                    }
-                },
-                error: function (xhr) {
-                    let errors = xhr.responseJSON.errors;
-                    if (errors) {
-                        $.each(errors, function(key, value) {
-                            Swal.fire('Error!', value[0], 'error');
-                        });
-                    }
-                }
-            });
-        });
-
-        // ── Reset on modal close ──
-        $('#addCategoryModal').on('hidden.bs.modal', function () {
-            $('#categoryForm')[0].reset();
-            $('#categoryId').val('');
-            $('#imagePreview').html('');
-        });
 
     });
 </script>

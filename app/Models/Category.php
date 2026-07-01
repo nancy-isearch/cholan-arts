@@ -12,7 +12,16 @@ class Category extends Model
     protected $fillable = [
         'name',
         'is_active',
-        'image'
+        'image',
+        'hero_text',
+        'footer_title',
+        'footer_content',
+        'faqs',
+        'faq_json_schema'
+    ];
+
+    protected $casts = [
+        'faqs' => 'array',
     ];
 
     public function products()

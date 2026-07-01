@@ -29,6 +29,9 @@ $metaDescription = "Buy ". $category->name ." idols online with premium handcraf
 <section class="inner-banner">
   <span class="mb-3">Our {{ ucfirst($category->name) }} Products</span>
   <h1>{{ ucfirst($category->name) }} Idols Online</h1>
+  @if($category->hero_text)
+    <p class="mt-3" style="font-size: 1.1rem;">{{ $category->hero_text }}</p>
+  @endif
 </section>
 
 <main>
@@ -95,11 +98,80 @@ $metaDescription = "Buy ". $category->name ." idols online with premium handcraf
         <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
       </div>
     </div>
+    
+    <!-- CATEGORY FOOTER DYNAMIC CONTENT -->
+    @if($category->footer_title || $category->footer_content)
+    <div class="category-footer-content" style="margin-top: 60px; padding: 40px 20px; background: rgba(0,0,0,0.02); border-radius: 10px;">
+        @if($category->footer_title)
+            <h2 class="section-title" style="margin-bottom: 20px;">{{ ucfirst($category->footer_title) }}</h2>
+        @endif
+        @if($category->footer_content)
+            <style>
+                .footer-text-clamped {
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                .read-more-btn {
+                    background: none;
+                    border: none;
+                    color: #e65c00;
+                    font-weight: 600;
+                    cursor: pointer;
+                    padding: 0;
+                    margin-top: 10px;
+                }
+            </style>
+            <div class="footer-content text-center" style="margin-bottom: 40px; font-size: 1.1rem; line-height: 1.6; max-width: 1000px; margin: 0 auto;">
+                <div class="footer-text-clamped" id="footerTextContainer" style="text-align: left;">
+                    {!! nl2br(e(ucfirst($category->footer_content))) !!}
+                </div>
+                <button class="read-more-btn" id="readMoreFooterBtn" style="display: none;">Read More</button>
+            </div>
+        @endif
+    </div>
+    @endif
+
+    @if($category->faqs && is_array($category->faqs) && count($category->faqs) > 0)
+    <div class="category-faqs-container" style="margin-top: 40px; padding: 20px;">
+        <h2 class="section-title" style="margin-bottom: 30px;">Frequently Asked Questions</h2>
+        <div class="faqs-section" style="max-width: 800px; margin: 0 auto; text-align: left;">
+            <div class="accordion" id="categoryFaqs">
+                @foreach($category->faqs as $index => $faq)
+                <div class="accordion-item mb-3" style="border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden;">
+                    <h2 class="accordion-header" id="heading{{ $index }}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $index }}" aria-expanded="false" aria-controls="collapse{{ $index }}" style="font-weight: 500; font-size: 1.1rem; background: #fff; box-shadow: none;">
+                            {{ ucfirst($faq['question']) }}
+                        </button>
+                    </h2>
+                    <div id="collapse{{ $index }}" class="accordion-collapse collapse" aria-labelledby="heading{{ $index }}" data-bs-parent="#categoryFaqs">
+                        <div class="accordion-body" style="background: #fafafa;">
+                            {!! nl2br(e(ucfirst($faq['answer']))) !!}
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    @endif
   </section>
 
   @include('frontend.components.cta')
 
 </main>
+
+@if($category->faq_json_schema)
+    @if(str_contains($category->faq_json_schema, '<script'))
+        {!! $category->faq_json_schema !!}
+    @else
+        <script type="application/ld+json">
+        {!! $category->faq_json_schema !!}
+        </script>
+    @endif
+@endif
 
 @endsection
 
@@ -237,6 +309,23 @@ $(document).ready(function () {
     activeCat = $(".cat_name").data("slug");
 
     fetchProducts(true);
+
+    // Read More logic for footer text
+    var container = $('#footerTextContainer')[0];
+    if (container && container.scrollHeight > container.clientHeight) {
+        $('#readMoreFooterBtn').show();
+    }
+
+    $('#readMoreFooterBtn').click(function() {
+        var $container = $('#footerTextContainer');
+        if ($container.hasClass('footer-text-clamped')) {
+            $container.removeClass('footer-text-clamped');
+            $(this).text('Read Less');
+        } else {
+            $container.addClass('footer-text-clamped');
+            $(this).text('Read More');
+        }
+    });
 });
 </script>
 @endpush

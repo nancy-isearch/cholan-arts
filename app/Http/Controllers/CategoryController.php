@@ -44,12 +44,9 @@ class CategoryController extends Controller
                     return '
                         <div class="flex items-center gap-2 min-w-[180px]   ">
                             <div class="action">
-                                <button class="editBtn btn primary-btn me-2 border" 
-                                    data-id="'.$row->id.'" 
-                                    data-name="'.$row->name.'" 
-                                    data-image="'.$row->image.'">
+                                <a href="'.route('categories.edit', $row->id).'" class="btn primary-btn me-2 border">
                                     <i class="lni lni-pencil"></i>
-                                </button>
+                                </a>
                                 <button class="text-danger dltBtn btn btn-danger" data-id="'.$row->id.'">
                                     <i class="lni lni-trash-can"></i>
                                 </button>
@@ -66,7 +63,7 @@ class CategoryController extends Controller
     // ➕ Create form
     public function create()
     {
-        return view('categories.create');
+        return view('admin.modules.Category.create');
     }
 
     // Store
@@ -101,7 +98,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = $this->categoryService->getById($id);
-        return view('categories.edit', compact('category'));
+        return view('admin.modules.Category.edit', compact('category'));
     }
 
     // Update

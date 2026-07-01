@@ -328,6 +328,8 @@
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
           },
           body: JSON.stringify({
@@ -345,9 +347,7 @@
           btn.disabled = false;
           btn.innerText = 'Send';
           if (data.status) {
-            document.getElementById('successMsg').style.display = 'block';
-            document.querySelectorAll('input, textarea').forEach(el => el.value = '');
-            document.getElementById('country_city').selectedIndex = 0;
+            window.location.href = '/thank-you';
           } else {
             alert('Something went wrong!');
           }

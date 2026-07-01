@@ -18,6 +18,7 @@ Auth::routes();
 // Route::view('/', 'frontend.pages.home');
 Route::view('/about-us', 'frontend.pages.about')->name('about');
 Route::view('/contact-us', 'frontend.pages.contact')->name('contact');
+Route::view('/thank-you', 'frontend.pages.thank-you')->name('thank-you');
 Route::post('/enquiry', [EnquiryController::class, 'store']);
 
 Route::get('/product-bulk-upload', [ProductController::class, 'importProducts']);
@@ -60,7 +61,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/enquiry/{id}/status', [EnquiryController::class, 'updateStatus'])->name('enquiry.status');
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
     Route::post('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
+    Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
     Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categories.show');
     Route::post('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
     Route::post('/categories/update-status', [CategoryController::class, 'updateStatus'])->name('categories.updateStatus');

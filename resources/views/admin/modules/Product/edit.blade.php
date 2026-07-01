@@ -616,10 +616,11 @@
         // ── Add Section ──
         $('#addSection').click(function () {
             $('#sectionEmptyState').hide();
+            let visualNumber = $('#sectionWrapper .section-row').length + 1;
             let html = `
             <div class="section-row epf-dynamic-row">
                 <div class="epf-dynamic-row__head">
-                    <span class="epf-dynamic-row__label">Section #${sectionIndex + 1}</span>
+                    <span class="epf-dynamic-row__label">Section #${visualNumber}</span>
                     <button type="button" class="epf-row-remove removeSection"><i class="lni lni-close"></i></button>
                 </div>
                 <div class="row g-3">
@@ -658,9 +659,16 @@
             sectionIndex++;
         });
 
+        function updateProductSectionNumbers() {
+            $('#sectionWrapper .section-row').each(function(index) {
+                $(this).find('.epf-dynamic-row__label').text('Section #' + (index + 1));
+            });
+        }
+
         // ── Remove Section ──
         $(document).on('click', '.removeSection', function () {
             $(this).closest('.section-row').remove();
+            updateProductSectionNumbers();
             if ($('#sectionWrapper .section-row').length === 0) $('#sectionEmptyState').show();
         });
 
@@ -866,10 +874,11 @@
 
     $('#addFaq').click(function () {
         $('#faqEmptyState').hide();
+        let visualNumber = $('#faqWrapper .faq-row').length + 1;
         let html = `
         <div class="faq-row epf-dynamic-row">
             <div class="epf-dynamic-row__head">
-                <span class="epf-dynamic-row__label">FAQ #${faqIndex + 1}</span>
+                <span class="epf-dynamic-row__label">FAQ #${visualNumber}</span>
                 <button type="button" class="epf-row-remove removeFaq"><i class="lni lni-close"></i></button>
             </div>
             <div class="row g-3">
@@ -892,8 +901,15 @@
         faqIndex++;
     });
 
+    function updateProductFaqNumbers() {
+        $('#faqWrapper .faq-row').each(function(index) {
+            $(this).find('.epf-dynamic-row__label').text('FAQ #' + (index + 1));
+        });
+    }
+
     $(document).on('click', '.removeFaq', function () {
         $(this).closest('.faq-row').remove();
+        updateProductFaqNumbers();
         if ($('#faqWrapper .faq-row').length === 0) $('#faqEmptyState').show();
     });
 </script>

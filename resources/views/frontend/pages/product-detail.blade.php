@@ -733,6 +733,8 @@ $metaDescription = "Buy ". $product->name ." in India from Cholan Arts at reason
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
+                  'Accept': 'application/json',
+                  'X-Requested-With': 'XMLHttpRequest',
                   'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
               },
               body: JSON.stringify({
@@ -753,12 +755,7 @@ $metaDescription = "Buy ". $product->name ." in India from Cholan Arts at reason
               btn.innerText = 'Send Enquiry';
 
               if (data.status) {
-                  alert('Enquiry sent successfully ✅');
-
-                  // reset form
-                  document.querySelectorAll('.modal-form input, .modal-form textarea').forEach(el => el.value = '');
-                  document.querySelectorAll('.modal-form select').forEach(el => el.selectedIndex = 0);
-                  grecaptcha.reset();
+                  window.location.href = '/thank-you';
               } else {
                   alert('Something went wrong!');
               }
